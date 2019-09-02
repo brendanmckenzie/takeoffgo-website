@@ -1,0 +1,159 @@
+$family-sans-serif: "Helvetica Now (Text)", -apple-system, BlinkMacSystemFont,
+  "Roboto", "Segoe UI", sans-serif;
+
+$colour-brand: #ffd000;
+$colour-dark: #222;
+
+$border: $colour-brand;
+$primary: $colour-brand;
+$yellow: $colour-brand;
+$black: $colour-dark;
+$code: $black;
+
+$radius: 0;
+
+$transition-default: ease-in-out 150ms;
+
+$title-weight: 600;
+
+$line-width: 5px;
+
+@import "~bulma/bulma";
+
+.table {
+  thead {
+    th {
+      text-transform: uppercase;
+      background-color: whitesmoke;
+    }
+  }
+}
+
+dt {
+  font-weight: bold;
+  text-transform: uppercase;
+
+  &:not(:first-child) {
+    margin-top: 8px;
+  }
+  &:before {
+    content: "";
+    display: block;
+  }
+  &:after {
+    content: " ";
+  }
+}
+dt,
+dd {
+  display: inline;
+}
+
+ul.list {
+  list-style-type: disc;
+  li {
+    margin-left: 1rem;
+  }
+}
+
+ol[type="a"] {
+  list-style-type: lower-alpha;
+}
+
+figcaption {
+  font-size: $size-7;
+}
+
+.content ul:first-child {
+  margin-top: 0;
+}
+
+.navbar-menu {
+  text-transform: uppercase;
+  font-size: $size-7;
+}
+
+.level-item {
+  justify-content: flex-start;
+}
+
+ul.inline {
+  display: flex;
+  margin-bottom: 0;
+
+  li {
+    &:not(:last-child) {
+      margin-right: 12px;
+    }
+  }
+
+  @include mobile {
+    &.reset-mobile {
+      display: block;
+
+      li {
+        &:not(:last-child) {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+.is-only-print {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 1rem;
+  }
+
+  .is-hidden-print {
+    display: none !important;
+  }
+
+  .is-only-print {
+    display: block;
+  }
+
+  .is-page-break {
+    page-break-before: always;
+  }
+
+  .hero.is-fullheight {
+    height: 50vh !important;
+    min-height: initial;
+  }
+
+  .avoid-page-break {
+    page-break-inside: avoid;
+  }
+
+  .section {
+    padding: 1.5rem;
+  }
+}
+
+.column.is-side {
+  display: flex;
+  align-items: flex-end;
+
+  @include mobile {
+    border-width: 0;
+  }
+}
+
+@include mobile {
+  .hero.is-large {
+    min-height: 50vh;
+  }
+}
+
+hr.brand {
+  height: $line-width;
+  width: 80px;
+  margin: 20px 0;
+  background-color: $colour-brand;
+}
