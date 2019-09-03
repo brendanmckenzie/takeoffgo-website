@@ -40,7 +40,7 @@ const Quote = ({ model }: any) => {
   return (
     <>
       <Head>
-        <title>Take Off Go - Experience the Extraordinary</title>
+        <title>{model.hero.title} - Experience the Extraordinary</title>
 
         <Meta model={mapModelToMeta(model)} router={router} />
       </Head>

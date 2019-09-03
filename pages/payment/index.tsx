@@ -2,6 +2,8 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import Payment from "../../components/Payment";
+import Head from "next/head";
+import Meta from "../../components/Meta";
 
 export const PAYMENT_QUERY = gql`
   query invoice($id: ID!) {
@@ -45,7 +47,15 @@ const PaymentPage: React.FC = () => {
     return <pre>Error: {JSON.stringify(error, null, 2)}</pre>;
   }
 
-  return <Payment model={{ invoice: data.invoice, amount }} />;
+  return (
+    <>
+      <Head>
+        <title>Payment for invoice #{data.invoice.number} - Take Off Go</title>
+        <Meta router={router} />
+      </Head>
+      <Payment model={{ invoice: data.invoice, amount }} />
+    </>
+  );
 };
 
 export default PaymentPage;

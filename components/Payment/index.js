@@ -213,7 +213,7 @@ class Payment extends React.Component {
           )}
         </div>
         {this.error}
-        <div className="form-actions">
+        <div className="buttons is-centered are-large">
           <button
             type="submit"
             className={css({

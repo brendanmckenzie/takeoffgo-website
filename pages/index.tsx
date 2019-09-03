@@ -10,7 +10,7 @@ const Home: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Take Off Go - Experience the Extraordinary</title>
+        <title>Experience the Extraordinary - Take Off Go</title>
         <Meta router={router} />
       </Head>
       <>

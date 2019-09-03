@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import Invoice from "../../components/Invoice";
+import Meta from "../../components/Meta";
 
 export const INVOICE_QUERY = gql`
   query invoice($id: ID!) {
@@ -49,6 +50,8 @@ const InvoicePage: React.FC = () => {
   return (
     <>
       <Head>
+        <title>Invoice #{data.invoice.number} - Take Off Go</title>
+        <Meta router={router} />
         <style type="text/css">{"@page {size: A4;}"}</style>
       </Head>
       <Invoice model={data.invoice} />

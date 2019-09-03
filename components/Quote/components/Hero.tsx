@@ -3,6 +3,10 @@ import { mediaUrl } from "../global/helpers";
 
 const Hero = ({ data }: any) => (
   <div className="columns">
+    <div className="column is-3">
+      <h1 className="title">{data.hero.title}</h1>
+      <h2 className="subtitle">{data.hero.subtitle}</h2>
+    </div>
     <div className="column">
       <section
         className={["hero", "is-large", data.hero.style].join(" ")}
@@ -17,10 +21,6 @@ const Hero = ({ data }: any) => (
       >
         <div className="hero-body" />
       </section>
-    </div>
-    <div className="column is-3">
-      <h1 className="title">{data.hero.title}</h1>
-      <h2 className="subtitle">{data.hero.subtitle}</h2>
     </div>
   </div>
 );
