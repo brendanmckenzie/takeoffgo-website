@@ -27,6 +27,7 @@ const Meta: React.FC<MetaProps> = ({ model, router }) => (
       property="og:url"
       content={`https://www.takeoffgo.com${router.asPath}`}
     />
+    <meta name="format-detection" content="telephone=no" />
     {properties.map(ent => (
       <meta
         key={ent.property}

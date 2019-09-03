@@ -176,3 +176,12 @@ hr.brand {
 .button {
   text-transform: uppercase;
 }
+
+img.logo {
+  height: 60px;
+  margin-bottom: -10px;
+
+  @include mobile {
+    height: initial;
+  }
+}
