@@ -30,8 +30,10 @@ const DetailedItinerary = ({ data }: any) => {
 
   return (
     <React.Fragment>
-      <a id="detailed-itinerary" />
-      <section className="section is-page-break">
+      <section
+        id="detailed-itinerary"
+        className="section container is-page-break"
+      >
         <SectionHeader title="Itinerary" />
         <Flights includeDate flights={flightsPrior} data={data} />
         {flightsPrior.length > 0 && (

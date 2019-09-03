@@ -19,7 +19,7 @@ const Hero = ({ data }: any) => (
           backgroundSize: "cover"
         }}
       >
-        <div className="hero-body" />
+        <div className="hero-body"></div>
       </section>
     </div>
   </div>

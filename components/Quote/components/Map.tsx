@@ -105,7 +105,7 @@ const Map = ({ data }: any) => {
   }
 
   return (
-    <section className="section is-page-break">
+    <section className="section container is-page-break">
       <ConnectedMapComponent
         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&v=3.exp&libraries=geometry,drawing,places`}
         loadingElement={

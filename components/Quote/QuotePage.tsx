@@ -45,49 +45,50 @@ const Quote = ({ model }: any) => {
         <Meta model={mapModelToMeta(model)} router={router} />
       </Head>
       <a id="top" />
-      <div className="section container">
+      <section className="section container">
         <Header />
         {model.hero && <Hero data={model} />}
-        {(!model.locked || (model.total > 0 && model.status === "Confirmed")) &&
-          moment(model.start).isAfter(moment()) && (
-            <>
-              {!model.locked && (
-                <div className="message is-warning">
-                  <div className="message-header">Work in progress</div>
-                  <div className="message-body">
-                    Please note that this quote is work in progress and may
-                    change. Accommodation, daily activities and pricing are
-                    subject to change while this message is present.
-                  </div>
-                </div>
-              )}
-              {model.total > 0 && model.status === "Confirmed" && (
-                <div className="message is-success">
-                  <div className="message-header">Confirmed</div>
-                  <div className="message-body">
-                    This quote has been accepted by you and will now be
-                    processed by the team at Take Off Go. We will provide you
-                    with updates as we progress and be in touch if we require
-                    any additional information from you.
-                  </div>
-                </div>
-              )}
-            </>
-          )}
+      </section>
 
-        <Summary data={model} />
-        <SummarisedItinerary data={model} />
-        <DetailedItinerary data={model} />
-        <Map data={model} />
-        <Accommodation data={model} />
-        {model.consultant && <ContactInformation data={model} />}
-        {model.total > 0 && (
+      {(!model.locked || (model.total > 0 && model.status === "Confirmed")) &&
+        moment(model.start).isAfter(moment()) && (
           <>
-            <Finances data={model} />
-            <Terms data={model} />
+            {!model.locked && (
+              <div className="message is-warning">
+                <div className="message-header">Work in progress</div>
+                <div className="message-body">
+                  Please note that this quote is work in progress and may
+                  change. Accommodation, daily activities and pricing are
+                  subject to change while this message is present.
+                </div>
+              </div>
+            )}
+            {model.total > 0 && model.status === "Confirmed" && (
+              <div className="message is-success">
+                <div className="message-header">Confirmed</div>
+                <div className="message-body">
+                  This quote has been accepted by you and will now be processed
+                  by the team at Take Off Go. We will provide you with updates
+                  as we progress and be in touch if we require any additional
+                  information from you.
+                </div>
+              </div>
+            )}
           </>
         )}
-      </div>
+
+      <Summary data={model} />
+      <SummarisedItinerary data={model} />
+      <DetailedItinerary data={model} />
+      <Map data={model} />
+      <Accommodation data={model} />
+      {model.consultant && <ContactInformation data={model} />}
+      {model.total > 0 && (
+        <>
+          <Finances data={model} />
+          <Terms data={model} />
+        </>
+      )}
       <Footer />
     </>
   );
