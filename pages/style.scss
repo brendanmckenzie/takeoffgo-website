@@ -19,6 +19,7 @@ $title-weight: 600;
 $line-width: 5px;
 
 @import "~bulma/bulma";
+@import "~paper-css/paper.css";
 
 .table {
   thead {
@@ -156,4 +157,18 @@ hr.brand {
   width: 80px;
   margin: 20px 0;
   background-color: $colour-brand;
+}
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+
+  .header,
+  .footer {
+    flex: 0;
+  }
+
+  .body {
+    flex: 1;
+  }
 }
