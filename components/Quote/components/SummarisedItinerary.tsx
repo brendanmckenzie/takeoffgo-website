@@ -1,6 +1,5 @@
 import React from "react";
 import moment from "moment";
-import SectionHeader from "./SectionHeader";
 
 import { dateFormat } from "../global/constants";
 import { toSentence } from "../global/helpers";
@@ -9,7 +8,6 @@ const SummarisedItinerary = ({ data }: any) => (
   <React.Fragment>
     <a id="summarised-itinerary" />
     <section className="section is-hidden-mobile is-page-break">
-      <SectionHeader title="Summarised itinerary" />
       <table className="table is-striped is-hoverable is-bordered is-fullwidth">
         <thead>
           <tr>

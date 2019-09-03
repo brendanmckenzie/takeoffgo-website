@@ -32,7 +32,7 @@ const DetailedItinerary = ({ data }: any) => {
     <React.Fragment>
       <a id="detailed-itinerary" />
       <section className="section is-page-break">
-        <SectionHeader title="Detailed itinerary" />
+        <SectionHeader title="Itinerary" />
         <Flights includeDate flights={flightsPrior} data={data} />
         {flightsPrior.length > 0 && (
           <div className="has-text-centered">
