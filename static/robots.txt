@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /quote
+Disallow: /itinerary
+Disallow: /payment
+Disallow: /invoice
