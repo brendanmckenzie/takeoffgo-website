@@ -4,6 +4,7 @@
     url("/static/fonts/HelveticaNowText-Black.woff") format("woff");
   font-weight: 900;
   font-style: normal;
+  font-display: fallback;
 }
 
 @font-face {
@@ -12,6 +13,7 @@
     url("/static/fonts/HelveticaNowText-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
+  font-display: fallback;
 }
 
 @font-face {
@@ -20,6 +22,7 @@
     url("/static/fonts/HelveticaNowText-Medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
+  font-display: fallback;
 }
 
 @font-face {
@@ -28,6 +31,7 @@
     url("/static/fonts/HelveticaNowText-Thin.woff") format("woff");
   font-weight: 100;
   font-style: normal;
+  font-display: fallback;
 }
 
 @font-face {
@@ -36,6 +40,7 @@
     url("/static/fonts/HelveticaNowText-Bold.woff") format("woff");
   font-weight: bold;
   font-style: normal;
+  font-display: fallback;
 }
 
 @font-face {
@@ -44,4 +49,5 @@
     url("/static/fonts/HelveticaNowText-Light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
+  font-display: fallback;
 }
