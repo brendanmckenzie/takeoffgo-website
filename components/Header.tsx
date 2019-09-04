@@ -1,3 +1,5 @@
+import Logo from "./Logo";
+
 type HeaderProps = {
   showHomeButton?: boolean;
 };
@@ -17,7 +19,7 @@ const Header: React.FC<HeaderProps> = ({ showHomeButton }) => (
       </div>
       <div className="column is-narrow has-text-right">
         <a href="/">
-          <img src="/static/logo.png" className="logo" />
+          <Logo />
         </a>
         <p className="heading">Experience the extraordinary</p>
       </div>
