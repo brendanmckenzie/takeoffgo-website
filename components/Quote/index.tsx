@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import QuoteNew from "./QuotePage";
+import { PublicQuote } from "../../lib/models/types";
 
 export const QUOTE_QUERY = gql`
   query quote($key: String!, $track: Boolean!, $viewType: String!) {
@@ -101,8 +102,12 @@ type QuoteProps = {
   viewType: "quote" | "itinerary";
 };
 
+type QueryResult = {
+  quote: PublicQuote;
+};
+
 const Quote: React.FC<QuoteProps> = ({ quoteKey, track, viewType }) => {
-  const { loading, error, data } = useQuery(QUOTE_QUERY, {
+  const { loading, error, data } = useQuery<QueryResult>(QUOTE_QUERY, {
     variables: { key: quoteKey, track, viewType }
   });
 
@@ -114,7 +119,11 @@ const Quote: React.FC<QuoteProps> = ({ quoteKey, track, viewType }) => {
     return <pre>Error: {JSON.stringify(error, null, 2)}</pre>;
   }
 
-  return <QuoteNew model={data.quote} />;
+  if (data) {
+    return <QuoteNew model={data.quote} />;
+  }
+
+  return null;
 };
 
 export default Quote;

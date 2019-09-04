@@ -3,6 +3,7 @@ import numeral from "numeral";
 import Markdown from "react-markdown";
 import Field from "./Field";
 import { css } from "../../lib/util";
+import { PublicInvoice } from "../../lib/models/types";
 
 const stripeConfig = {
   live: {
@@ -15,8 +16,8 @@ const stripeConfig = {
 
 type PaymentProps = {
   model: {
-    invoice: any;
-    amount: any;
+    invoice: PublicInvoice;
+    amount?: number;
   };
 };
 
@@ -166,10 +167,6 @@ class Payment extends React.Component<PaymentProps> {
   }
 
   get form() {
-    const {
-      model: { invoice }
-    } = this.props;
-
     return (
       <form onSubmit={this.handleSubmit}>
         <Field
@@ -216,11 +213,7 @@ class Payment extends React.Component<PaymentProps> {
             <a href="/terms-and-conditions" target="_blank">
               terms and conditions
             </a>
-            .
           </p>
-          {invoice.note && (
-            <Markdown className="content" source={invoice.note} />
-          )}
         </div>
         {this.error}
         <div className="buttons is-centered are-large">
@@ -306,13 +299,17 @@ class Payment extends React.Component<PaymentProps> {
                     outstanding
                   </h6>
                 )}
-                {invoice.items.map((ent: any) => (
-                  <Markdown
-                    key={ent.id}
-                    className="content"
-                    source={ent.description}
-                  />
-                ))}
+                {invoice.items &&
+                  invoice.items.map(
+                    ent =>
+                      ent && (
+                        <Markdown
+                          key={ent.id}
+                          className="content"
+                          source={ent.description}
+                        />
+                      )
+                  )}
               </div>
               <hr className="brand" />
               {this.input}

@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import Payment from "../../components/Payment";
 import Head from "next/head";
 import Meta from "../../components/Meta";
+import { PublicInvoice } from "../../lib/models/types";
 
 export const PAYMENT_QUERY = gql`
   query invoice($id: ID!) {
@@ -31,11 +32,15 @@ export const PAYMENT_QUERY = gql`
   }
 `;
 
+type InvoiceQuery = {
+  invoice: PublicInvoice;
+};
+
 const PaymentPage: React.FC = () => {
   const router = useRouter();
   const { id, amount } = router.query;
 
-  const { loading, error, data } = useQuery(PAYMENT_QUERY, {
+  const { loading, error, data } = useQuery<InvoiceQuery>(PAYMENT_QUERY, {
     variables: { id }
   });
 
@@ -47,15 +52,26 @@ const PaymentPage: React.FC = () => {
     return <pre>Error: {JSON.stringify(error, null, 2)}</pre>;
   }
 
-  return (
-    <>
-      <Head>
-        <title>Payment for invoice #{data.invoice.number} - Take Off Go</title>
-        <Meta router={router} />
-      </Head>
-      <Payment model={{ invoice: data.invoice, amount }} />
-    </>
-  );
+  if (data) {
+    return (
+      <>
+        <Head>
+          <title>
+            Payment for invoice #{data.invoice.number} - Take Off Go
+          </title>
+          <Meta router={router} />
+        </Head>
+        <Payment
+          model={{
+            invoice: data.invoice,
+            amount: parseFloat(amount as string)
+          }}
+        />
+      </>
+    );
+  }
+
+  return null;
 };
 
 export default PaymentPage;

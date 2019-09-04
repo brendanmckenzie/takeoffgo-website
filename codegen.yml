@@ -1,0 +1,6 @@
+overwrite: true
+schema: "https://api.takeoffgo.com/dev/graphql/public"
+generates:
+  lib/models/types.tsx:
+    plugins:
+      - "typescript"

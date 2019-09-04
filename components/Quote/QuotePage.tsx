@@ -16,14 +16,17 @@ import Header from "../Header";
 import Footer from "../Footer";
 import Meta from "../Meta";
 import { mediaUrl } from "./global/helpers";
+import { PublicQuote } from "../../lib/models/types";
 
-const mapModelToMeta = (model: any) => {
+const mapModelToMeta = (model: PublicQuote) => {
   const fromHero = () => {
     if (model.hero) {
       return {
         title: model.hero.title,
         description: model.hero.subtitle,
-        "og:image": mediaUrl(model.hero.image, { width: 1000, height: 1000 })
+        "og:image": model.hero
+          ? mediaUrl(model.hero.image as string, { width: 1000, height: 1000 })
+          : null
       };
     } else {
       return {};
@@ -35,12 +38,19 @@ const mapModelToMeta = (model: any) => {
   };
 };
 
-const Quote = ({ model }: any) => {
+type QuoteProps = {
+  model: PublicQuote;
+};
+
+const Quote: React.FC<QuoteProps> = ({ model }) => {
   const router = useRouter();
   return (
     <>
       <Head>
-        <title>{model.hero.title} - Experience the Extraordinary</title>
+        <title>
+          {model.hero ? model.hero.title : "Quote"} - Take Off Go -Experience
+          the Extraordinary
+        </title>
 
         <Meta model={mapModelToMeta(model)} router={router} />
       </Head>
