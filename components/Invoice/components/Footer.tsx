@@ -1,14 +1,16 @@
-import React from 'react'
-import PaymentOptions from './PaymentOptions'
+import React from "react";
+import PaymentOptions from "./PaymentOptions";
+import { InvoiceComponentProps } from "../index.d";
 
-const Footer = ({ data }) => (
+const Footer: React.FC<InvoiceComponentProps> = ({ data }) => (
   <footer className="footer">
     <PaymentOptions data={data} />
     <p className="has-text-centered">
       <small>
-        It is a condition of travel that guests must have insurance for cancellation/curtailment, medical expenses and
-        baggage loss. Take Off Go cannot be held responsible for any costs incurred by any airline delays. Our standard
-        booking conditions apply.
+        It is a condition of travel that guests must have insurance for
+        cancellation/curtailment, medical expenses and baggage loss. Take Off Go
+        cannot be held responsible for any costs incurred by any airline delays.
+        Our standard booking conditions apply.
       </small>
     </p>
     <hr />
@@ -24,6 +26,6 @@ const Footer = ({ data }) => (
       </div>
     </div>
   </footer>
-)
+);
 
-export default Footer
+export default Footer;

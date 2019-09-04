@@ -1,9 +1,9 @@
 import React from "react";
 import numeral from "numeral";
+import { InvoiceComponentProps } from "../index.d";
+import { moneyFormat } from "../../../lib/constants";
 
-export const moneyFormat = "$0,0.00";
-
-const Total = ({ data }) => (
+const Total: React.FC<InvoiceComponentProps> = ({ data }) => (
   <div className="columns">
     <div className="column" />
     <div className="column is-narrow block-emphasise-left">

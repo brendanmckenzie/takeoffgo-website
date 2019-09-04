@@ -1,12 +1,8 @@
-import React from "react";
+import React, { FormEvent, ChangeEvent } from "react";
 import numeral from "numeral";
 import Markdown from "react-markdown";
 import Field from "./Field";
-
-export const css = obj =>
-  Object.keys(obj)
-    .filter(ent => obj[ent])
-    .join(" ");
+import { css } from "../../lib/util";
 
 const stripeConfig = {
   live: {
@@ -17,10 +13,22 @@ const stripeConfig = {
   }
 };
 
-class Payment extends React.Component {
+type PaymentProps = {
+  model: {
+    invoice: any;
+    amount: any;
+  };
+};
+
+class Payment extends React.Component<PaymentProps> {
   state = {
     loading: false,
-    paid: false
+    paid: false,
+    name: "",
+    number: "",
+    expiry: "",
+    cvc: "",
+    error: null as any
   };
 
   validate() {
@@ -52,7 +60,7 @@ class Payment extends React.Component {
     return error.length === 0;
   }
 
-  handleSubmit = ev => {
+  handleSubmit = (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
 
     if (!this.validate()) {
@@ -61,7 +69,7 @@ class Payment extends React.Component {
 
     this.setState({ loading: true, error: null });
 
-    const data = {
+    const data: any = {
       "card[name]": this.state.name,
       "card[number]": this.state.number,
       "card[exp_month]": this.state.expiry.split("/")[0],
@@ -84,15 +92,12 @@ class Payment extends React.Component {
       model: { amount, invoice }
     } = this.props;
 
-    const handleErrors = res => {
+    const handleErrors = (res: any) => {
       if (res.ok) {
         return res;
       } else {
-        return res.json().then(err => {
-          const ex = new Error(err.message);
-          ex.error = err.error;
-
-          throw ex;
+        return res.json().then((err: any) => {
+          throw new Error(err.message);
         });
       }
     };
@@ -114,7 +119,7 @@ class Payment extends React.Component {
           })
         }).then(handleErrors)
       )
-      .then(res => {
+      .then(() => {
         this.setState({
           loading: true,
           paid: true
@@ -130,7 +135,8 @@ class Payment extends React.Component {
       });
   };
 
-  handleChange = field => ev => this.setState({ [field]: ev.target.value });
+  handleChange = (field: string) => (ev: ChangeEvent<HTMLInputElement>) =>
+    this.setState({ [field]: ev.target.value });
 
   get success() {
     return <p>Your payment has been accepted.</p>;
@@ -149,7 +155,7 @@ class Payment extends React.Component {
             <p>{this.state.error}</p>
           ) : (
             <ul>
-              {this.state.error.map((err, idx) => (
+              {this.state.error.map((err: any, idx: number) => (
                 <li key={idx}>{err}</li>
               ))}
             </ul>
@@ -165,13 +171,14 @@ class Payment extends React.Component {
     } = this.props;
 
     return (
-      <form onSubmit={this.handleSubmit} disabled={this.state.loading}>
+      <form onSubmit={this.handleSubmit}>
         <Field
           name="name"
           label="Name on credit card"
           autoFocus
           value={this.state.name}
           onChange={this.handleChange("name")}
+          disabled={this.state.loading}
         />
         <Field
           name="number"
@@ -179,6 +186,7 @@ class Payment extends React.Component {
           placeholder="•••• •••• •••• ••••"
           value={this.state.number}
           onChange={this.handleChange("number")}
+          disabled={this.state.loading}
         />
         <div className="columns">
           <div className="column">
@@ -188,6 +196,7 @@ class Payment extends React.Component {
               placeholder="MM/YY"
               value={this.state.expiry}
               onChange={this.handleChange("expiry")}
+              disabled={this.state.loading}
             />
           </div>
           <div className="column">
@@ -197,6 +206,7 @@ class Payment extends React.Component {
               placeholder="•••"
               value={this.state.cvc}
               onChange={this.handleChange("cvc")}
+              disabled={this.state.loading}
             />
           </div>
         </div>
@@ -296,7 +306,7 @@ class Payment extends React.Component {
                     outstanding
                   </h6>
                 )}
-                {invoice.items.map(ent => (
+                {invoice.items.map((ent: any) => (
                   <Markdown
                     key={ent.id}
                     className="content"

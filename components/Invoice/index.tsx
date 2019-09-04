@@ -5,7 +5,11 @@ import Summary from "./components/Summary";
 import LineItems from "./components/LineItems";
 import Total from "./components/Total";
 
-const Invoice = ({ model }) => (
+type InvoiceProps = {
+  model: any;
+};
+
+const Invoice: React.FC<InvoiceProps> = ({ model }: any) => (
   <>
     <section className="sheet container padding-10mm">
       <Header />

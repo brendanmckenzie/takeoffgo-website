@@ -1,9 +1,9 @@
 import React from "react";
 import numeral from "numeral";
+import { InvoiceComponentProps } from "../index.d";
+import { moneyFormat } from "../../../lib/constants";
 
-export const moneyFormat = "$0,0.00";
-
-const LineItems = ({ data }) => (
+const LineItems: React.FC<InvoiceComponentProps> = ({ data }) => (
   <table className="table is-narrow is-striped is-fullwidth">
     <thead>
       <tr>
@@ -14,7 +14,7 @@ const LineItems = ({ data }) => (
       </tr>
     </thead>
     <tbody>
-      {data.items.map(ent => (
+      {data.items.map((ent: any) => (
         <tr key={ent.id}>
           <td>{ent.description}</td>
           <td className="has-text-right">
