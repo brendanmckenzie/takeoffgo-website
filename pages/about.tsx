@@ -62,10 +62,10 @@ const Home: React.FC = () => {
               <h2 className="title is-2">Who we are</h2>
               <hr className="brand" />
               <div className="columns">
-                <div className="column is-4">
-                  <img src="/static/ivona.jpg" alt="Ivona Siniarska" />
-                </div>
                 <div className="column">
+                  <figure className="image is-4by3">
+                    <img src="/static/ivona.jpg" alt="Ivona Siniarska" />
+                  </figure>
                   <h4 className="subtitle is-4">Ivona Siniarska</h4>
                   <p>
                     Having traveled extensively through 80 countries on this
@@ -74,12 +74,10 @@ const Home: React.FC = () => {
                     culture on all corners of the world.
                   </p>
                 </div>
-              </div>
-              <div className="columns">
-                <div className="column is-4">
-                  <img src="/static/brendan.jpg" alt="Brendan McKenzie" />
-                </div>
                 <div className="column">
+                  <figure className="image is-4by3">
+                    <img src="/static/brendan.jpg" alt="Brendan McKenzie" />
+                  </figure>
                   <h4 className="subtitle is-4">Brendan McKenzie</h4>
                   <p>
                     Contracting the travel bug after moving to the United

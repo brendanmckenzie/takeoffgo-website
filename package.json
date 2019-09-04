@@ -29,7 +29,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "deploy": "now --prod"
   },
   "devDependencies": {
     "@types/googlemaps": "^3.37.5",
