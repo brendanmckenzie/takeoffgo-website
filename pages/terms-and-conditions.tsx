@@ -17,7 +17,7 @@ const Terms: React.FC = () => {
       </Head>
       <>
         <section className="section container">
-          <Header />
+          <Header showHomeButton />
 
           <div className="columns">
             <div className="column">

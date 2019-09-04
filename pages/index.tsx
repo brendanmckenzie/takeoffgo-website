@@ -41,12 +41,20 @@ const Home: React.FC = () => {
                   incredible lands.
                 </p>
               </div>
-              <a className="button is-dark" href="mailto:sales@takeoffgo.com">
-                <span>Contact us</span>
-                <span className="icon">
-                  <i className="fas fa-chevron-right" />
-                </span>
-              </a>
+              <div className="buttons">
+                <a
+                  className="button is-dark is-rounded"
+                  href="mailto:sales@takeoffgo.com"
+                >
+                  <span>Contact us</span>
+                  <span className="icon">
+                    <i className="fas fa-chevron-right" />
+                  </span>
+                </a>
+                <a className="button is-text" href="/about">
+                  Learn more
+                </a>
+              </div>
             </div>
             <div className="column is-5">
               <img src="/static/prince-david-MMKAbQPIXg8-unsplash.jpg" />
@@ -85,7 +93,10 @@ const Home: React.FC = () => {
                   luxury offering the highest levels of personalised service.
                 </p>
               </article>
-              <a className="button is-dark" href="mailto:sales@takeoffgo.com">
+              <a
+                className="button is-dark is-rounded"
+                href="mailto:sales@takeoffgo.com"
+              >
                 <span>Contact us</span>
                 <span className="icon">
                   <i className="fas fa-chevron-right" />
@@ -125,7 +136,7 @@ const Home: React.FC = () => {
 
         <section className="container has-text-centered">
           <a
-            className="button is-dark is-large"
+            className="button is-dark is-large is-rounded"
             href="mailto:sales@takeoffgo.com"
           >
             <span>Contact us</span>

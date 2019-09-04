@@ -15,7 +15,7 @@ const Home: React.FC = () => {
       </Head>
       <>
         <section className="section container">
-          <Header />
+          <Header showHomeButton />
 
           <div className="columns">
             <div className="column is-4">
@@ -51,7 +51,10 @@ const Home: React.FC = () => {
                   lifetime of memories.
                 </p>
               </div>
-              <a className="button is-dark" href="mailto:sales@takeoffgo.com">
+              <a
+                className="button is-dark is-rounded"
+                href="mailto:sales@takeoffgo.com"
+              >
                 <span>Contact us</span>
                 <span className="icon">
                   <i className="fas fa-chevron-right" />
