@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Meta from "../components/Meta";
+import Image from "../components/Image";
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -67,7 +68,10 @@ const Home: React.FC = () => {
               <div className="columns">
                 <div className="column">
                   <figure className="image is-4by3">
-                    <img src="/static/ivona.jpg" alt="Ivona Siniarska" />
+                    <Image
+                      src="/website/ivona_axwkda.jpg"
+                      alt="Ivona Siniarska"
+                    />
                   </figure>
                   <h4 className="subtitle is-4">Ivona Siniarska</h4>
                   <p>
@@ -79,7 +83,10 @@ const Home: React.FC = () => {
                 </div>
                 <div className="column">
                   <figure className="image is-4by3">
-                    <img src="/static/brendan.jpg" alt="Brendan McKenzie" />
+                    <Image
+                      src="/website/brendan_fhnhck.jpg"
+                      alt="Brendan McKenzie"
+                    />
                   </figure>
                   <h4 className="subtitle is-4">Brendan McKenzie</h4>
                   <p>

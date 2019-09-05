@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Meta from "../components/Meta";
+import Image from "../components/Image";
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -57,19 +58,17 @@ const Home: React.FC = () => {
               </div>
             </div>
             <div className="column is-5">
-              <img
-                src="/static/prince-david-MMKAbQPIXg8-unsplash-srcw.jpg"
-                srcSet="/static/prince-david-MMKAbQPIXg8-unsplash-320w.jpg 320w, /static/prince-david-MMKAbQPIXg8-unsplash-480w.jpg 480w, /static/prince-david-MMKAbQPIXg8-unsplash-640w.jpg 640w, /static/prince-david-MMKAbQPIXg8-unsplash-768w.jpg 768w, /static/prince-david-MMKAbQPIXg8-unsplash-960w.jpg 960w, /static/prince-david-MMKAbQPIXg8-unsplash-1024w.jpg 1024w, /static/prince-david-MMKAbQPIXg8-unsplash-1440w.jpg 1440w"
-                alt="Lion on dark background looking up"
+              <Image
+                src="/website/prince-david-MMKAbQPIXg8-unsplash_gcw9dl.jpg"
+                alt="Two cheetah"
               />
             </div>
           </div>
         </section>
 
         <section className="section container">
-          <img
-            src="/static/roberta-doyle-dqmmx51pVf8-unsplash-srcw.jpg"
-            srcSet="/static/roberta-doyle-dqmmx51pVf8-unsplash-320w.jpg 320w, /static/roberta-doyle-dqmmx51pVf8-unsplash-480w.jpg 480w, /static/roberta-doyle-dqmmx51pVf8-unsplash-640w.jpg 640w, /static/roberta-doyle-dqmmx51pVf8-unsplash-768w.jpg 768w, /static/roberta-doyle-dqmmx51pVf8-unsplash-960w.jpg 960w, /static/roberta-doyle-dqmmx51pVf8-unsplash-1024w.jpg 1024w, /static/roberta-doyle-dqmmx51pVf8-unsplash-1440w.jpg 1440w"
+          <Image
+            src="/website/roberta-doyle-dqmmx51pVf8-unsplash_smehug.jpg"
             alt="Two cheetah"
           />
         </section>
@@ -113,9 +112,8 @@ const Home: React.FC = () => {
             </div>
             <div className="column">
               <figure className="image">
-                <img
-                  src="/static/ts-deluxe-superior-bedroom-1-1200x801-srcw.jpg"
-                  srcSet="/static/ts-deluxe-superior-bedroom-1-1200x801-320w.jpg 320w, /static/ts-deluxe-superior-bedroom-1-1200x801-480w.jpg 480w, /static/ts-deluxe-superior-bedroom-1-1200x801-640w.jpg 640w, /static/ts-deluxe-superior-bedroom-1-1200x801-768w.jpg 768w, /static/ts-deluxe-superior-bedroom-1-1200x801-960w.jpg 960w, /static/ts-deluxe-superior-bedroom-1-1200x801-1024w.jpg 1024w, /static/ts-deluxe-superior-bedroom-1-1200x801-1440w.jpg 1440w"
+                <Image
+                  src="/website/ts-deluxe-superior-bedroom-1-1200x801_f695g0.jpg"
                   alt="Table Mountain from inside a room at The Silo hotel in Cape Town"
                 />
               </figure>
@@ -124,9 +122,8 @@ const Home: React.FC = () => {
         </section>
 
         <section className="section container">
-          <img
-            src="/static/BarclayStennerSafaris+Dining+Table+(1)-srcw.jpg"
-            srcSet="/static/BarclayStennerSafaris+Dining+Table+(1)-320w.jpg 320w, /static/BarclayStennerSafaris+Dining+Table+(1)-480w.jpg 480w, /static/BarclayStennerSafaris+Dining+Table+(1)-640w.jpg 640w, /static/BarclayStennerSafaris+Dining+Table+(1)-768w.jpg 768w, /static/BarclayStennerSafaris+Dining+Table+(1)-960w.jpg 960w, /static/BarclayStennerSafaris+Dining+Table+(1)-1024w.jpg 1024w, /static/BarclayStennerSafaris+Dining+Table+(1)-1440w.jpg 1440w"
+          <Image
+            src="/website/barclay-stenner-safaris_dining-table_ur9grc.jpg"
             alt="The view from a Barclay Stenner safari camp"
           />
         </section>
@@ -161,12 +158,10 @@ const Home: React.FC = () => {
             </span>
           </a>
         </section>
-
         <section className="section container">
-          <img
-            src="/static/sutirta-budiman-kjOBqwMUnWw-unsplash-srcw.jpg"
-            srcSet="/static/sutirta-budiman-kjOBqwMUnWw-unsplash-320w.jpg 320w, /static/sutirta-budiman-kjOBqwMUnWw-unsplash-480w.jpg 480w, /static/sutirta-budiman-kjOBqwMUnWw-unsplash-640w.jpg 640w, /static/sutirta-budiman-kjOBqwMUnWw-unsplash-768w.jpg 768w, /static/sutirta-budiman-kjOBqwMUnWw-unsplash-960w.jpg 960w, /static/sutirta-budiman-kjOBqwMUnWw-unsplash-1024w.jpg 1024w, /static/sutirta-budiman-kjOBqwMUnWw-unsplash-1440w.jpg 1440w"
-            alt="A hot air balloon taking flight over zebra on safari"
+          <Image
+            src="/website/sutirta-budiman-kjOBqwMUnWw-unsplash_usyg57.jpg"
+            alt="Hot air balloon taking flight over zebra on safari"
           />
         </section>
 
