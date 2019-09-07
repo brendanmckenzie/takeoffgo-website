@@ -5,21 +5,12 @@ const queryString = (params: any) =>
     .map(key => [key, params[key]].map(encodeURIComponent).join("="))
     .join("&");
 
-export const mediaUrl = (
-  id: string,
-  params?: any,
-  // absolute?: boolean
-): string =>
-  id
-    ? `https://api.takeoffgo.com/dev/api/media/galleries/item?id=${id}${
-        params ? `&${queryString(params)}` : ""
+export const mediaUrl = (hash: string, params?: any): string =>
+  hash
+    ? `https://cdn.takeoffgo.com/${hash}${
+        params ? `?${queryString(params)}` : ""
       }`
     : "";
-// id
-//   ? `${absolute ? "https://www.takeoffgo.com" : ""}/quote/media?id=${id}${
-//       params ? `&${queryString(params)}` : ""
-//     }`
-//   : "";
 
 export const sentenceCase = (input: string) =>
   input.substr(0, 1).toUpperCase() + input.substr(1);

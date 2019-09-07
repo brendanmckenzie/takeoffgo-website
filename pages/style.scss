@@ -185,3 +185,11 @@ svg.logo {
     height: initial;
   }
 }
+
+.card.is-equal-height {
+  height: 100%;
+
+  @include mobile {
+    height: initial;
+  }
+}

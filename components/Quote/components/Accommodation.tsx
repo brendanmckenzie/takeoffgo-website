@@ -1,36 +1,34 @@
 import React from "react";
 import Markdown from "react-markdown";
-import { mediaUrl } from "../global/helpers";
+import Image from "../../Image";
 import SectionHeader from "./SectionHeader";
 
 const Accommodation = ({ data }: any) => (
   <section id="accommodation" className="section container is-page-break">
     <SectionHeader title="Accommodation" />
-    {data.properties
-      .filter((ent: any) => !!ent.overview)
-      .map((property: any, index: number, array: any[]) => (
-        <React.Fragment key={property.id}>
-          <a id={`property-${property.id}`} />
-          <div className="columns avoid-page-break">
-            <div className="column" style={{ order: index % 2 }}>
-              <strong>{property.name}</strong>
-              <Markdown className="content" source={property.overview} />
-              {/* <a href="#">More information</a> */}
-            </div>
-            <div className="column is-3">
-              <figure className="image is-16by9">
-                <img
-                  src={mediaUrl(property.thumbnail, {
-                    width: 800,
-                    height: 450
-                  })}
-                />
-              </figure>
+    <div className="columns is-multiline">
+      {data.properties
+        .filter((ent: any) => !!ent.overview)
+        .map((property: any) => (
+          <div
+            id={`property-${property.id}`}
+            className="column is-4"
+            key={property.id}
+          >
+            <div className="card is-equal-height">
+              <div className="card-image">
+                <figure className="image is-16by9">
+                  <Image src={property.thumbnail} alt={property.name} />
+                </figure>
+              </div>
+              <div className="card-content">
+                <strong>{property.name}</strong>
+                <Markdown className="content" source={property.overview} />
+              </div>
             </div>
           </div>
-          {index + 1 !== array.length && <hr />}
-        </React.Fragment>
-      ))}
+        ))}
+    </div>
   </section>
 );
 
