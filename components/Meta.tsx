@@ -10,7 +10,10 @@ const properties = [
     key: "og:image",
     default: "https://www.takeoffgo.com/static/logo-square.png"
   },
+  { property: "og:image:width", key: "og:image:width", default: "1000" },
+  { property: "og:image:height", key: "og:image:width", default: "1000" },
   { property: "og:title", key: "title", default: "Take Off Go" },
+  { property: "og:type", key: "type", default: "website" },
   {
     property: "og:description",
     key: "description",
