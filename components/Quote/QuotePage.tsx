@@ -62,7 +62,7 @@ const Quote: React.FC<QuoteProps> = ({ model }) => {
 
       {(!model.locked || (model.total > 0 && model.status === "Confirmed")) &&
         moment(model.start).isAfter(moment()) && (
-          <>
+          <section className="section container">
             {!model.locked && (
               <div className="message is-warning">
                 <div className="message-header">Work in progress</div>
@@ -84,7 +84,7 @@ const Quote: React.FC<QuoteProps> = ({ model }) => {
                 </div>
               </div>
             )}
-          </>
+          </section>
         )}
 
       <Summary data={model} />
