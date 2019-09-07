@@ -64,15 +64,15 @@ const Home: React.FC = () => {
             </div>
             <div className="column">
               <h2 className="title is-2">Who we are</h2>
-              <hr className="brand" />
               <div className="columns">
                 <div className="column">
                   <figure className="image is-4by3">
                     <Image
-                      src="/website/ivona_axwkda.jpg"
+                      src="9c4e3c4b80719ce12c8d98d68043e3de"
                       alt="Ivona Siniarska"
                     />
                   </figure>
+                  <hr className="brand" />
                   <h4 className="subtitle is-4">Ivona Siniarska</h4>
                   <p>
                     Having traveled extensively through 80 countries on this
@@ -84,10 +84,11 @@ const Home: React.FC = () => {
                 <div className="column">
                   <figure className="image is-4by3">
                     <Image
-                      src="/website/brendan_fhnhck.jpg"
+                      src="eca872c7ada8fe0d95f927403b9995fc"
                       alt="Brendan McKenzie"
                     />
                   </figure>
+                  <hr className="brand" />
                   <h4 className="subtitle is-4">Brendan McKenzie</h4>
                   <p>
                     Contracting the travel bug after moving to the United

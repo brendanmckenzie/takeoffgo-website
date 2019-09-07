@@ -59,7 +59,7 @@ const Home: React.FC = () => {
             </div>
             <div className="column is-5">
               <Image
-                src="/website/prince-david-MMKAbQPIXg8-unsplash_gcw9dl.jpg"
+                src="a5d1370ab4e48e3d93c022b7d41a3044"
                 alt="Two cheetah"
               />
             </div>
@@ -68,7 +68,7 @@ const Home: React.FC = () => {
 
         <section className="section container">
           <Image
-            src="/website/roberta-doyle-dqmmx51pVf8-unsplash_smehug.jpg"
+            src="3593b8a3e9a7632172cb889797eb1829"
             alt="Two cheetah"
           />
         </section>
@@ -113,7 +113,7 @@ const Home: React.FC = () => {
             <div className="column">
               <figure className="image">
                 <Image
-                  src="/website/ts-deluxe-superior-bedroom-1-1200x801_f695g0.jpg"
+                  src="482ebed4ba3e151ae5245eb7d054b6a0"
                   alt="Table Mountain from inside a room at The Silo hotel in Cape Town"
                 />
               </figure>
@@ -123,7 +123,7 @@ const Home: React.FC = () => {
 
         <section className="section container">
           <Image
-            src="/website/barclay-stenner-safaris_dining-table_ur9grc.jpg"
+            src="7376751cfbef5c4ba8a94d7da8a63c47"
             alt="The view from a Barclay Stenner safari camp"
           />
         </section>
@@ -160,7 +160,7 @@ const Home: React.FC = () => {
         </section>
         <section className="section container">
           <Image
-            src="/website/sutirta-budiman-kjOBqwMUnWw-unsplash_usyg57.jpg"
+            src="70a782590b3ef823251e3d3fe0e90fe6"
             alt="Hot air balloon taking flight over zebra on safari"
           />
         </section>
