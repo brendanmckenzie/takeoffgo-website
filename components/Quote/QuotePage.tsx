@@ -48,7 +48,7 @@ const Quote: React.FC<QuoteProps> = ({ model }) => {
     <>
       <Head>
         <title>
-          {model.hero ? model.hero.title : "Quote"} - Take Off Go -Experience
+          {model.hero ? model.hero.title : "Quote"} - Take Off Go - Experience
           the Extraordinary
         </title>
 
