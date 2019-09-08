@@ -15,6 +15,7 @@ import {
   LinkButton
 } from "../components/Bulma";
 import ContactButton from "../components/ContactButton";
+import { imageUrl } from "../lib/util";
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -22,7 +23,15 @@ const Home: React.FC = () => {
     <>
       <Head>
         <title>Experience the Extraordinary - Take Off Go</title>
-        <Meta router={router} />
+        <Meta
+          router={router}
+          model={{
+            "og:image": imageUrl("d9928dd37e0b8e8fcea1aac96744bb9b", {
+              w: 1000,
+              h: 1000
+            })
+          }}
+        />
       </Head>
       <>
         <Section container>
