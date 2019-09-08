@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import FavIcon from "../components/FavIcon";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: any) {
@@ -16,6 +17,7 @@ class MyDocument extends Document {
             integrity="sha384-XxNLWSzCxOe/CFcHcAiJAZ7LarLmw3f4975gOO6QkxvULbGGNDoSOTzItGUG++Q+"
             crossOrigin="anonymous"
           />
+          <FavIcon />
         </Head>
         <body>
           <Main />
