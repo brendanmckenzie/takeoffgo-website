@@ -4,6 +4,7 @@ import Markdown from "react-markdown";
 import Field from "./Field";
 import { css } from "../../lib/util";
 import { PublicInvoice } from "../../lib/models/types";
+import { BrandLine } from "../Bulma";
 
 const stripeConfig = {
   live: {
@@ -228,7 +229,7 @@ class Payment extends React.Component<PaymentProps> {
             Submit
           </button>
         </div>
-        <hr className="brand" />
+        <BrandLine />
         <div className="content is-small">
           <span className="heading">Security</span>
           <p>
@@ -311,7 +312,7 @@ class Payment extends React.Component<PaymentProps> {
                       )
                   )}
               </div>
-              <hr className="brand" />
+              <BrandLine />
               {this.input}
             </div>
           </div>

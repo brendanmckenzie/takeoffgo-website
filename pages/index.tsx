@@ -5,6 +5,16 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Meta from "../components/Meta";
 import Image from "../components/Image";
+import {
+  Section,
+  Columns,
+  Column,
+  BrandLine,
+  Content,
+  Buttons,
+  LinkButton
+} from "../components/Bulma";
+import ContactButton from "../components/ContactButton";
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -15,14 +25,14 @@ const Home: React.FC = () => {
         <Meta router={router} />
       </Head>
       <>
-        <section className="section container">
+        <Section container>
           <Header />
 
-          <div className="columns">
-            <div className="column">
+          <Columns>
+            <Column>
               <h2 className="title is-2">The extraordinary experience</h2>
-              <hr className="brand" />
-              <div className="content">
+              <BrandLine />
+              <Content>
                 <p>
                   At Take Off Go, we lift Africa’s veil of mystery and reveal a
                   land of adventure.
@@ -41,47 +51,71 @@ const Home: React.FC = () => {
                   unique, once-in-a-lifetime journey through these wild,
                   incredible lands.
                 </p>
-              </div>
-              <div className="buttons">
-                <a
-                  className="button is-dark is-rounded"
-                  href="mailto:sales@takeoffgo.com"
-                >
-                  <span>Contact us</span>
-                  <span className="icon">
-                    <i className="fas fa-chevron-right" />
-                  </span>
-                </a>
-                <a className="button is-text" href="/about">
+              </Content>
+              <Buttons>
+                <ContactButton />
+
+                <LinkButton text iconRight="chevron-right" href="/about">
                   Learn more
-                </a>
-              </div>
-            </div>
-            <div className="column is-5">
+                </LinkButton>
+              </Buttons>
+            </Column>
+            <Column width={5}>
               <Image
                 src="a5d1370ab4e48e3d93c022b7d41a3044"
-                alt="Two cheetah"
+                alt="Lion looking up"
               />
-            </div>
-          </div>
-        </section>
+            </Column>
+          </Columns>
+        </Section>
 
-        <section className="section container">
-          <Image
-            src="3593b8a3e9a7632172cb889797eb1829"
-            alt="Two cheetah"
-          />
-        </section>
+        <Section container>
+          <Columns>
+            <Column width={4}>
+              <Image
+                src="d9928dd37e0b8e8fcea1aac96744bb9b"
+                alt="Gorilla by tree"
+              />
+            </Column>
+            <Column>
+              <h2 className="title is-2">Gorilla trekking</h2>
+              <h4 className="subtitle is-4">Highlighted experience</h4>
+              <Content>
+                <p>
+                  Sitting in silence on the cold ground of a Ugandan forest for
+                  60 minutes might be one of life’s greatest privileges. There
+                  are fewer than 900 mountain gorillas in existence, and gorilla
+                  trekking provides a rare opportunity to observe the everyday
+                  interactions of these gentle, mysterious primates.
+                </p>
+              </Content>
+              <Buttons>
+                <LinkButton
+                  text
+                  iconRight="chevron-right"
+                  href="/gorilla-trekking"
+                >
+                  Learn more
+                </LinkButton>
+                <ContactButton />
+              </Buttons>
+            </Column>
+          </Columns>
+        </Section>
 
-        <section className="section container">
-          <div className="columns">
-            <div className="column">
+        <Section container>
+          <Image src="3593b8a3e9a7632172cb889797eb1829" alt="Two cheetah" />
+        </Section>
+
+        <Section container>
+          <Columns>
+            <Column>
               <h2 className="title is-2">Places we love</h2>
               <h4 className="subtitle is-4">
-                Stunning experiences hand picked by our travel experts
+                Stunning destinations hand picked by our travel experts
               </h4>
-              <hr className="brand" />
-              <article className="content">
+              <BrandLine />
+              <Content>
                 <p>
                   The Silo Hotel has been built in the grain elevator portion of
                   the historic grain silo complex occupying six floors above
@@ -99,39 +133,31 @@ const Home: React.FC = () => {
                   and design. A tribute to timeless glamour and contemporary
                   luxury offering the highest levels of personalised service.
                 </p>
-              </article>
-              <a
-                className="button is-dark is-rounded"
-                href="mailto:sales@takeoffgo.com"
-              >
-                <span>Contact us</span>
-                <span className="icon">
-                  <i className="fas fa-chevron-right" />
-                </span>
-              </a>
-            </div>
-            <div className="column">
+              </Content>
+              <ContactButton />
+            </Column>
+            <Column>
               <figure className="image">
                 <Image
                   src="482ebed4ba3e151ae5245eb7d054b6a0"
                   alt="Table Mountain from inside a room at The Silo hotel in Cape Town"
                 />
               </figure>
-            </div>
-          </div>
-        </section>
+            </Column>
+          </Columns>
+        </Section>
 
-        <section className="section container">
+        <Section container>
           <Image
             src="7376751cfbef5c4ba8a94d7da8a63c47"
             alt="The view from a Barclay Stenner safari camp"
           />
-        </section>
+        </Section>
 
-        <section className="section container">
+        <Section container>
           <h2 className="title is-2">From our past guests</h2>
           <h4 className="subtitle is-4">Your stories drive our passion</h4>
-          <div className="content">
+          <Content>
             <blockquote>
               <p>
                 We cannot speak highly enough of our South African trip
@@ -144,26 +170,21 @@ const Home: React.FC = () => {
                 <small>&mdash; Ron Thorpe</small>
               </p>
             </blockquote>
-          </div>
-        </section>
+          </Content>
+        </Section>
 
-        <section className="container has-text-centered">
-          <a
-            className="button is-dark is-large is-rounded"
-            href="mailto:sales@takeoffgo.com"
-          >
-            <span>Contact us</span>
-            <span className="icon">
-              <i className="fas fa-chevron-right" />
-            </span>
-          </a>
-        </section>
-        <section className="section container">
+        <Section container>
+          <div className="has-text-centered">
+            <ContactButton large />
+          </div>
+        </Section>
+
+        <Section container>
           <Image
             src="70a782590b3ef823251e3d3fe0e90fe6"
             alt="Hot air balloon taking flight over zebra on safari"
           />
-        </section>
+        </Section>
 
         <Footer />
       </>

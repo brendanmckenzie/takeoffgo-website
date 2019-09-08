@@ -5,24 +5,32 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Meta from "../components/Meta";
 import Image from "../components/Image";
+import {
+  Columns,
+  Section,
+  Column,
+  BrandLine,
+  Content,
+  LinkButton
+} from "../components/Bulma";
 
 const Home: React.FC = () => {
   const router = useRouter();
   return (
     <>
       <Head>
-        <title>About us - Experience the Extraordinary - Take Off Go</title>
+        <title>About us - Take Off Go</title>
         <Meta router={router} />
       </Head>
       <>
-        <section className="section container">
+        <Section container>
           <Header showHomeButton />
 
-          <div className="columns">
-            <div className="column is-4">
+          <Columns>
+            <Column width={4}>
               <h1 className="title is-1">About us</h1>
-              <hr className="brand" />
-              <div className="content">
+              <BrandLine />
+              <Content>
                 <p>
                   Take Off Go is a luxury travel agency that provides custom
                   itineraries for travel throughout Africa.
@@ -51,28 +59,22 @@ const Home: React.FC = () => {
                   Let Take Off Go turn your African dream vacation into a
                   lifetime of memories.
                 </p>
-              </div>
-              <a
-                className="button is-dark is-rounded"
-                href="mailto:sales@takeoffgo.com"
-              >
-                <span>Contact us</span>
-                <span className="icon">
-                  <i className="fas fa-chevron-right" />
-                </span>
-              </a>
-            </div>
-            <div className="column">
+              </Content>
+              <LinkButton dark rounded href="mailto:sales@takeoffgo.com">
+                Contact us
+              </LinkButton>
+            </Column>
+            <Column>
               <h2 className="title is-2">Who we are</h2>
               <div className="columns">
-                <div className="column">
+                <Column>
                   <figure className="image is-4by3">
                     <Image
                       src="9c4e3c4b80719ce12c8d98d68043e3de"
                       alt="Ivona Siniarska"
                     />
                   </figure>
-                  <hr className="brand" />
+                  <BrandLine />
                   <h4 className="subtitle is-4">Ivona Siniarska</h4>
                   <p>
                     Having traveled extensively through 80 countries on this
@@ -80,15 +82,15 @@ const Home: React.FC = () => {
                     that help you truly experience nature, wildlife, food, and
                     culture on all corners of the world.
                   </p>
-                </div>
-                <div className="column">
+                </Column>
+                <Column>
                   <figure className="image is-4by3">
                     <Image
                       src="eca872c7ada8fe0d95f927403b9995fc"
                       alt="Brendan McKenzie"
                     />
                   </figure>
-                  <hr className="brand" />
+                  <BrandLine />
                   <h4 className="subtitle is-4">Brendan McKenzie</h4>
                   <p>
                     Contracting the travel bug after moving to the United
@@ -97,11 +99,11 @@ const Home: React.FC = () => {
                     Ivona he was hooked and now looks to spend his days sharing
                     the love for the dark continent.
                   </p>
-                </div>
+                </Column>
               </div>
-            </div>
-          </div>
-        </section>
+            </Column>
+          </Columns>
+        </Section>
 
         <Footer />
       </>

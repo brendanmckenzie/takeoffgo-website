@@ -1,4 +1,5 @@
 import Logo from "./Logo";
+import { LinkButton, Columns, Column } from "./Bulma";
 
 type HeaderProps = {
   showHomeButton?: boolean;
@@ -6,24 +7,21 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ showHomeButton }) => (
   <>
-    <div className="columns">
-      <div className="column">
+    <Columns>
+      <Column>
         {showHomeButton && (
-          <a href="/" className="button is-text">
-            <span className="icon">
-              <i className="fas fa-chevron-left" />
-            </span>
-            <span>Back home</span>
-          </a>
+          <LinkButton iconLeft="chevron-left" text href="/">
+            Back home
+          </LinkButton>
         )}
-      </div>
-      <div className="column is-narrow has-text-right">
+      </Column>
+      <Column narrow className="has-text-right">
         <a href="/">
           <Logo />
         </a>
         <p className="heading">Experience the extraordinary</p>
-      </div>
-    </div>
+      </Column>
+    </Columns>
     <hr />
   </>
 );
