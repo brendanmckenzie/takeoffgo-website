@@ -38,6 +38,7 @@ const Meta: React.FC<MetaProps> = ({ model, router }) => (
         content={_.get(model, ent.key, ent.default)}
       />
     ))}
+    <meta name="apple-mobile-web-app-title" content="Take Off Go" />
   </>
 );
 
