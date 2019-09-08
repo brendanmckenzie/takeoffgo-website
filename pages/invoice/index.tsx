@@ -5,6 +5,9 @@ import gql from "graphql-tag";
 import Invoice from "../../components/Invoice";
 import Meta from "../../components/Meta";
 
+import { ApolloProvider } from "@apollo/react-hooks";
+import withApolloClient from "../../lib/with-apollo-client";
+
 export const INVOICE_QUERY = gql`
   query invoice($id: ID!) {
     invoice(id: $id) {
@@ -31,7 +34,7 @@ export const INVOICE_QUERY = gql`
   }
 `;
 
-const InvoicePage: React.FC = () => {
+const InvoicePage: React.FC = ({ apolloClient }: any) => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -54,9 +57,11 @@ const InvoicePage: React.FC = () => {
         <Meta router={router} />
         <style type="text/css">{"@page {size: A4;}"}</style>
       </Head>
-      <Invoice model={data.invoice} />
+      <ApolloProvider client={apolloClient}>
+        <Invoice model={data.invoice} />
+      </ApolloProvider>
     </>
   );
 };
 
-export default InvoicePage;
+export default withApolloClient(InvoicePage);

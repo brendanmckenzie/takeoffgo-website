@@ -6,6 +6,9 @@ import Head from "next/head";
 import Meta from "../../components/Meta";
 import { PublicInvoice } from "../../lib/models/types";
 
+import { ApolloProvider } from "@apollo/react-hooks";
+import withApolloClient from "../../lib/with-apollo-client";
+
 export const PAYMENT_QUERY = gql`
   query invoice($id: ID!) {
     invoice(id: $id) {
@@ -36,7 +39,7 @@ type InvoiceQuery = {
   invoice: PublicInvoice;
 };
 
-const PaymentPage: React.FC = () => {
+const PaymentPage: React.FC = ({ apolloClient }: any) => {
   const router = useRouter();
   const { id, amount } = router.query;
 
@@ -61,12 +64,14 @@ const PaymentPage: React.FC = () => {
           </title>
           <Meta router={router} />
         </Head>
-        <Payment
-          model={{
-            invoice: data.invoice,
-            amount: parseFloat(amount as string)
-          }}
-        />
+        <ApolloProvider client={apolloClient}>
+          <Payment
+            model={{
+              invoice: data.invoice,
+              amount: parseFloat(amount as string)
+            }}
+          />
+        </ApolloProvider>
       </>
     );
   }
@@ -74,4 +79,4 @@ const PaymentPage: React.FC = () => {
   return null;
 };
 
-export default PaymentPage;
+export default withApolloClient(PaymentPage);
