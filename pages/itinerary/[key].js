@@ -1,13 +1,26 @@
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Quote from "../../components/Quote";
 
 const ItineraryPage = () => {
-  const router = useRouter();
-  const { key, preview } = router.query;
+  const [quote, setQuote] = useState(null);
 
-  return (
-    <Quote quoteKey={key} track={preview !== "true"} viewType="itinerary" />
-  );
+  const router = useRouter();
+  const { key } = router.query;
+
+  useEffect(() => {
+    fetch(`https://cdn.takeoffgo.com/q/${key}`)
+      .then(res => res.json())
+      .then(res => {
+        setQuote({ ...res, total: 0, nextPayment: null, totalOutstanding: 0 });
+      });
+  }, []);
+
+  if (quote) {
+    return <Quote model={quote} />;
+  } else {
+    return <pre>Loading...</pre>;
+  }
 };
 
 export default ItineraryPage;
