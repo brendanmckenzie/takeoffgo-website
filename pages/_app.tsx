@@ -24,11 +24,6 @@ class MyApp extends App<{ apolloClient: any }> {
         <ApolloProvider client={apolloClient}>
           <Component {...pageProps} />
         </ApolloProvider>
-
-        <script
-          defer
-          src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
-        />
       </>
     );
   }

@@ -193,3 +193,11 @@ svg.logo {
     height: initial;
   }
 }
+
+.button.is-text {
+  text-decoration: none;
+
+  span:not(.icon) {
+    text-decoration: underline;
+  }
+}

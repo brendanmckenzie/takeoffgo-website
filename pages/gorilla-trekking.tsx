@@ -32,16 +32,21 @@ const GorillaTrekking: React.FC = () => {
               <BrandLine />
               <Content>
                 <p>
-                  One of the most amazing wild creatures in Africa is the
-                  mountain gorilla, found in the high altitude forests of
-                  Uganda, Rwanda and The Democratic Republic of Congo. Further
-                  to a gorilla census in 2011, there are believed to be around
-                  880 mountain gorillas in existence, primarily located in
-                  Bwindi Impenetrable Forest in Uganda, and throughout the
-                  Virunga Volcanoes which form the border between Uganda, Rwanda
-                  and the Democratic Republic of Congo. To meet these majestic
-                  creatures in their natural habitat is a true privilege, an
-                  experience that creates magical memories that last a lifetime.
+                  Mountain gorillas only live in the dense vegetation of
+                  Uganda’s Bwindi Impenetrable Forest National Park and along
+                  the dormant volcanic Virunga mountain range that stretches
+                  across Rwanda’s Volcanoes National Park, Uganda’s Mgahinga
+                  Gorilla National Park, and Virunga National Park in the
+                  Democratic Republic of the Congo.
+                </p>
+                <p>
+                  In 1981, environmentalists estimated there were only 254
+                  mountain gorillas left in the world, but the small population
+                  is rising slowly thanks to intense international conservation
+                  efforts. Since these critically endangered creatures can’t
+                  survive in captivity, the only way to see them is by trekking
+                  up to their natural habitat: misty cloud forests that can
+                  reach altitudes of 14,763 feet.
                 </p>
               </Content>
               <ContactButton />
