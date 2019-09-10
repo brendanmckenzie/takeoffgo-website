@@ -1,20 +1,28 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import FavIcon from "../components/FavIcon";
 
-class MyDocument extends Document {
+type MyDocumentProps = {
+  pathname: string;
+};
+
+class MyDocument extends Document<MyDocumentProps> {
   static async getInitialProps(ctx: any) {
     const initialProps = await Document.getInitialProps(ctx);
     return { ...initialProps, pathname: ctx.pathname };
   }
 
+  get htmlClasses() {
+    switch (this.props.pathname) {
+      case "/invoice":
+        return "printable";
+      default:
+        return "";
+    }
+  }
+
   render() {
     return (
-      <Html
-        lang="en"
-        className={
-          (this.props as any).pathname === "/invoice" ? "printable" : ""
-        }
-      >
+      <Html lang="en" className={this.htmlClasses}>
         <Head>
           <link
             rel="stylesheet"
