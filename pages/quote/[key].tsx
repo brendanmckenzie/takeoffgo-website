@@ -2,7 +2,7 @@ import Quote from "../../components/Quote";
 import "isomorphic-fetch";
 
 const QuotePage = ({ quote }: any) => {
-  return <Quote model={quote} />;
+  return <Quote model={quote} viewType="quote" />;
 };
 
 QuotePage.getInitialProps = async ({ query }: any) => {

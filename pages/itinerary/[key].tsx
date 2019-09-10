@@ -2,7 +2,7 @@ import Quote from "../../components/Quote";
 import "isomorphic-fetch";
 
 const ItineraryPage = ({ quote }: any) => {
-  return <Quote model={quote} />;
+  return <Quote model={quote} viewType="invoice" />;
 };
 
 ItineraryPage.getInitialProps = async ({ query }: any) => {
