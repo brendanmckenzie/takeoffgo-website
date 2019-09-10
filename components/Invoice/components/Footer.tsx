@@ -3,7 +3,7 @@ import PaymentOptions from "./PaymentOptions";
 import { InvoiceComponentProps } from "../index.d";
 
 const Footer: React.FC<InvoiceComponentProps> = ({ data }) => (
-  <footer className="footer">
+  <footer>
     <PaymentOptions data={data} />
     <p className="has-text-centered">
       <small>
@@ -13,7 +13,7 @@ const Footer: React.FC<InvoiceComponentProps> = ({ data }) => (
         Our standard booking conditions apply.
       </small>
     </p>
-    <hr />
+    <hr className="is-emphasised" />
     <div className="columns">
       <div className="column">
         <a href="https://www.takeoffgo.com/">www.takeoffgo.com</a>

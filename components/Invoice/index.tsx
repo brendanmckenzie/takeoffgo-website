@@ -15,7 +15,7 @@ const Invoice: React.FC<InvoiceProps> = ({ model }: any) => (
       <Header />
       <main className="body">
         <Summary data={model} />
-        <hr />
+        <hr className="is-emphasised" />
         <LineItems data={model} />
         <Total data={model} />
       </main>

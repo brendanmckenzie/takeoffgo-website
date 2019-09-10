@@ -9,6 +9,8 @@ $primary: $colour-brand;
 $yellow: $colour-brand;
 $black: $colour-dark;
 $code: $black;
+$code-background: transparent;
+$emphasise: #dbdbdb;
 
 $radius: 0;
 
@@ -19,7 +21,6 @@ $title-weight: 600;
 $line-width: 5px;
 
 @import "~bulma/bulma";
-// @import "~paper-css/paper.css";
 
 .table {
   thead {
@@ -105,38 +106,6 @@ ul.inline {
   display: none;
 }
 
-@media print {
-  @page {
-    size: A4;
-    margin: 1rem;
-  }
-
-  .is-hidden-print {
-    display: none !important;
-  }
-
-  .is-only-print {
-    display: block;
-  }
-
-  .is-page-break {
-    page-break-before: always;
-  }
-
-  .hero.is-fullheight {
-    height: 50vh !important;
-    min-height: initial;
-  }
-
-  .avoid-page-break {
-    page-break-inside: avoid;
-  }
-
-  .section {
-    padding: 1.5rem;
-  }
-}
-
 .column.is-side {
   display: flex;
   align-items: flex-end;
@@ -157,20 +126,6 @@ hr.brand {
   width: 80px;
   margin: 20px 0;
   background-color: $colour-brand;
-}
-
-.sheet {
-  display: flex;
-  flex-direction: column;
-
-  .header,
-  .footer {
-    flex: 0;
-  }
-
-  .body {
-    flex: 1;
-  }
 }
 
 .button.is-uppercase {
@@ -200,4 +155,29 @@ svg.logo {
   span:not(.icon) {
     text-decoration: underline;
   }
+}
+
+.section.is-emphasised {
+  border: 5px solid $emphasise;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.block.is-emphasised-left {
+  border-left: 5px solid $emphasise;
+}
+
+code {
+  white-space: nowrap;
+  padding: 0;
+
+  &.strong {
+    font-weight: bold;
+    font-size: $size-6;
+  }
+}
+
+hr.is-emphasised {
+  height: 5px;
+  background-color: $emphasise;
 }

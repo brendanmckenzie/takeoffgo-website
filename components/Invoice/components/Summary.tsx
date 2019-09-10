@@ -6,8 +6,8 @@ import { dateFormatWithYear } from "../../../lib/constants";
 const Summary: React.FC<InvoiceComponentProps> = ({ data }) => (
   <div className="columns">
     <div className="column">
-      <h1 className="title is-1">Invoice #{data.number}</h1>
-      {data.subtitle && <h3 className="subtitle is-3">{data.subtitle}</h3>}
+      <h1 className="title is-3">Invoice #{data.number}</h1>
+      {data.subtitle && <h3 className="subtitle is-6">{data.subtitle}</h3>}
     </div>
     <div className="column is-narrow">
       <table className="table is-narrow">

@@ -8,6 +8,8 @@ import Meta from "../../components/Meta";
 import { ApolloProvider } from "@apollo/react-hooks";
 import withApolloClient from "../../lib/with-apollo-client";
 
+// import "../../style/print.scss";
+
 export const INVOICE_QUERY = gql`
   query invoice($id: ID!) {
     invoice(id: $id) {

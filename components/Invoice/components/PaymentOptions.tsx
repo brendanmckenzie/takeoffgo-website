@@ -2,9 +2,9 @@ import React from "react";
 import { InvoiceComponentProps } from "../index.d";
 
 const PaymentOptions: React.FC<InvoiceComponentProps> = ({ data }) => (
-  <div className="section section-emphasise">
+  <div className="section is-emphasised">
     <h2 className="subtitle is-5">Payment options</h2>
-    <div className="columns is-variable is-1">
+    <div className="columns is-variable is-vcentered is-1">
       <div className="column is-narrow">
         <span className="icon is-medium">
           <i className="fal fa-lg fa-globe-africa" />
@@ -24,7 +24,7 @@ const PaymentOptions: React.FC<InvoiceComponentProps> = ({ data }) => (
       </div>
     </div>
 
-    <div className="columns is-variable is-1">
+    <div className="columns is-variable is-vcentered is-1">
       <div className="column is-narrow">
         <span className="icon is-medium">
           <i className="fal fa-lg fa-user" />
@@ -38,7 +38,7 @@ const PaymentOptions: React.FC<InvoiceComponentProps> = ({ data }) => (
       </div>
     </div>
 
-    <div className="columns is-variable is-1">
+    <div className="columns is-variable is-vcentered is-1">
       <div className="column is-narrow">
         <span className="icon is-medium">
           <i className="fal fa-lg fa-university" />

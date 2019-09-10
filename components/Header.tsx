@@ -6,7 +6,7 @@ type HeaderProps = {
 };
 
 const Header: React.FC<HeaderProps> = ({ showHomeButton }) => (
-  <>
+  <header className="header">
     <Columns>
       <Column>
         {showHomeButton && (
@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({ showHomeButton }) => (
       </Column>
     </Columns>
     <hr />
-  </>
+  </header>
 );
 
 export default Header;
