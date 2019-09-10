@@ -34,7 +34,7 @@ export const INVOICE_QUERY = gql`
   }
 `;
 
-const InvoicePage: React.FC = ({ apolloClient }: any) => {
+const InvoicePage: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -57,11 +57,15 @@ const InvoicePage: React.FC = ({ apolloClient }: any) => {
         <Meta router={router} />
         <style type="text/css">{"@page {size: A4;}"}</style>
       </Head>
-      <ApolloProvider client={apolloClient}>
-        <Invoice model={data.invoice} />
-      </ApolloProvider>
+      <Invoice model={data.invoice} />
     </>
   );
 };
 
-export default withApolloClient(InvoicePage);
+const InvoicePageWrapped: React.FC = ({ apolloClient }: any) => (
+  <ApolloProvider client={apolloClient}>
+    <InvoicePage />
+  </ApolloProvider>
+);
+
+export default withApolloClient(InvoicePageWrapped);

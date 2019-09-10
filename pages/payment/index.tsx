@@ -79,4 +79,10 @@ const PaymentPage: React.FC = ({ apolloClient }: any) => {
   return null;
 };
 
-export default withApolloClient(PaymentPage);
+const PaymentPageWrapped: React.FC = ({ apolloClient }: any) => (
+  <ApolloProvider client={apolloClient}>
+    <PaymentPage />
+  </ApolloProvider>
+);
+
+export default withApolloClient(PaymentPageWrapped);
