@@ -4,6 +4,7 @@ import TagManager from "react-gtm-module";
 
 import "../style/fonts.scss";
 import "../style/style.scss";
+import "../style/print.scss";
 
 class MyApp extends App<{ apolloClient: any }> {
   componentDidMount() {

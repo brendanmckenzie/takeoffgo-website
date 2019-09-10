@@ -4,12 +4,17 @@ import FavIcon from "../components/FavIcon";
 class MyDocument extends Document {
   static async getInitialProps(ctx: any) {
     const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
+    return { ...initialProps, pathname: ctx.pathname };
   }
 
   render() {
     return (
-      <Html lang="en">
+      <Html
+        lang="en"
+        className={
+          (this.props as any).pathname === "/invoice" ? "printable" : ""
+        }
+      >
         <Head>
           <link
             rel="stylesheet"
