@@ -17,15 +17,15 @@ const Finances = ({ data }: any) => (
     )}
     {data.status !== "Expired" && (
       <div className="columns">
-        <div className="column is-narrow">
+        <div className="column">
           <p className="heading">Total</p>
           <p className="title">{numeral(data.total).format("$0,0.00")}</p>
         </div>
-        <div className="column is-narrow">
+        <div className="column">
           <p className="heading">Group size</p>
           <p className="title">{data.groupSize}</p>
         </div>
-        <div className="column is-narrow">
+        <div className="column">
           <p className="heading">Per person</p>
           <p className="title">
             {numeral(data.total / data.groupSize).format("$0,0.00")}
@@ -33,7 +33,7 @@ const Finances = ({ data }: any) => (
         </div>
         {data.nextPayment ? (
           <React.Fragment>
-            <div className="column is-narrow">
+            <div className="column">
               <p className="heading">{data.nextPayment.type}</p>
               <p className="title">
                 {numeral(data.nextPayment.amount).format("$0,0.00")}
@@ -54,7 +54,7 @@ const Finances = ({ data }: any) => (
               )}
             </div>
             {data.totalOutstanding > data.nextPayment.amount && (
-              <div className="column is-narrow">
+              <div className="column">
                 <p className="heading">Currently Outstanding</p>
                 <p className="title">
                   {numeral(data.totalOutstanding).format("$0,0.00")}
@@ -63,7 +63,7 @@ const Finances = ({ data }: any) => (
             )}
           </React.Fragment>
         ) : (
-          <div className="column is-narrow">
+          <div className="column">
             <p className="heading">Next payment</p>
             <p className="title">All paid!</p>
           </div>
