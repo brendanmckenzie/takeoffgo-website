@@ -32,21 +32,21 @@ const GorillaTrekking: React.FC = () => {
               <BrandLine />
               <Content>
                 <p>
-                  Mountain gorillas only live in the dense vegetation of
-                  Uganda’s Bwindi Impenetrable Forest National Park and along
-                  the dormant volcanic Virunga mountain range that stretches
-                  across Rwanda’s Volcanoes National Park, Uganda’s Mgahinga
-                  Gorilla National Park, and Virunga National Park in the
-                  Democratic Republic of the Congo.
+                  Mountain gorillas live only in the thick vegetation of
+                  Uganda's Bwindi Impenetrable Forest National Park and along
+                  the dormant Virunga mountain range that extends across
+                  Rwanda's Volcanoes National Park, Uganda's Mgahinga Gorilla
+                  National Park, and the Democratic Republic of Congo's Virunga
+                  National Park.
                 </p>
                 <p>
-                  In 1981, environmentalists estimated there were only 254
-                  mountain gorillas left in the world, but the small population
-                  is rising slowly thanks to intense international conservation
-                  efforts. Since these critically endangered creatures can’t
-                  survive in captivity, the only way to see them is by trekking
-                  up to their natural habitat: misty cloud forests that can
-                  reach altitudes of 14,763 feet.
+                  Environmentalists estimated, in 1981, that there were only 254
+                  mountain gorillas left on earth, but due to intense global
+                  conservation attempts, the tiny population is growing slowly.
+                  Since these critically endangered creatures can not survive in
+                  captivity, walking to their natural habitat is the only way to
+                  see them: misty cloud forests that can reach altitudes of
+                  14,763 feet.
                 </p>
               </Content>
               <ContactButton />

@@ -91,11 +91,11 @@ const Home: React.FC = () => {
               <h4 className="subtitle is-4">Highlighted experience</h4>
               <Content>
                 <p>
-                  Sitting in silence on the cold ground of a Ugandan forest for
-                  60 minutes might be one of life’s greatest privileges. There
-                  are fewer than 900 mountain gorillas in existence, and gorilla
-                  trekking provides a rare opportunity to observe the everyday
-                  interactions of these gentle, mysterious primates.
+                  One of the biggest privileges of life might be sitting in
+                  silence on the cold ground of a Ugandan forest for 60 minutes.
+                  Fewer than 900 mountain gorillas exist, and gorilla trekking
+                  offers a rare chance to observe these soft, mysterious
+                  primates' daily interactions.
                 </p>
               </Content>
               <Buttons>
