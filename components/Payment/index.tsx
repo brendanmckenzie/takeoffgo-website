@@ -293,13 +293,13 @@ class Payment extends React.Component<PaymentProps> {
                     {invoice.currency}
                   </h4>
                 )}
-                {invoice.amountDue > 0 && amount && (
+                {invoice.amountDue > 0 && amount ? (
                   <h6 className="subtitle is-6">
                     Invoice total {numeral(invoice.total).format("$0,00.00")}{" "}
                     with {numeral(invoice.amountDue).format("$0,00.00")}{" "}
                     outstanding
                   </h6>
-                )}
+                ) : null}
                 {invoice.items &&
                   invoice.items.map(
                     ent =>
