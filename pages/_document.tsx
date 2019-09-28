@@ -20,6 +20,15 @@ class MyDocument extends Document<MyDocumentProps> {
     }
   }
 
+  get bodyClasses() {
+    switch (this.props.pathname) {
+      case "/invoice":
+        return "A4";
+      default:
+        return "";
+    }
+  }
+
   render() {
     return (
       <Html lang="en" className={this.htmlClasses}>
@@ -32,7 +41,7 @@ class MyDocument extends Document<MyDocumentProps> {
           />
           <FavIcon />
         </Head>
-        <body>
+        <body className={this.bodyClasses}>
           <Main />
           <NextScript />
         </body>
