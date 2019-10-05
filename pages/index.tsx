@@ -16,6 +16,8 @@ import {
 } from "../components/Bulma";
 import ContactButton from "../components/ContactButton";
 import { imageUrl } from "../lib/util";
+import PlacesWeLove, { PlacesWeLoveProps } from "../components/PlacesWeLove";
+import PlacesWeLoveData from "../data/places-we-love/current";
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -116,45 +118,7 @@ const Home: React.FC = () => {
           <Image src="3593b8a3e9a7632172cb889797eb1829" alt="Two cheetah" />
         </Section>
 
-        <Section container>
-          <Columns>
-            <Column>
-              <h2 className="title is-2">Places we love</h2>
-              <h4 className="subtitle is-4">
-                Stunning destinations hand picked by our travel experts
-              </h4>
-              <BrandLine />
-              <Content>
-                <p>
-                  The Silo Hotel has been built in the grain elevator portion of
-                  the historic grain silo complex occupying six floors above
-                  Zeitz Museum of Contemporary Art Africa (MOCAA) which houses
-                  Africa’s largest collection of contemporary African art.
-                </p>
-                <p>
-                  Only guests of the 28-room boutique hotel have the pleasure of
-                  floating in the rooftop pool while taking in views of Table
-                  Mountain, Lion’s Head, the Atlantic Ocean, and the city
-                  skyline.
-                </p>
-                <p>
-                  The Silo Hotel is a celebration of art, style, architecture
-                  and design. A tribute to timeless glamour and contemporary
-                  luxury offering the highest levels of personalised service.
-                </p>
-              </Content>
-              <ContactButton />
-            </Column>
-            <Column>
-              <figure className="image">
-                <Image
-                  src="482ebed4ba3e151ae5245eb7d054b6a0"
-                  alt="Table Mountain from inside a room at The Silo hotel in Cape Town"
-                />
-              </figure>
-            </Column>
-          </Columns>
-        </Section>
+        <PlacesWeLove {...(PlacesWeLoveData as PlacesWeLoveProps)} />
 
         <Section container>
           <Image
