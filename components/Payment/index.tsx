@@ -84,7 +84,7 @@ class Payment extends React.Component<PaymentProps> {
 
     const request = {
       headers: {
-        Authorization: `Bearer ${stripeConfig.test.publicKey}`,
+        Authorization: `Bearer ${stripeConfig.live.publicKey}`,
         "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
       },
       method: "POST",
