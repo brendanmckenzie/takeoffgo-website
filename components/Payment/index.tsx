@@ -5,6 +5,9 @@ import Field from "./Field";
 import { css } from "../../lib/util";
 import { PublicInvoice } from "../../lib/models/types";
 import { BrandLine } from "../Bulma";
+import gql from "graphql-tag";
+import initApollo from "../../lib/init-apollo";
+import { ApolloClient } from "apollo-boost";
 
 const stripeConfig = {
   live: {
@@ -104,22 +107,33 @@ class Payment extends React.Component<PaymentProps> {
       }
     };
 
+    const apollo = initApollo({}) as ApolloClient<{}>;
     fetch("https://api.stripe.com/v1/tokens", request)
       .then(handleErrors)
       .then(res => res.json())
       .then(res =>
-        fetch("/pay-invoice", {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          method: "POST",
-          body: JSON.stringify({
-            token: res.id,
+        apollo.query({
+          query: gql`
+            query invoicePayment(
+              $invoice: ID!
+              $token: String!
+              $amount: Decimal
+            ) {
+              invoicePayment(
+                invoice: $invoice
+                token: $token
+                amount: $amount
+              ) {
+                success
+              }
+            }
+          `,
+          variables: {
             invoice: invoice.id,
-            amount: amount || -1
-          })
-        }).then(handleErrors)
+            token: res.id,
+            amount
+          }
+        })
       )
       .then(() => {
         this.setState({
