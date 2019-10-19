@@ -31,6 +31,7 @@ export const PAYMENT_QUERY = gql`
       paymentUrl
       subtitle
       total
+      customer
     }
   }
 `;

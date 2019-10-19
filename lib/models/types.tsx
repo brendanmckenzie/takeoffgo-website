@@ -45,6 +45,7 @@ export type PublicInvoice = {
   amountDue: Scalars['Float'],
   amountPaid: Scalars['Float'],
   currency: Scalars['String'],
+  customer?: Maybe<Scalars['String']>,
   due: Scalars['String'],
   id?: Maybe<Scalars['ID']>,
   invoiced: Scalars['String'],
@@ -71,7 +72,7 @@ export type PublicQuery = {
   createEnquiry?: Maybe<GenericRequest>,
   invoice?: Maybe<PublicInvoice>,
   invoicePayment?: Maybe<GenericRequest>,
-  quote?: Maybe<PublicQuote>,
+  trackQuoteView?: Maybe<GenericRequest>,
 };
 
 
@@ -98,135 +99,8 @@ export type PublicQueryInvoicePaymentArgs = {
 };
 
 
-export type PublicQueryQuoteArgs = {
+export type PublicQueryTrackQuoteViewArgs = {
   key?: Maybe<Scalars['String']>,
-  viewType?: Maybe<Scalars['String']>,
-  track?: Maybe<Scalars['Boolean']>
-};
-
-export type PublicQuote = {
-   __typename?: 'PublicQuote',
-  accommodation?: Maybe<Array<Maybe<PublicQuoteAccommodationDetail>>>,
-  agency?: Maybe<PublicQuoteAgencyDetail>,
-  airports?: Maybe<Array<Maybe<PublicQuoteAirport>>>,
-  consultant?: Maybe<PublicQuoteConsultantDetail>,
-  currency: Scalars['String'],
-  days?: Maybe<Array<Maybe<PublicQuoteDay>>>,
-  destinations?: Maybe<Array<Maybe<PublicQuoteDestination>>>,
-  duration: Scalars['Int'],
-  exclusions: Scalars['String'],
-  expiry: Scalars['String'],
-  flights?: Maybe<Array<Maybe<PublicQuoteFlight>>>,
-  groupSize: Scalars['Int'],
-  hero?: Maybe<PublicQuoteHeroDetail>,
-  inclusions: Scalars['String'],
-  locked: Scalars['Boolean'],
-  nextPayment?: Maybe<PublicQuotePayment>,
-  properties?: Maybe<Array<Maybe<PublicQuoteProperty>>>,
-  start: Scalars['String'],
-  status: Scalars['String'],
-  total: Scalars['Decimal'],
-  totalOutstanding: Scalars['Decimal'],
-};
-
-export type PublicQuoteAccommodationDetail = {
-   __typename?: 'PublicQuoteAccommodationDetail',
-  id?: Maybe<Scalars['ID']>,
-  inclusions?: Maybe<PublicQuoteAccommodationInclusions>,
-  property?: Maybe<Scalars['ID']>,
-  room?: Maybe<Scalars['String']>,
-};
-
-export type PublicQuoteAccommodationInclusions = {
-   __typename?: 'PublicQuoteAccommodationInclusions',
-  beverage?: Maybe<Array<Maybe<Scalars['String']>>>,
-  food?: Maybe<Array<Maybe<Scalars['String']>>>,
-};
-
-export type PublicQuoteAgencyDetail = {
-   __typename?: 'PublicQuoteAgencyDetail',
-  logo?: Maybe<Scalars['ID']>,
-  name: Scalars['String'],
-};
-
-export type PublicQuoteAirport = {
-   __typename?: 'PublicQuoteAirport',
-  city: Scalars['String'],
-  country: Scalars['String'],
-  iata?: Maybe<Scalars['String']>,
-  icao?: Maybe<Scalars['String']>,
-  latitude: Scalars['Float'],
-  longitude: Scalars['Float'],
-  timezone: Scalars['String'],
-};
-
-export type PublicQuoteConsultantDetail = {
-   __typename?: 'PublicQuoteConsultantDetail',
-  email: Scalars['String'],
-  genderPreposition: Scalars['String'],
-  name: Scalars['String'],
-  phone: Scalars['String'],
-};
-
-export type PublicQuoteDay = {
-   __typename?: 'PublicQuoteDay',
-  accommodation?: Maybe<Scalars['ID']>,
-  activities?: Maybe<PublicQuoteDayActivities>,
-  date: Scalars['String'],
-  destinations?: Maybe<Array<Maybe<Scalars['ID']>>>,
-  index: Scalars['Int'],
-};
-
-export type PublicQuoteDayActivities = {
-   __typename?: 'PublicQuoteDayActivities',
-  detail?: Maybe<Scalars['String']>,
-  summary?: Maybe<Scalars['String']>,
-};
-
-export type PublicQuoteDestination = {
-   __typename?: 'PublicQuoteDestination',
-  id?: Maybe<Scalars['ID']>,
-  name: Scalars['String'],
-};
-
-export type PublicQuoteFlight = {
-   __typename?: 'PublicQuoteFlight',
-  arrival?: Maybe<PublicQuoteFlightActivity>,
-  carrier: Scalars['String'],
-  departure?: Maybe<PublicQuoteFlightActivity>,
-  id?: Maybe<Scalars['ID']>,
-  number: Scalars['String'],
-};
-
-export type PublicQuoteFlightActivity = {
-   __typename?: 'PublicQuoteFlightActivity',
-  airport: Scalars['String'],
-  date: Scalars['String'],
-};
-
-export type PublicQuoteHeroDetail = {
-   __typename?: 'PublicQuoteHeroDetail',
-  image?: Maybe<Scalars['ID']>,
-  style?: Maybe<Scalars['String']>,
-  subtitle?: Maybe<Scalars['String']>,
-  title: Scalars['String'],
-};
-
-export type PublicQuotePayment = {
-   __typename?: 'PublicQuotePayment',
-  amount: Scalars['Decimal'],
-  due: Scalars['String'],
-  type: Scalars['String'],
-  url: Scalars['String'],
-};
-
-export type PublicQuoteProperty = {
-   __typename?: 'PublicQuoteProperty',
-  id?: Maybe<Scalars['ID']>,
-  latitude?: Maybe<Scalars['Float']>,
-  longitude?: Maybe<Scalars['Float']>,
-  name: Scalars['String'],
-  overview?: Maybe<Scalars['String']>,
-  thumbnail?: Maybe<Scalars['ID']>,
+  viewType?: Maybe<Scalars['String']>
 };
 

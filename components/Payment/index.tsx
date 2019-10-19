@@ -22,6 +22,7 @@ type PaymentProps = {
   model: {
     invoice: PublicInvoice;
     amount?: number;
+    customer?: string;
   };
 };
 
@@ -74,17 +75,22 @@ class Payment extends React.Component<PaymentProps> {
 
     this.setState({ loading: true, error: null });
 
+    const {
+      model: { amount, invoice }
+    } = this.props;
+
     const data: any = {
       "card[name]": this.state.name,
       "card[number]": this.state.number,
       "card[exp_month]": this.state.expiry.split("/")[0],
       "card[exp_year]": `20${this.state.expiry.split("/")[1]}`,
-      "card[cvc]": this.state.cvc
+      "card[cvc]": this.state.cvc,
+      customer: invoice.customer
     };
 
     const request = {
       headers: {
-        Authorization: `Bearer ${stripeConfig.live.publicKey}`,
+        Authorization: `Bearer ${stripeConfig.test.publicKey}`,
         "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
       },
       method: "POST",
@@ -92,10 +98,6 @@ class Payment extends React.Component<PaymentProps> {
         .map(key => `${key}=${encodeURIComponent(data[key])}`)
         .join("&")
     };
-
-    const {
-      model: { amount, invoice }
-    } = this.props;
 
     const handleErrors = (res: any) => {
       if (res.ok) {
