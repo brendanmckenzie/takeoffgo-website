@@ -65,7 +65,7 @@ const GorillaTrekking: React.FC = () => {
             <Column width={4}>
               <div className="card">
                 <div className="card-image">
-                  <figure className="image">
+                  <figure className="image is-cover is-3by4">
                     <Image
                       src="6e5b9dd1313ba1c2240e500a7d378457"
                       alt="Two gorilla sitting"
@@ -92,7 +92,7 @@ const GorillaTrekking: React.FC = () => {
             <Column width={4}>
               <div className="card">
                 <div className="card-image">
-                  <figure className="image">
+                  <figure className="image is-cover is-3by4">
                     <Image
                       src="1076ffd62ec01f262bca6f95788a0236"
                       alt="Gorilla scratching nose"

@@ -181,3 +181,12 @@ hr.is-emphasised {
   height: 5px;
   background-color: $emphasise;
 }
+
+.image.is-cover {
+  height: 100%;
+
+  img {
+    object-fit: cover;
+    height: 100%;
+  }
+}

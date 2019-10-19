@@ -26,7 +26,7 @@ const PlacesWeLove: React.FC<PlacesWeLoveProps> = props => (
         <ContactButton />
       </Column>
       <Column>
-        <figure className="image">
+        <figure className="image is-cover">
           <Image {...props.image} />
         </figure>
       </Column>

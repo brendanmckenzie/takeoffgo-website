@@ -72,10 +72,12 @@ const Home: React.FC = () => {
               </Buttons>
             </Column>
             <Column width={5}>
-              <Image
-                src="a5d1370ab4e48e3d93c022b7d41a3044"
-                alt="Lion looking up"
-              />
+              <div className="media">
+                <Image
+                  src="a5d1370ab4e48e3d93c022b7d41a3044"
+                  alt="Lion looking up"
+                />
+              </div>
             </Column>
           </Columns>
         </Section>
@@ -83,14 +85,16 @@ const Home: React.FC = () => {
         <Section container>
           <Columns>
             <Column width={4}>
-              <Image
-                src="d9928dd37e0b8e8fcea1aac96744bb9b"
-                alt="Gorilla by tree"
-              />
+              <div className="image is-cover">
+                <Image
+                  src="d9928dd37e0b8e8fcea1aac96744bb9b"
+                  alt="Gorilla by tree"
+                />
+              </div>
             </Column>
             <Column>
               <h2 className="title is-2">Gorilla trekking</h2>
-              <h4 className="subtitle is-4">Highlighted experience</h4>
+              <h4 className="subtitle is-4">Experience highlight</h4>
               <Content>
                 <p>
                   One of the biggest privileges of life might be sitting in
