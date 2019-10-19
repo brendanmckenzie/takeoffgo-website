@@ -49,7 +49,17 @@ const InvoiceContent: React.FC<any> = ({ loading, error, data }) => {
   }
 
   if (error) {
-    return <pre>Error: {JSON.stringify(error, null, 2)}</pre>;
+    console.error(error);
+    return (
+      <main className="body">
+        <div className="message is-danger">
+          <div className="message-body">
+            An error occurred loading this invoice. Please contact your Take Off
+            Go representative.
+          </div>
+        </div>
+      </main>
+    );
   }
 
   return <Invoice model={data.invoice} />;
