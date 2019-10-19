@@ -9,13 +9,9 @@ import gql from "graphql-tag";
 import initApollo from "../../lib/init-apollo";
 import { ApolloClient } from "apollo-boost";
 
-const stripeConfig = {
-  live: {
-    publicKey: "pk_live_5DIChTOisCE5BE00zAxhagIX"
-  },
-  test: {
-    publicKey: "pk_test_bSdrqcnKSDNxExRP0B5ErFbt"
-  }
+const stripeConfig: { [key: string]: string } = {
+  "www.takeoffgo.com": "pk_live_5DIChTOisCE5BE00zAxhagIX",
+  default: "pk_test_bSdrqcnKSDNxExRP0B5ErFbt"
 };
 
 type PaymentProps = {
@@ -87,9 +83,12 @@ class Payment extends React.Component<PaymentProps> {
       "card[cvc]": this.state.cvc
     };
 
+    const stripeKey =
+      stripeConfig[window.location.host] || stripeConfig.default;
+
     const request = {
       headers: {
-        Authorization: `Bearer ${stripeConfig.test.publicKey}`,
+        Authorization: `Bearer ${stripeKey}`,
         "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
       },
       method: "POST",
