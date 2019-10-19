@@ -84,8 +84,7 @@ class Payment extends React.Component<PaymentProps> {
       "card[number]": this.state.number,
       "card[exp_month]": this.state.expiry.split("/")[0],
       "card[exp_year]": `20${this.state.expiry.split("/")[1]}`,
-      "card[cvc]": this.state.cvc,
-      customer: invoice.customer
+      "card[cvc]": this.state.cvc
     };
 
     const request = {
@@ -297,42 +296,40 @@ class Payment extends React.Component<PaymentProps> {
 
     return (
       <>
-        <div className="section payment">
-          <div className="columns is-centered">
-            <div className="column is-3">
-              <div className="has-text-centered">
-                <img className="logo" src="/static/logo-square.png" />
-                <h1 className="title is-1">Payment</h1>
-                {invoice.amountDue > 0 && (
-                  <h4 className="subtitle is-4">
-                    {numeral(amount || invoice.amountDue).format("$0,00.00")}{" "}
-                    {invoice.currency}
-                  </h4>
-                )}
-                {invoice.amountDue > 0 && amount ? (
-                  <h6 className="subtitle is-6">
-                    Invoice total {numeral(invoice.total).format("$0,00.00")}{" "}
-                    with {numeral(invoice.amountDue).format("$0,00.00")}{" "}
-                    outstanding
-                  </h6>
-                ) : null}
-                {invoice.items &&
-                  invoice.items.map(
-                    ent =>
-                      ent && (
-                        <Markdown
-                          key={ent.id}
-                          className="content"
-                          source={ent.description}
-                        />
-                      )
-                  )}
-              </div>
-              <BrandLine />
-              {this.input}
-            </div>
-          </div>
+        <div className="has-text-centered">
+          <h1 className="title is-1">Payment</h1>
+          {invoice.amountDue > 0 && (
+            <h4 className="subtitle is-4">
+              {numeral(amount || invoice.amountDue).format("$0,00.00")}{" "}
+              {invoice.currency}
+            </h4>
+          )}
+          {invoice.amountDue > 0 && amount ? (
+            <h6 className="subtitle is-6">
+              {invoice.total === invoice.amountDue ? (
+                <>Invoice total {numeral(invoice.total).format("$0,00.00")}</>
+              ) : (
+                <>
+                  Invoice total {numeral(invoice.total).format("$0,00.00")} with{" "}
+                  {numeral(invoice.amountDue).format("$0,00.00")} outstanding
+                </>
+              )}
+            </h6>
+          ) : null}
+          {invoice.items &&
+            invoice.items.map(
+              ent =>
+                ent && (
+                  <Markdown
+                    key={ent.id}
+                    className="content"
+                    source={ent.description}
+                  />
+                )
+            )}
         </div>
+        <BrandLine />
+        {this.input}
       </>
     );
   }

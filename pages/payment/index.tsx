@@ -8,6 +8,8 @@ import { PublicInvoice } from "../../lib/models/types";
 
 import { ApolloProvider } from "@apollo/react-hooks";
 import withApolloClient from "../../lib/with-apollo-client";
+import Header from "../../components/Header";
+import { Section } from "../../components/Bulma";
 
 export const PAYMENT_QUERY = gql`
   query invoice($id: ID!) {
@@ -31,53 +33,71 @@ export const PAYMENT_QUERY = gql`
       paymentUrl
       subtitle
       total
-      customer
     }
   }
 `;
+
+const PaymentContent: React.FC<any> = ({ loading, error, data, amount }) => {
+  if (loading) {
+    return (
+      <div className="message">
+        <div className="message-body">
+          Loading your payment deatils; please wait.
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    console.error(error);
+    return (
+      <div className="message is-danger">
+        <div className="message-body">
+          An error occurred loading the payment deatils. Please contact your
+          Take Off Go representative.
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Payment
+      model={{
+        invoice: data.invoice,
+        amount
+      }}
+    />
+  );
+};
 
 type InvoiceQuery = {
   invoice: PublicInvoice;
 };
 
-const PaymentPage: React.FC = ({ apolloClient }: any) => {
+const PaymentPage: React.FC = () => {
   const router = useRouter();
   const { id, amount } = router.query;
 
-  const { loading, error, data } = useQuery<InvoiceQuery>(PAYMENT_QUERY, {
+  const query = useQuery<InvoiceQuery>(PAYMENT_QUERY, {
     variables: { id }
   });
 
-  if (loading) {
-    return <div />;
-  }
-
-  if (error) {
-    return <pre>Error: {JSON.stringify(error, null, 2)}</pre>;
-  }
-
-  if (data) {
-    return (
-      <>
-        <Head>
-          <title>
-            Payment for invoice #{data.invoice.number} - Take Off Go
-          </title>
-          <Meta router={router} />
-        </Head>
-        <ApolloProvider client={apolloClient}>
-          <Payment
-            model={{
-              invoice: data.invoice,
-              amount: parseFloat(amount as string)
-            }}
-          />
-        </ApolloProvider>
-      </>
-    );
-  }
-
-  return null;
+  return (
+    <>
+      <Head>
+        <title>Payment - Take Off Go</title>
+        <Meta router={router} />
+      </Head>
+      <Section container>
+        <Header />
+        <div className="columns is-centered">
+          <div className="column is-4">
+            <PaymentContent {...query} amount={parseFloat(amount as string)} />
+          </div>
+        </div>
+      </Section>
+    </>
+  );
 };
 
 const PaymentPageWrapped: React.FC = ({ apolloClient }: any) => (
