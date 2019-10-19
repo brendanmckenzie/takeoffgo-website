@@ -296,38 +296,36 @@ class Payment extends React.Component<PaymentProps> {
 
     return (
       <>
-        <div className="has-text-centered">
-          <h1 className="title is-1">Payment</h1>
-          {invoice.amountDue > 0 && (
-            <h4 className="subtitle is-4">
-              {numeral(amount || invoice.amountDue).format("$0,00.00")}{" "}
-              {invoice.currency}
-            </h4>
-          )}
-          {invoice.amountDue > 0 && amount ? (
-            <h6 className="subtitle is-6">
-              {invoice.total === invoice.amountDue ? (
-                <>Invoice total {numeral(invoice.total).format("$0,00.00")}</>
-              ) : (
-                <>
-                  Invoice total {numeral(invoice.total).format("$0,00.00")} with{" "}
-                  {numeral(invoice.amountDue).format("$0,00.00")} outstanding
-                </>
-              )}
-            </h6>
-          ) : null}
-          {invoice.items &&
-            invoice.items.map(
-              ent =>
-                ent && (
-                  <Markdown
-                    key={ent.id}
-                    className="content"
-                    source={ent.description}
-                  />
-                )
+        <h1 className="title is-1">Payment</h1>
+        {invoice.amountDue > 0 && (
+          <h4 className="subtitle is-4">
+            {numeral(amount || invoice.amountDue).format("$0,00.00")}{" "}
+            {invoice.currency}
+          </h4>
+        )}
+        {invoice.amountDue > 0 && amount ? (
+          <h6 className="subtitle is-6">
+            {invoice.total === invoice.amountDue ? (
+              <>Invoice total {numeral(invoice.total).format("$0,00.00")}</>
+            ) : (
+              <>
+                Invoice total {numeral(invoice.total).format("$0,00.00")} with{" "}
+                {numeral(invoice.amountDue).format("$0,00.00")} outstanding
+              </>
             )}
-        </div>
+          </h6>
+        ) : null}
+        {invoice.items &&
+          invoice.items.map(
+            ent =>
+              ent && (
+                <Markdown
+                  key={ent.id}
+                  className="content"
+                  source={ent.description}
+                />
+              )
+          )}
         <BrandLine />
         {this.input}
       </>
