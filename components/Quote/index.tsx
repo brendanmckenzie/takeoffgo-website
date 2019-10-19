@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import moment from "moment";
 
 import { mediaUrl } from "./global/helpers";
-import { PublicQuote } from "../../lib/models/types";
 import initApollo from "../../lib/init-apollo";
 import { ApolloClient } from "apollo-boost";
 import gql from "graphql-tag";
@@ -22,7 +21,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import Meta from "../Meta";
 
-const mapModelToMeta = (model: PublicQuote) => {
+const mapModelToMeta = (model: any) => {
   const fromHero = () => {
     if (model.hero) {
       return {
@@ -43,7 +42,7 @@ const mapModelToMeta = (model: PublicQuote) => {
 };
 
 type QuoteProps = {
-  model: PublicQuote;
+  model: any;
   viewType: string;
 };
 

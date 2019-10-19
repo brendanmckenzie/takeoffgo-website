@@ -45,7 +45,6 @@ export type PublicInvoice = {
   amountDue: Scalars['Float'],
   amountPaid: Scalars['Float'],
   currency: Scalars['String'],
-  customer?: Maybe<Scalars['String']>,
   due: Scalars['String'],
   id?: Maybe<Scalars['ID']>,
   invoiced: Scalars['String'],
