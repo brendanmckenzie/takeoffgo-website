@@ -7,6 +7,7 @@ import Meta from "../../components/Meta";
 
 import { ApolloProvider } from "@apollo/react-hooks";
 import withApolloClient from "../../lib/with-apollo-client";
+import Header from "../../components/Header";
 
 // import "../../style/print.scss";
 
@@ -36,30 +37,43 @@ export const INVOICE_QUERY = gql`
   }
 `;
 
-const InvoicePage: React.FC = () => {
-  const router = useRouter();
-  const { id } = router.query;
-
-  const { loading, error, data } = useQuery(INVOICE_QUERY, {
-    variables: { id }
-  });
-
+const InvoiceContent: React.FC<any> = ({ loading, error, data }) => {
   if (loading) {
-    return <div />;
+    return (
+      <main className="body">
+        <div className="message">
+          <div className="message-body">Loading your invoice; please wait.</div>
+        </div>
+      </main>
+    );
   }
 
   if (error) {
     return <pre>Error: {JSON.stringify(error, null, 2)}</pre>;
   }
 
+  return <Invoice model={data.invoice} />;
+};
+
+const InvoicePage: React.FC = () => {
+  const router = useRouter();
+  const { id } = router.query;
+
+  const query = useQuery(INVOICE_QUERY, {
+    variables: { id }
+  });
+
   return (
     <>
       <Head>
-        <title>Invoice #{data.invoice.number} - Take Off Go</title>
+        <title>Invoice - Take Off Go</title>
         <Meta router={router} />
         <style type="text/css">{"@page {size: A4;}"}</style>
       </Head>
-      <Invoice model={data.invoice} />
+      <section className="sheet container padding-10mm">
+        <Header />
+        <InvoiceContent {...query} />
+      </section>
     </>
   );
 };

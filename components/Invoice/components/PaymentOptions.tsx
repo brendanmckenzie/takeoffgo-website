@@ -50,7 +50,7 @@ const PaymentOptions: React.FC<InvoiceComponentProps> = ({ data }) => (
           <code className="strong">NAB</code> our BSB is{" "}
           <code className="strong">083-004</code> account number{" "}
           <code className="strong">88-123-1326</code> in the name{" "}
-          <code className="strong">Take Off Go</code> please include the
+          <code className="strong">Take Off Go Pty Ltd</code> please include the
           reference <code className="strong">Invoice {data.number}</code> when
           making payment
         </p>

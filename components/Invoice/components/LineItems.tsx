@@ -16,7 +16,9 @@ const LineItems: React.FC<InvoiceComponentProps> = ({ data }) => (
     <tbody>
       {data.items.map((ent: any) => (
         <tr key={ent.id}>
-          <td>{ent.description}</td>
+          <td>
+            <small>{ent.description}</small>
+          </td>
           <td className="has-text-right">
             <code>{ent.quantity}</code>
           </td>
