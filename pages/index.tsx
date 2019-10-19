@@ -72,7 +72,7 @@ const Home: React.FC = () => {
               </Buttons>
             </Column>
             <Column width={5}>
-              <div className="media">
+              <div className="media is-cover">
                 <Image
                   src="a5d1370ab4e48e3d93c022b7d41a3044"
                   alt="Lion looking up"

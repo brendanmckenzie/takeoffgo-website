@@ -52,10 +52,12 @@ const GorillaTrekking: React.FC = () => {
               <ContactButton />
             </Column>
             <Column>
-              <Image
-                src="d9928dd37e0b8e8fcea1aac96744bb9b"
-                alt="Gorilla by tree"
-              />
+              <div className="image is-cover">
+                <Image
+                  src="d9928dd37e0b8e8fcea1aac96744bb9b"
+                  alt="Gorilla by tree"
+                />
+              </div>
             </Column>
           </Columns>
         </Section>
