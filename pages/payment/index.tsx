@@ -42,7 +42,7 @@ const PaymentContent: React.FC<any> = ({ loading, error, data, amount }) => {
     return (
       <div className="message">
         <div className="message-body">
-          Loading your payment deatils; please wait.
+          Loading your payment details; please wait.
         </div>
       </div>
     );
@@ -53,7 +53,7 @@ const PaymentContent: React.FC<any> = ({ loading, error, data, amount }) => {
     return (
       <div className="message is-danger">
         <div className="message-body">
-          An error occurred loading the payment deatils. Please contact your
+          An error occurred loading the payment details. Please contact your
           Take Off Go representative.
         </div>
       </div>
