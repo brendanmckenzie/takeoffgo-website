@@ -23,12 +23,7 @@ const SummarisedItinerary = ({ data }: any) => (
           const prev = isFirst ? null : array[index - 1];
           const newAccom =
             prev === null || day.accommodation !== prev.accommodation;
-          const accomDayCount = array.filter(
-            (v, i, arr) =>
-              i > index && // is after this current day
-              v.accommodation === day.accommodation && // has the same accommodation
-              arr[i - 1].accommodation === v.accommodation // has the same accommodation as the previous entry - to avoid clashes if the same accommodation appears twice
-          ).length;
+
           const accom = data.accommodation.find(
             (a: any) => a.id === day.accommodation
           );
@@ -38,6 +33,14 @@ const SummarisedItinerary = ({ data }: any) => (
           const destinations = day.destinations.map((id: any) =>
             data.destinations.find((d: any) => d.id === id)
           );
+          const accomDayCount = property
+            ? array.filter(
+                (v, i, arr) =>
+                  i > index && // is after this current day
+                  v.accommodation === day.accommodation && // has the same accommodation
+                  arr[i - 1].accommodation === v.accommodation // has the same accommodation as the previous entry - to avoid clashes if the same accommodation appears twice
+              ).length
+            : 0;
 
           return (
             <tr key={day.index}>
@@ -71,7 +74,7 @@ const SummarisedItinerary = ({ data }: any) => (
                   </ul>
                 )}
               </td>
-              {newAccom && (
+              {property && newAccom ? (
                 <td rowSpan={accomDayCount + 1}>
                   {accom && (
                     <ul>
@@ -96,7 +99,7 @@ const SummarisedItinerary = ({ data }: any) => (
                     </ul>
                   )}
                 </td>
-              )}
+              ) : null}
             </tr>
           );
         })}
