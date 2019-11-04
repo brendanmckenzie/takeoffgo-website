@@ -41,7 +41,9 @@ const Hero = ({ data }: any) => (
       </div>
     </div>
     <div className="column">
-      <Image src={data.hero.image} alt={data.hero.title} />
+      <figure className="image is-cover">
+        <Image src={data.hero.image} alt={data.hero.title} />
+      </figure>
     </div>
   </div>
 );
