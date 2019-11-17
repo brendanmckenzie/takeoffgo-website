@@ -1,11 +1,22 @@
 const Footer: React.FC = () => (
   <footer className="section container has-text-centered">
-    <p className="heading">
-      Take Off Go, copyright 2019. All rights reserved. ABN 15 634 608 567
-    </p>
-    <p className="heading">
-      <a href="/terms-and-conditions">Terms and conditions</a>
-    </p>
+    <ul>
+      <li>
+        <p className="heading">
+          Take Off Go, copyright 2019. All rights reserved. ABN 15 634 608 567
+        </p>
+      </li>
+      <li>
+        <a className="heading" href="/terms-and-conditions">
+          Terms and conditions
+        </a>
+      </li>
+      <li>
+        <a className="heading" href="/privacy">
+          Privacy policy
+        </a>
+      </li>
+    </ul>
   </footer>
 );
 
