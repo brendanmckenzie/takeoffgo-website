@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import _ from "lodash";
-import { dateFormat, timeFormat } from "../../global/constants";
+import { dateFormat, timeFormat, timeFormatExt } from "../../global/constants";
 
 const Flights = ({ flights, data, includeDate, referenceDate }: any) =>
   flights.length > 0 ? (
@@ -33,6 +33,11 @@ const Flights = ({ flights, data, includeDate, referenceDate }: any) =>
                     if (!arrivalAirport || !departureAirport) {
                       return null;
                     }
+
+                    const sameDay = moment(flight.departure.date).isSame(
+                      flight.arrival.date,
+                      "day"
+                    );
 
                     return (
                       <React.Fragment key={flight.id}>
@@ -88,7 +93,9 @@ const Flights = ({ flights, data, includeDate, referenceDate }: any) =>
                                 ].join(", ")}
                               </li>
                               <li>
-                                {moment(flight.arrival.date).format(timeFormat)}
+                                {moment(flight.arrival.date).format(
+                                  sameDay ? timeFormat : timeFormatExt
+                                )}
                               </li>
                             </ul>
                           </div>
