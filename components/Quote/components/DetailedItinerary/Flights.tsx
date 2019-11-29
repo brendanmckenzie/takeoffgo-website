@@ -12,7 +12,7 @@ const Flights = ({ flights, data, includeDate, referenceDate }: any) =>
         .map(([date, list]: any[]) => (
           <div key={date} className="columns">
             {includeDate && (
-              <div className="column is-narrow">
+              <div className="column is-2">
                 {moment(date).format(dateFormat)}
               </div>
             )}
@@ -47,10 +47,10 @@ const Flights = ({ flights, data, includeDate, referenceDate }: any) =>
                           )}
 
                         <div className="columns is-gapless">
-                          <div className="column is-2">
+                          <div className="column is-narrow">
                             <ul className="inline">
                               <li className="is-hidden-mobile is-hidden-print">
-                                <i className="fal fa-plane-departure" />
+                                <i className="fad fa-2x fa-plane-departure" />
                               </li>
                               <li>
                                 <code>{`${flight.carrier} ${flight.number}`}</code>
