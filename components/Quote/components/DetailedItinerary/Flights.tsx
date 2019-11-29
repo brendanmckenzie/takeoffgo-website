@@ -12,7 +12,7 @@ const Flights = ({ flights, data, includeDate, referenceDate }: any) =>
         .map(([date, list]: any[]) => (
           <div key={date} className="columns">
             {includeDate && (
-              <div className="column is-2">
+              <div className="column is-narrow">
                 {moment(date).format(dateFormat)}
               </div>
             )}
