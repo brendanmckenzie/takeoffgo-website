@@ -53,7 +53,7 @@ const Flights = ({ flights, data, includeDate, referenceDate }: any) =>
 
                         <div className="columns is-vcentered">
                           <div className="column is-2">
-                            <ul className="columns is-vcentered">
+                            <ul className="columns is-vcentered is-mobile">
                               <li className="column is-narrow">
                                 <i className="fad fa-2x fa-plane-departure" />
                               </li>
