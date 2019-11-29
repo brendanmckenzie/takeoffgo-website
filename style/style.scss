@@ -190,3 +190,12 @@ hr.is-emphasised {
     height: 100%;
   }
 }
+
+code.is-flight-number {
+  background-color: transparent;
+
+  span {
+    display: block;
+    font-size: $size-5;
+  }
+}

@@ -46,14 +46,17 @@ const Flights = ({ flights, data, includeDate, referenceDate }: any) =>
                             </p>
                           )}
 
-                        <div className="columns is-gapless">
-                          <div className="column is-narrow">
-                            <ul className="inline">
-                              <li className="is-hidden-mobile is-hidden-print">
+                        <div className="columns is-vcentered">
+                          <div className="column is-2">
+                            <ul className="columns is-vcentered">
+                              <li className="column is-narrow is-hidden-mobile is-hidden-print">
                                 <i className="fad fa-2x fa-plane-departure" />
                               </li>
-                              <li>
-                                <code>{`${flight.carrier} ${flight.number}`}</code>
+                              <li className="column">
+                                <code className="is-flight-number">
+                                  <span>{flight.carrier}</span>
+                                  <span>{flight.number}</span>
+                                </code>
                               </li>
                             </ul>
                           </div>
