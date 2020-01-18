@@ -203,9 +203,9 @@ code.is-flight-number {
 header {
   position: sticky;
   top: 0;
-  padding-top: $gap;
   z-index: 100;
   background-color: white;
+  padding-top: $gap / 2;
 
   .container {
     padding: 0 1.5rem;

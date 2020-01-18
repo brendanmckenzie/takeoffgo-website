@@ -8,7 +8,7 @@ type HeaderProps = {
 const Header: React.FC<HeaderProps> = ({ showHomeButton }) => (
   <header className="header">
     <Container>
-      <Columns>
+      <Columns gapless>
         <Column>
           {showHomeButton && (
             <LinkButton iconLeft="chevron-left" text href="/">

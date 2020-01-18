@@ -8,18 +8,21 @@ type ContainerProps = {
 type ColumnsProps = ContainerProps & {
   centred?: boolean;
   vcentred?: boolean;
+  gapless?: boolean;
 };
 
 export const Columns: React.FC<ColumnsProps> = ({
   children,
   centred,
-  vcentred
+  vcentred,
+  gapless
 }) => (
   <div
     className={css({
       columns: true,
       "is-centered": centred,
-      "is-vcentered": vcentred
+      "is-vcentered": vcentred,
+      "is-gapless": gapless
     })}
   >
     {children}
