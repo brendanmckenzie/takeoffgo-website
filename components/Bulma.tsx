@@ -59,6 +59,10 @@ type SectionProps = ContainerProps & {
   container?: boolean;
 };
 
+export const Container: React.FC<ContainerProps> = ({ children }) => (
+  <div className={css({ container: true })}>{children}</div>
+);
+
 export const Section: React.FC<SectionProps> = ({ children, container }) => (
   <section className={css({ section: true, container })}>{children}</section>
 );

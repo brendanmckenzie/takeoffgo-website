@@ -79,8 +79,8 @@ const Quote: React.FC<QuoteProps> = ({ model, viewType }) => {
         <Meta model={mapModelToMeta(model)} router={router} />
       </Head>
       <a id="top" />
+      <Header />
       <section className="section container">
-        <Header />
         {model.hero && <Hero data={model} />}
       </section>
 

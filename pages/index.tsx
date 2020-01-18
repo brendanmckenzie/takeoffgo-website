@@ -36,9 +36,9 @@ const Home: React.FC = () => {
         />
       </Head>
       <>
-        <Section container>
-          <Header />
+        <Header />
 
+        <Section container>
           <Columns vcentred>
             <Column>
               <h2 className="title is-2">The extraordinary experience</h2>

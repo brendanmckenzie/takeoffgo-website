@@ -23,9 +23,9 @@ const Home: React.FC = () => {
         <Meta router={router} />
       </Head>
       <>
-        <Section container>
-          <Header showHomeButton />
+        <Header showHomeButton />
 
+        <Section container>
           <Columns>
             <Column width={4}>
               <h1 className="title is-1">About us</h1>

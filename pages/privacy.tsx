@@ -15,9 +15,9 @@ const Privacy: React.FC = () => {
         <Meta router={router} />
       </Head>
       <>
-        <Section container>
-          <Header showHomeButton />
+        <Header showHomeButton />
 
+        <Section container>
           <h2 className="title is-2">Privacy policy</h2>
           <BrandLine />
           <Content>

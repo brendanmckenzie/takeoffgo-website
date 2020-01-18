@@ -23,9 +23,9 @@ const GorillaTrekking: React.FC = () => {
         <Meta router={router} />
       </Head>
       <>
-        <Section container>
-          <Header showHomeButton />
+        <Header showHomeButton />
 
+        <Section container>
           <Columns>
             <Column>
               <h2 className="title is-2">Gorilla trekking</h2>

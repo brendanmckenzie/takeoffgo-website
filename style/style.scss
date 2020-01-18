@@ -199,3 +199,15 @@ code.is-flight-number {
     font-size: $size-5;
   }
 }
+
+header {
+  position: sticky;
+  top: 0;
+  padding-top: $gap;
+  z-index: 100;
+  background-color: white;
+
+  .container {
+    padding: 0 1.5rem;
+  }
+}

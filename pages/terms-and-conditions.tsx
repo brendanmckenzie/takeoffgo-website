@@ -15,9 +15,9 @@ const Terms: React.FC = () => {
         <Meta router={router} />
       </Head>
       <>
-        <Section container>
-          <Header showHomeButton />
+        <Header showHomeButton />
 
+        <Section container>
           <h2 className="title is-2">Terms and conditions</h2>
           <BrandLine />
           <Content>
