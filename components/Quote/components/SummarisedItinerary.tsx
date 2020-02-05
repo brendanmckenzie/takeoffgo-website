@@ -12,9 +12,9 @@ const SummarisedItinerary = ({ data }: any) => (
     <table className="table is-striped is-hoverable is-bordered is-fullwidth">
       <thead>
         <tr>
-          <th>Day</th>
+          <th style={{ width: 220 }}>Day</th>
           <th>Activities</th>
-          <th>Accommodation</th>
+          <th style={{ width: 320 }}>Accommodation</th>
         </tr>
       </thead>
       <tbody>
