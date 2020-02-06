@@ -15,7 +15,7 @@ import Finances from "./components/Finances";
 import Hero from "./components/Hero";
 import Map from "./components/Map";
 import SummarisedItinerary from "./components/SummarisedItinerary";
-import Summary from "./components/Summary";
+// import Summary from "./components/Summary";
 import Terms from "./components/Terms";
 import Header from "../Header";
 import Footer from "../Footer";
