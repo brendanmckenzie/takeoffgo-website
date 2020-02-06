@@ -111,7 +111,7 @@ const Quote: React.FC<QuoteProps> = ({ model, viewType }) => {
           </section>
         )}
 
-      <Summary data={model} />
+      {/* <Summary data={model} /> */}
       <SummarisedItinerary data={model} />
       <DetailedItinerary data={model} />
       <Map data={model} />
