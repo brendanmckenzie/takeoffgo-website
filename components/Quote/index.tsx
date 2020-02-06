@@ -14,7 +14,7 @@ import DetailedItinerary from "./components/DetailedItinerary";
 import Finances from "./components/Finances";
 import Hero from "./components/Hero";
 import Map from "./components/Map";
-// import SummarisedItinerary from "./components/SummarisedItinerary";
+import SummarisedItinerary from "./components/SummarisedItinerary";
 import Summary from "./components/Summary";
 import Terms from "./components/Terms";
 import Header from "../Header";
@@ -112,7 +112,7 @@ const Quote: React.FC<QuoteProps> = ({ model, viewType }) => {
         )}
 
       <Summary data={model} />
-      {/* <SummarisedItinerary data={model} /> */}
+      <SummarisedItinerary data={model} />
       <DetailedItinerary data={model} />
       <Map data={model} />
       <Accommodation data={model} />

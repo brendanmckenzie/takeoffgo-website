@@ -12,9 +12,9 @@ const Hero = ({ data }: any) => (
           <li>
             <a href="#summary">Summary</a>
           </li>
-          {/* <li className="is-hidden-mobile">
+          <li className="is-hidden-mobile">
             <a href="#summarised-itinerary">Summarised itinerary</a>
-          </li> */}
+          </li>
           <li className="is-hidden-mobile">
             <a href="#detailed-itinerary">Detailed itinerary</a>
           </li>
