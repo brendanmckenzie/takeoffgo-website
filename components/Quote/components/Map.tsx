@@ -1,13 +1,5 @@
 import React from "react";
-
-import {
-  withGoogleMap,
-  withScriptjs,
-  GoogleMap,
-  Marker,
-  InfoWindow
-} from "react-google-maps";
-import Markdown from "react-markdown";
+import GoogleMapReact from "google-map-react";
 
 const googleApiKey = "AIzaSyBDdBQ9QsHxhCJ174wAPDxV0K9t-apBaQo";
 
@@ -34,7 +26,8 @@ const extractPoints = (data: any) =>
       lat: prop.latitude,
       lng: prop.longitude,
       title: prop.name,
-      body: prop.overview
+      body: prop.overview,
+      icon: "hotel"
     }))
     .concat(
       data.airports.map((ap: any) => ({
@@ -43,59 +36,24 @@ const extractPoints = (data: any) =>
         lat: ap.latitude,
         lng: ap.longitude,
         title: `Airport - ${ap.iata || ap.icao}`,
-        body: [ap.city, ap.country].join(", ")
+        body: [ap.city, ap.country].join(", "),
+        icon: "plane-departure"
       }))
     );
 
-class MapComponent extends React.Component<any> {
-  state: any = { visible: null };
-
-  handleToggle = (id: string | null) => () => {
-    this.setState((prevState: any) => ({
-      visible: prevState.visible === id ? null : id
-    }));
-  };
-
-  render() {
-    const { points, centre } = this.props;
-
-    return (
-      <GoogleMap
-        defaultZoom={6}
-        defaultCenter={centre}
-        onClick={this.handleToggle(null)}
-      >
-        {points.map((ent: any) => (
-          <Marker
-            key={ent.id}
-            position={{ lat: ent.lat, lng: ent.lng }}
-            onClick={ent.body && ent.title && this.handleToggle(ent.id)}
-          >
-            {this.state.visible === ent.id && (
-              <InfoWindow
-                onCloseClick={this.handleToggle(ent.id)}
-                options={{ maxWidth: 200 }}
-              >
-                <React.Fragment>
-                  {ent.title && (
-                    <strong className="heading">{ent.title}</strong>
-                  )}
-                  {ent.body && (
-                    <Markdown className="content" source={ent.body} />
-                  )}
-                </React.Fragment>
-              </InfoWindow>
-            )}
-          </Marker>
-        ))}
-      </GoogleMap>
-    );
-  }
-}
-
-const WithGoogleMap = withGoogleMap(MapComponent);
-const WithScriptJs = withScriptjs(WithGoogleMap);
-const ConnectedMapComponent = WithScriptJs;
+const Marker = (props: any) => {
+  return (
+    <div className="map-icon">
+      <span className="icon has-text-link">
+        <i
+          className={`fad fa-lg fa-${props.icon}`}
+          title={props.title}
+          {...props}
+        ></i>
+      </span>
+    </div>
+  );
+};
 
 const Map = ({ data }: any) => {
   const points = extractPoints(data);
@@ -104,24 +62,25 @@ const Map = ({ data }: any) => {
     return null;
   }
 
+  const centre = extractCentre(points);
+
+  if (!centre) {
+    return null;
+  }
+
   return (
     <section className="is-page-break">
-      <ConnectedMapComponent
-        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&v=3.exp&libraries=geometry,drawing,places`}
-        loadingElement={
-          <div style={{ height: `100%` }}>
-            <div className="has-text-centered">
-              <hr />
-              <strong>LOADING (MAP)</strong>
-              <hr />
-            </div>
-          </div>
-        }
-        containerElement={<div style={{ height: `80vh` }} />}
-        mapElement={<div style={{ height: `100%` }} />}
-        centre={extractCentre(points)}
-        points={points}
-      />
+      <div style={{ height: "80vh" }}>
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: googleApiKey }}
+          defaultCenter={centre}
+          defaultZoom={6}
+        >
+          {points.map((pt: any) => (
+            <Marker key={pt.id} {...pt} />
+          ))}
+        </GoogleMapReact>
+      </div>
     </section>
   );
 };
