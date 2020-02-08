@@ -201,7 +201,6 @@ code.is-flight-number {
 }
 
 header {
-  position: sticky;
   top: 0;
   z-index: 100;
   background-color: white;
@@ -209,5 +208,28 @@ header {
 
   .container {
     padding: 0 1.5rem;
+  }
+
+  &.is-stuck {
+    svg.logo {
+      height: 30px;
+      margin-bottom: -20px;
+    }
+
+    padding: 0;
+
+    .container {
+      padding: 0 0.5rem;
+    }
+  }
+}
+
+.is-sticky {
+  position: sticky;
+
+  &.is-stuck {
+    .hidden-stuck {
+      display: none;
+    }
   }
 }

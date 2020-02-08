@@ -1,7 +1,7 @@
 import { css } from "../lib/util";
 
 type ContainerProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 };
 
@@ -116,4 +116,22 @@ export const LinkButton: React.FC<ButtonProps> = ({
       </span>
     )}
   </a>
+);
+
+export const Box: React.FC<ContainerProps> = ({ children }) => (
+  <div className="box">{children}</div>
+);
+
+export const Message: React.FC<ContainerProps> = ({ children, className }) => (
+  <div className={css({ message: true, [className as string]: className })}>
+    {children}
+  </div>
+);
+
+export const MessageHeader: React.FC<ContainerProps> = ({ children }) => (
+  <div className="message-header">{children}</div>
+);
+
+export const MessageBody: React.FC<ContainerProps> = ({ children }) => (
+  <div className="message-body">{children}</div>
 );

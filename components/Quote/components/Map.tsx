@@ -69,7 +69,7 @@ class MapComponent extends React.Component<any> {
           <Marker
             key={ent.id}
             position={{ lat: ent.lat, lng: ent.lng }}
-            onClick={this.handleToggle(ent.id)}
+            onClick={ent.body && ent.title && this.handleToggle(ent.id)}
           >
             {this.state.visible === ent.id && (
               <InfoWindow
@@ -105,7 +105,7 @@ const Map = ({ data }: any) => {
   }
 
   return (
-    <section className="section container is-page-break">
+    <section className="is-page-break">
       <ConnectedMapComponent
         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&v=3.exp&libraries=geometry,drawing,places`}
         loadingElement={
