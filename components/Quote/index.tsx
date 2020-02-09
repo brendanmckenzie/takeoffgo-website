@@ -20,6 +20,7 @@ import Terms from "./components/Terms";
 import Header from "../Header";
 import Footer from "../Footer";
 import Meta from "../Meta";
+import Image from "../Image";
 
 const mapModelToMeta = (model: any) => {
   const fromHero = () => {
@@ -68,6 +69,16 @@ const Quote: React.FC<QuoteProps> = ({ model, viewType }) => {
     }
   }, []);
 
+  const Logo = () => {
+    return (
+      <Image
+        src={model.agency.logo}
+        alt={model.agency.name}
+        style={{ height: 60 }}
+      />
+    );
+  };
+
   return (
     <>
       <Head>
@@ -79,7 +90,7 @@ const Quote: React.FC<QuoteProps> = ({ model, viewType }) => {
         <Meta model={mapModelToMeta(model)} router={router} />
       </Head>
       <a id="top" />
-      <Header />
+      <Header overrideLogo={model.agency ? Logo : undefined} />
       <section className="section container">
         {model.hero && <Hero data={model} />}
       </section>

@@ -5,9 +5,10 @@ import cx from "classnames";
 
 type HeaderProps = {
   showHomeButton?: boolean;
+  overrideLogo?: () => JSX.Element;
 };
 
-const Header: React.FC<HeaderProps> = ({ showHomeButton }) => {
+const Header: React.FC<HeaderProps> = ({ showHomeButton, overrideLogo }) => {
   const [stuck, setStuck] = React.useState(false);
   React.useEffect(() => {
     const handler = () => {
@@ -33,10 +34,18 @@ const Header: React.FC<HeaderProps> = ({ showHomeButton }) => {
             )}
           </Column>
           <Column narrow className="has-text-right">
-            <a href="/">
-              <Logo />
-            </a>
-            <p className="heading hidden-stuck">Experience the extraordinary</p>
+            {overrideLogo ? (
+              overrideLogo()
+            ) : (
+              <>
+                <a href="/">
+                  <Logo />
+                </a>
+                <p className="heading hidden-stuck">
+                  Experience the extraordinary
+                </p>
+              </>
+            )}
           </Column>
         </Columns>
         <hr />
