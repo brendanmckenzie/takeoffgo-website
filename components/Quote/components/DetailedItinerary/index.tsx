@@ -154,30 +154,28 @@ const DetailedItinerary = ({ data }: any) => {
                     source={day.activities.detail}
                   />
                   {property && (
-                    <div className="level">
-                      <div className="level-left">
-                        <strong className="level-item">Accommodation</strong>
+                      <div className="columns is-gapless">
+                        <strong className="column is-narrow">Accommodation</strong>
                         <a
-                          className="level-item"
+                          className="column is-narrow"
                           href={`#property-${property.id}`}
                         >
                           {property.name}
                         </a>
                         {accom.room && (
-                          <span className="level-item">{accom.room}</span>
+                          <span className="column is-narrow">{accom.room}</span>
                         )}
                         {accom.inclusions.food.length > 0 && (
-                          <span className="level-item is-hidden-print">
+                          <span className="column is-narrow is-hidden-print">
                             {toSentence(accom.inclusions.food)} included
                           </span>
                         )}
                         {accom.inclusions.beverage.length > 0 && (
-                          <span className="level-item is-hidden-print">
+                          <span className="column is-narrow is-hidden-print">
                             {toSentence(accom.inclusions.beverage)} beverages
                           </span>
                         )}
                       </div>
-                    </div>
                   )}
                 </div>
                 {/* <div className="column is-2">pictures here</div> */}
