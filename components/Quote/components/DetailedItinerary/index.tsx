@@ -154,7 +154,7 @@ const DetailedItinerary = ({ data }: any) => {
                     source={day.activities.detail}
                   />
                   {property && (
-                      <div className="columns is-gapless">
+                      <div className="columns is-multiline">
                         <strong className="column is-narrow">Accommodation</strong>
                         <a
                           className="column is-narrow"
