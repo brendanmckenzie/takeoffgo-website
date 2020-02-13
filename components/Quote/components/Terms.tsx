@@ -33,11 +33,7 @@ const Terms = ({ data }: any) => (
             )}
             <li>
               The price listed here is total for{" "}
-              {`${data.groupSize} ${pluralize(
-                "traveller",
-                data.groupSize,
-                true
-              )} `}
+              {pluralize("traveller", data.groupSize, true)}{" "}
               based on {data.groupSize === 1 ? "single" : "double"} room
               occupancy (
               {numeral(data.total / data.groupSize).format("$0,0.00")}{" "}
