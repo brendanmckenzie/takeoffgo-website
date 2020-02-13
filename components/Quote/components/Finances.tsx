@@ -21,16 +21,20 @@ const Finances = ({ data }: any) => (
           <p className="heading">Total</p>
           <p className="title">{numeral(data.total).format("$0,0.00")}</p>
         </div>
-        <div className="column is-narrow">
-          <p className="heading">Group size</p>
-          <p className="title">{data.groupSize}</p>
-        </div>
-        <div className="column is-narrow">
-          <p className="heading">Per person</p>
-          <p className="title">
-            {numeral(data.total / data.groupSize).format("$0,0.00")}
-          </p>
-        </div>
+        {data.groupSize <= 1 ? null : (
+          <>
+            <div className="column is-narrow">
+              <p className="heading">Group size</p>
+              <p className="title">{data.groupSize}</p>
+            </div>
+            <div className="column is-narrow">
+              <p className="heading">Per person</p>
+              <p className="title">
+                {numeral(data.total / data.groupSize).format("$0,0.00")}
+              </p>
+            </div>
+          </>
+        )}
         {data.agency ? null : data.nextPayment ? (
           <React.Fragment>
             <div className="column is-narrow">
