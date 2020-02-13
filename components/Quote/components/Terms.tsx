@@ -32,7 +32,8 @@ const Terms = ({ data }: any) => (
             )}
             <li>
               The price listed here is total for {data.groupSize} travellers
-              based on double room occupancy (
+              based on {data.groupSize === 1 ? "single" : "double"} room
+              occupancy (
               {numeral(data.total / data.groupSize).format("$0,0.00")}{" "}
               {data.currency} per person).
             </li>
