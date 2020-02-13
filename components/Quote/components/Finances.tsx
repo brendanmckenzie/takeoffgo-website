@@ -31,7 +31,7 @@ const Finances = ({ data }: any) => (
             {numeral(data.total / data.groupSize).format("$0,0.00")}
           </p>
         </div>
-        {data.nextPayment ? (
+        {data.agency ? null : data.nextPayment ? (
           <React.Fragment>
             <div className="column">
               <p className="heading">{data.nextPayment.type}</p>
