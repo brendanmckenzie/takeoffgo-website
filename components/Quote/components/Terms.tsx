@@ -3,6 +3,7 @@ import Markdown from "react-markdown";
 import moment from "moment";
 import numeral from "numeral";
 import SectionHeader from "./SectionHeader";
+import pluralize from "pluralize";
 
 const Terms = ({ data }: any) => (
   <section id="terms" className="section container">
@@ -31,7 +32,12 @@ const Terms = ({ data }: any) => (
               </li>
             )}
             <li>
-              The price listed here is total for {data.groupSize} travellers
+              The price listed here is total for{" "}
+              {`${data.groupSize} ${pluralize(
+                "traveller",
+                data.groupSize,
+                true
+              )}`}
               based on {data.groupSize === 1 ? "single" : "double"} room
               occupancy (
               {numeral(data.total / data.groupSize).format("$0,0.00")}{" "}
