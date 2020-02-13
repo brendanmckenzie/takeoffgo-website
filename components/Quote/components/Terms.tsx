@@ -37,7 +37,7 @@ const Terms = ({ data }: any) => (
                 "traveller",
                 data.groupSize,
                 true
-              )}`}
+              )} `}
               based on {data.groupSize === 1 ? "single" : "double"} room
               occupancy (
               {numeral(data.total / data.groupSize).format("$0,0.00")}{" "}
