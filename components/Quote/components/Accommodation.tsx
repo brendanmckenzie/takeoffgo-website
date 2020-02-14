@@ -22,7 +22,7 @@ const Accommodation = ({ data }: any) => (
                 </figure>
               </div>
               <div className="card-content">
-                <strong>{property.name}</strong>
+                <strong><a href={`/travel/properties/${property.id}`}>{property.name}</a></strong>
                 <Markdown className="content" source={property.overview} />
               </div>
             </div>
