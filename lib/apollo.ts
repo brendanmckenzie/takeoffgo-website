@@ -3,7 +3,7 @@ import { HttpLink } from "apollo-boost";
 
 const config = {
   link: new HttpLink({
-    uri: "https://jambo-api.takeoffgo.com/graphql"
+    uri: "https://api2.takeoffgo.com/jambo/graphql"
   })
 };
 
