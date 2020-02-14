@@ -8,20 +8,88 @@ import {
   Columns,
   Column,
   BrandLine,
-  Content
+  Content,
+  Message,
+  MessageHeader,
+  MessageBody
 } from "../../../components/Bulma";
 import Image from "../../../components/Image";
 import Map from "../../../components/Quote/components/Map";
 import Footer from "../../../components/Footer";
+import withData from "../../../lib/apollo";
+import { useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
+import ReactMarkdown from "react-markdown";
+
+const query = gql`
+  query($id: UUID!) {
+    property(id: $id) {
+      id
+      name
+      city
+      summary
+      nearestAirport
+      country {
+        id
+        name
+      }
+      latitude
+      longitude
+      heroMedia {
+        id
+        hash
+      }
+      gallery {
+        id
+        mediaGalleryItems {
+          nodes {
+            id
+            mediaItem {
+              hash
+              name
+            }
+          }
+        }
+        mediaGalleriesByParentId {
+          nodes {
+            id
+            name
+            mediaGalleryItems {
+              nodes {
+                id
+                mediaItem {
+                  name
+                  hash
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 const Property: React.FC = () => {
   const router = useRouter();
+
   const [image, setImage] = useState<string | null>(null);
+
+  const data = useQuery(query, { variables: { id: router.query.key } });
+
+  if (data.loading) {
+    return (
+      <Message>
+        <MessageHeader>Loading...</MessageHeader>
+        <MessageBody>Content loading...</MessageBody>
+      </Message>
+    );
+  }
 
   return (
     <>
       <Head>
-        <title>Gunn's Camp - Properties - Take Off Go</title>
+        <title>{data.data.property.name} - Properties - Take Off Go</title>
         <Meta router={router} />
       </Head>
       <>
@@ -30,25 +98,24 @@ const Property: React.FC = () => {
         <Section container>
           <Columns>
             <Column>
-              <h2 className="title is-2">Gunn's Camp</h2>
+              <h2 className="title is-2">{data.data.property.name}</h2>
               <BrandLine />
               <Content>
-                <p>
-                  Gunn's Camp is on the edge of the Moremi Game Reserve in the
-                  Okavango Delta’s wilderness, overlooking floodplains brimming
-                  with wildlife. Leafy palms and ancient ebony trees merge to
-                  create an authentic African feel – with a touch of the
-                  tropics.
-                </p>
+                <ReactMarkdown
+                  className="content"
+                  source={data.data.property.summary}
+                />
               </Content>
             </Column>
             <Column>
-              <div className="image is-cover">
-                <Image
-                  src="1bdeef7f74e5ef6d2eaf112acd80a7fa"
-                  alt="Gunn's camp"
-                />
-              </div>
+              {data.data.property.heroMedia && (
+                <div className="image is-cover">
+                  <Image
+                    src={data.data.property.heroMedia.hash}
+                    alt={data.data.property.name}
+                  />
+                </div>
+              )}
             </Column>
           </Columns>
         </Section>
@@ -56,90 +123,88 @@ const Property: React.FC = () => {
           <Columns>
             <Column narrow>
               <h3 className="heading">Country</h3>
-              <h4 className="title">Botswana</h4>
+              <h4 className="title">{data.data.property.country.name}</h4>
             </Column>
             <Column narrow>
               <h3 className="heading">Nearest airport</h3>
-              <h4 className="title">Gaborone</h4>
-            </Column>
-            <Column narrow>
-              <h3 className="heading">Highlights</h3>
-              <h4 className="title">Game viewing</h4>
-            </Column>
-            <Column narrow>
-              <h3 className="heading">Timezone</h3>
-              <h4 className="title">UTC+0100</h4>
+              <h4 className="title">{data.data.property.nearestAirport}</h4>
             </Column>
             <Column />
           </Columns>
         </Section>
 
         <Section container>
-          <Columns>
-            <Column>
-              <div className="image">
-                <Image
-                  src="6bb9fd86118276067345c06bbba0bb40"
-                  alt="Gunn's camp"
-                  onClick={() =>
-                    setImage(
-                      image === "6bb9fd86118276067345c06bbba0bb40"
-                        ? null
-                        : "6bb9fd86118276067345c06bbba0bb40"
-                    )
-                  }
-                />
-              </div>
-            </Column>
-            <Column>
-              <div className="image">
-                <Image
-                  src="b95979dbd54cca6e3b2ccb57b6bb8059"
-                  alt="Gunn's camp"
-                  onClick={() =>
-                    setImage(
-                      image === "b95979dbd54cca6e3b2ccb57b6bb8059"
-                        ? null
-                        : "b95979dbd54cca6e3b2ccb57b6bb8059"
-                    )
-                  }
-                />
-              </div>
-            </Column>
-            <Column>
-              <div className="image">
-                <Image
-                  src="a4a87ba3c61eff3991be9a1776fb4091"
-                  alt="Gunn's camp"
-                  onClick={() =>
-                    setImage(
-                      image === "a4a87ba3c61eff3991be9a1776fb4091"
-                        ? null
-                        : "a4a87ba3c61eff3991be9a1776fb4091"
-                    )
-                  }
-                />
-              </div>
-            </Column>
+          <Columns multiline>
+            {data.data.property.gallery.mediaGalleryItems.nodes.map(
+              (ent: any) => (
+                <Column key={ent.id} width={4}>
+                  <div className="image">
+                    <Image
+                      src={ent.mediaItem.hash}
+                      alt={ent.mediaItem.name}
+                      onClick={() =>
+                        setImage(
+                          image === ent.mediaItem.hash
+                            ? null
+                            : ent.mediaItem.hash
+                        )
+                      }
+                    />
+                  </div>
+                </Column>
+              )
+            )}
           </Columns>
+          {data.data.property.gallery.mediaGalleriesByParentId.nodes.map(
+            (ent: any) => (
+              <React.Fragment key={ent.id}>
+                <p className="heading">{ent.name}</p>
+                <Columns multiline>
+                  {ent.mediaGalleryItems.nodes.map((ent: any) => (
+                    <Column key={ent.id} width={4}>
+                      <div className="image">
+                        <Image
+                          src={ent.mediaItem.hash}
+                          alt={ent.mediaItem.name}
+                          onClick={() =>
+                            setImage(
+                              image === ent.mediaItem.hash
+                                ? null
+                                : ent.mediaItem.hash
+                            )
+                          }
+                        />
+                      </div>
+                    </Column>
+                  ))}
+                </Columns>
+              </React.Fragment>
+            )
+          )}
           {image && (
             <div className="image is-cover">
               <Image src={image} />
             </div>
           )}
         </Section>
-        <Map
-          data={{
-            properties: [
-              { latitude: -19.9779816, longitude: 23.4248677, id: "asdf" }
-            ],
-            airports: []
-          }}
-        />
+        {data.data.property.latitude && data.data.property.longitude && (
+          <Map
+            data={{
+              properties: [
+                {
+                  latitude: data.data.property.latitude,
+                  longitude: data.data.property.longitude,
+                  id: data.data.property.id
+                }
+              ],
+              airports: []
+            }}
+          />
+        )}
         <Footer />
       </>
     </>
   );
 };
 
-export default Property;
+export default withData(Property);

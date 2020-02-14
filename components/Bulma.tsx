@@ -8,6 +8,7 @@ type ContainerProps = {
 type ColumnsProps = ContainerProps & {
   centred?: boolean;
   vcentred?: boolean;
+  multiline?: boolean;
   gapless?: boolean;
 };
 
@@ -15,6 +16,7 @@ export const Columns: React.FC<ColumnsProps> = ({
   children,
   centred,
   vcentred,
+  multiline,
   gapless
 }) => (
   <div
@@ -22,7 +24,8 @@ export const Columns: React.FC<ColumnsProps> = ({
       columns: true,
       "is-centered": centred,
       "is-vcentered": vcentred,
-      "is-gapless": gapless
+      "is-gapless": gapless,
+      "is-multiline": multiline
     })}
   >
     {children}
