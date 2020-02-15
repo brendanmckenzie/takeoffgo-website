@@ -1,17 +1,16 @@
 import React from "react";
+import { Columns, Column } from "../../Bulma";
 
 const SectionHeader = ({ title, subtitle }: any) => (
-  <div className="level">
-    <div className="level-left">
-      <h2 className="title is-4 level-item">{title}</h2>
-      {subtitle && <h4 className="subtitle is-6 level-item">{subtitle}</h4>}
-    </div>
-    <div className="level-right is-hidden-print">
-      <a className="level-item" href="#top">
-        Back to top
-      </a>
-    </div>
-  </div>
+  <Columns>
+    <Column>
+      <h2 className="title is-3 section-header">{title}</h2>
+      {subtitle && <h4 className="subtitle is-6">{subtitle}</h4>}
+    </Column>
+    <Column className="is-hidden-print" narrow>
+      <a href="#top">Back to top</a>
+    </Column>
+  </Columns>
 );
 
 export default SectionHeader;

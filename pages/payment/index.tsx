@@ -1,43 +1,22 @@
 import { useRouter } from "next/router";
-import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
 import Payment from "../../components/Payment";
 import Head from "next/head";
 import Meta from "../../components/Meta";
-import { PublicInvoice } from "../../lib/models/types";
-
-import { ApolloProvider } from "@apollo/react-hooks";
-import withApolloClient from "../../lib/with-apollo-client";
 import Header from "../../components/Header";
 import { Section } from "../../components/Bulma";
+import withData from "../../lib/apollo";
+import {
+  useGetInvoiceQuery,
+  GetInvoiceQueryResult,
+  InvoicePublic
+} from "../../lib/graphql";
 
-export const PAYMENT_QUERY = gql`
-  query invoice($id: ID!) {
-    invoice(id: $id) {
-      amountDue
-      amountPaid
-      currency
-      due
-      id
-      invoiced
-      items {
-        id
-        description
-        amount
-        quantity
-        total
-        currency
-      }
-      number
-      paid
-      paymentUrl
-      subtitle
-      total
-    }
-  }
-`;
-
-const PaymentContent: React.FC<any> = ({ loading, error, data, amount }) => {
+const PaymentContent: React.FC<GetInvoiceQueryResult & { amount?: number }> = ({
+  loading,
+  error,
+  data,
+  amount
+}) => {
   if (loading) {
     return (
       <div className="message">
@@ -63,22 +42,18 @@ const PaymentContent: React.FC<any> = ({ loading, error, data, amount }) => {
   return (
     <Payment
       model={{
-        invoice: data.invoice,
+        invoice: data?.invoice as InvoicePublic,
         amount
       }}
     />
   );
 };
 
-type InvoiceQuery = {
-  invoice: PublicInvoice;
-};
-
 const PaymentPage: React.FC = () => {
   const router = useRouter();
   const { id, amount } = router.query;
 
-  const query = useQuery<InvoiceQuery>(PAYMENT_QUERY, {
+  const query = useGetInvoiceQuery({
     variables: { id }
   });
 
@@ -100,10 +75,4 @@ const PaymentPage: React.FC = () => {
   );
 };
 
-const PaymentPageWrapped: React.FC = ({ apolloClient }: any) => (
-  <ApolloProvider client={apolloClient}>
-    <PaymentPage />
-  </ApolloProvider>
-);
-
-export default withApolloClient(PaymentPageWrapped);
+export default withData(PaymentPage);

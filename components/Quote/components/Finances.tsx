@@ -1,76 +1,43 @@
 import React from "react";
 import numeral from "numeral";
-import moment from "moment";
 import SectionHeader from "./SectionHeader";
+import { GetQuoteQuery } from "../../../lib/graphql";
 
-const Finances = ({ data }: any) => (
+const Finances = ({ data }: { data: GetQuoteQuery }) => (
   <section id="finance" className="container section">
     <SectionHeader
       title="Finances"
-      subtitle={`all prices listed in ${data.currency}`}
+      subtitle={`all prices listed in ${data.quote?.baseCurrency}`}
     />
-    {data.status === "Expired" && (
+    {data.quote?.status === 2 && (
       <p>
         This quotation has expired. Please contact your travel consultant for an
         update.
       </p>
     )}
-    {data.status !== "Expired" && (
+    {data.quote?.status !== 2 && (
       <div className="columns">
         <div className="column is-narrow">
           <p className="heading">Total</p>
-          <p className="title">{numeral(data.total).format("$0,0.00")}</p>
+          <p className="title">
+            {numeral(data.quote?.total).format("$0,0.00")}
+          </p>
         </div>
-        {data.groupSize <= 1 ? null : (
+        {(data.quote?.travellerCount ?? 1) <= 1 ? null : (
           <>
             <div className="column is-narrow">
               <p className="heading">Group size</p>
-              <p className="title">{data.groupSize}</p>
+              <p className="title">{data.quote?.travellerCount}</p>
             </div>
             <div className="column is-narrow">
               <p className="heading">Per person</p>
               <p className="title">
-                {numeral(data.total / data.groupSize).format("$0,0.00")}
+                {numeral(
+                  data.quote?.total / (data.quote?.travellerCount ?? 1)
+                ).format("$0,0.00")}
               </p>
             </div>
           </>
-        )}
-        {data.agency ? null : data.nextPayment ? (
-          <React.Fragment>
-            <div className="column is-narrow">
-              <p className="heading">{data.nextPayment.type}</p>
-              <p className="title">
-                {numeral(data.nextPayment.amount).format("$0,0.00")}
-              </p>
-              <p className="subtitle">
-                due {moment(data.nextPayment.due).format("MMMM D, YYYY")}
-              </p>
-              {data.nextPayment.url && (
-                <p>
-                  <a
-                    className="button is-link"
-                    target="_blank"
-                    href={data.nextPayment.url}
-                  >
-                    Pay here
-                  </a>
-                </p>
-              )}
-            </div>
-            {data.totalOutstanding > data.nextPayment.amount && (
-              <div className="column is-narrow">
-                <p className="heading">Currently Outstanding</p>
-                <p className="title">
-                  {numeral(data.totalOutstanding).format("$0,0.00")}
-                </p>
-              </div>
-            )}
-          </React.Fragment>
-        ) : (
-          <div className="column is-narrow">
-            <p className="heading">Next payment</p>
-            <p className="title">All paid!</p>
-          </div>
         )}
       </div>
     )}

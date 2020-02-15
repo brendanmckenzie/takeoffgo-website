@@ -13,7 +13,7 @@ import ContactInformation from "./components/ContactInformation";
 import DetailedItinerary from "./components/DetailedItinerary";
 import Finances from "./components/Finances";
 import Hero from "./components/Hero";
-import Map from "./components/Map";
+import Map, { extractPoints } from "./components/Map";
 import SummarisedItinerary from "./components/SummarisedItinerary";
 import Summary from "./components/Summary";
 import Terms from "./components/Terms";
@@ -21,6 +21,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import Meta from "../Meta";
 import Image from "../Image";
+import { GetQuoteQuery } from "../../lib/graphql";
 
 const mapModelToMeta = (model: any) => {
   const fromHero = () => {
@@ -43,11 +44,11 @@ const mapModelToMeta = (model: any) => {
 };
 
 type QuoteProps = {
-  model: any;
+  model: GetQuoteQuery;
   viewType: string;
 };
 
-const Quote: React.FC<QuoteProps> = ({ model, viewType }) => {
+const QuoteComp: React.FC<QuoteProps> = ({ model, viewType }) => {
   const router = useRouter();
 
   useEffect(() => {
@@ -72,33 +73,36 @@ const Quote: React.FC<QuoteProps> = ({ model, viewType }) => {
   const Logo = () => {
     return (
       <Image
-        src={model.agency.logo}
-        alt={model.agency.name}
+        src={model.quote?.trip?.agency?.logo?.hash || ""}
+        alt={model.quote?.trip?.agency?.name || ""}
         style={{ height: 60 }}
       />
     );
   };
 
+  const points = extractPoints(model);
+
   return (
     <>
       <Head>
         <title>
-          {model.hero ? model.hero.title : "Quote"} - Take Off Go - Experience
-          the Extraordinary
+          {model.quote?.hero ? model.quote.hero.title : "Quote"} - Take Off Go -
+          Experience the Extraordinary
         </title>
 
         <Meta model={mapModelToMeta(model)} router={router} />
       </Head>
       <a id="top" />
-      <Header overrideLogo={model.agency ? Logo : undefined} />
+      <Header overrideLogo={model.quote?.trip?.agency ? Logo : undefined} />
       <section className="section container">
-        {model.hero && <Hero data={model} />}
+        {model.quote?.hero && <Hero data={model} />}
       </section>
 
-      {(!model.locked || (model.total > 0 && model.status === "Confirmed")) &&
-        moment(model.start).isAfter(moment()) && (
+      {(!model.quote?.locked ||
+        (model.quote?.total > 0 && model.quote?.status === 1)) &&
+        moment(model.quote?.start || "").isAfter(moment()) && (
           <section className="section container">
-            {!model.locked && (
+            {!model.quote?.locked && (
               <div className="message is-warning">
                 <div className="message-header">Work in progress</div>
                 <div className="message-body">
@@ -108,7 +112,7 @@ const Quote: React.FC<QuoteProps> = ({ model, viewType }) => {
                 </div>
               </div>
             )}
-            {model.total > 0 && model.status === "Confirmed" && (
+            {model.quote?.total > 0 && model.quote?.status === 1 && (
               <div className="message is-success">
                 <div className="message-header">Confirmed</div>
                 <div className="message-body">
@@ -125,10 +129,10 @@ const Quote: React.FC<QuoteProps> = ({ model, viewType }) => {
       <Summary data={model} />
       <SummarisedItinerary data={model} />
       <DetailedItinerary data={model} />
-      <Map data={model} />
+      <Map points={points} />
       <Accommodation data={model} />
-      {model.consultant && <ContactInformation data={model} />}
-      {model.total > 0 && (
+      <ContactInformation data={model} />
+      {model.quote?.total > 0 && (
         <>
           <Finances data={model} />
           <Terms data={model} />
@@ -139,4 +143,4 @@ const Quote: React.FC<QuoteProps> = ({ model, viewType }) => {
   );
 };
 
-export default Quote;
+export default QuoteComp;

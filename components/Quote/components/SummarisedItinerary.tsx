@@ -3,8 +3,9 @@ import moment from "moment";
 
 import { dateFormat } from "../global/constants";
 import { toSentence } from "../global/helpers";
+import { GetQuoteQuery } from "../../../lib/graphql";
 
-const SummarisedItinerary = ({ data }: any) => (
+const SummarisedItinerary = ({ data }: { data: GetQuoteQuery }) => (
   <section
     id="summarised-itinerary"
     className="section container is-hidden-mobile is-page-break"
@@ -18,41 +19,45 @@ const SummarisedItinerary = ({ data }: any) => (
         </tr>
       </thead>
       <tbody>
-        {data.days.map((day: any, index: number, array: any[]) => {
+        {data.quote?.days?.nodes.map((day, index, array) => {
           const isFirst = index === 0;
           const prev = isFirst ? null : array[index - 1];
           const newAccom =
-            prev === null || day.accommodation !== prev.accommodation;
+            prev === null || day?.accommodationId !== prev.accommodationId;
 
-          const accom = data.accommodation.find(
-            (a: any) => a.id === day.accommodation
+          const accom = data.quote?.accommodation?.nodes.find(
+            (a: any) => a.id === day?.accommodationId
           );
-          const property = accom
-            ? data.properties.find((p: any) => p.id == accom.property)
-            : null;
-          const destinations = day.destinations.map((id: any) =>
-            data.destinations.find((d: any) => d.id === id)
+          const property = accom?.property;
+          const destinations = day?.quoteDayDestinationsByDayId.nodes.map(
+            ent => ent?.destination
           );
           const accomDayCount = property
             ? array.filter(
                 (v, i, arr) =>
                   i > index && // is after this current day
-                  v.accommodation === day.accommodation && // has the same accommodation
-                  arr[i - 1].accommodation === v.accommodation // has the same accommodation as the previous entry - to avoid clashes if the same accommodation appears twice
+                  v?.accommodationId === day?.accommodationId && // has the same accommodation
+                  arr[i - 1]?.accommodationId === v?.accommodationId // has the same accommodation as the previous entry - to avoid clashes if the same accommodation appears twice
               ).length
             : 0;
 
           return (
-            <tr key={day.index}>
+            <tr key={day?.id}>
               <td>
                 <ul>
                   <li>
                     <strong>
-                      <a href={`#day-${day.index}`}>Day {day.index + 1}</a>
+                      <a href={`#day-${day?.id}`}>
+                        Day {(day?.order ?? 0) + 1}
+                      </a>
                     </strong>
                   </li>
-                  <li>{moment(day.date).format(dateFormat)}</li>
-                  {destinations.length > 0 && (
+                  <li>
+                    {moment(day?.date || "")
+                      .add(day?.order, "day")
+                      .format(dateFormat)}
+                  </li>
+                  {destinations && destinations.length > 0 && (
                     <li>
                       <small>
                         {destinations
@@ -64,9 +69,9 @@ const SummarisedItinerary = ({ data }: any) => (
                 </ul>
               </td>
               <td>
-                {day.activities.summary && (
+                {day?.activitySummary && (
                   <ul>
-                    {day.activities.summary
+                    {day.activitySummary
                       .split("\n")
                       .map((text: string, index: number) => (
                         <li key={index}>{text}</li>
@@ -85,17 +90,21 @@ const SummarisedItinerary = ({ data }: any) => (
                           </a>
                         </li>
                       )}
-                      <li>{accom.room}</li>
-                      {accom.inclusions.food.length > 0 && (
-                        <li className="is-hidden-print">
-                          {toSentence(accom.inclusions.food)} included
-                        </li>
-                      )}
-                      {accom.inclusions.beverage.length > 0 && (
-                        <li className="is-hidden-print">
-                          {toSentence(accom.inclusions.beverage)} beverages
-                        </li>
-                      )}
+                      <li>{accom.roomType}</li>
+                      {accom?.foodInclusions &&
+                        accom.foodInclusions.length > 0 && (
+                          <li className="is-hidden-print">
+                            {toSentence(accom.foodInclusions as string[])}{" "}
+                            included
+                          </li>
+                        )}
+                      {accom?.beverageInclusions &&
+                        accom.beverageInclusions.length > 0 && (
+                          <li className="is-hidden-print">
+                            {toSentence(accom.beverageInclusions as string[])}{" "}
+                            included
+                          </li>
+                        )}
                     </ul>
                   )}
                 </td>

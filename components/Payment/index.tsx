@@ -3,11 +3,11 @@ import numeral from "numeral";
 import Markdown from "react-markdown";
 import Field from "./Field";
 import { css } from "../../lib/util";
-import { PublicInvoice } from "../../lib/models/types";
 import { BrandLine } from "../Bulma";
 import gql from "graphql-tag";
 import initApollo from "../../lib/init-apollo";
 import { ApolloClient } from "apollo-boost";
+import { InvoicePublic } from "../../lib/graphql";
 
 const stripeConfig: { [key: string]: string } = {
   "www.takeoffgo.com": "pk_live_5DIChTOisCE5BE00zAxhagIX",
@@ -16,7 +16,7 @@ const stripeConfig: { [key: string]: string } = {
 
 type PaymentProps = {
   model: {
-    invoice: PublicInvoice;
+    invoice: InvoicePublic;
     amount?: number;
     customer?: string;
   };
@@ -304,27 +304,20 @@ class Payment extends React.Component<PaymentProps> {
         )}
         {invoice.amountDue > 0 && amount ? (
           <h6 className="subtitle is-6">
-            {invoice.total === invoice.amountDue ? (
-              <>Invoice total {numeral(invoice.total).format("$0,00.00")}</>
+            {invoice.amount === invoice.amountDue ? (
+              <>Invoice total {numeral(invoice.amount).format("$0,00.00")}</>
             ) : (
               <>
-                Invoice total {numeral(invoice.total).format("$0,00.00")} with{" "}
+                Invoice total {numeral(invoice.amount).format("$0,00.00")} with{" "}
                 {numeral(invoice.amountDue).format("$0,00.00")} outstanding
               </>
             )}
           </h6>
         ) : null}
-        {invoice.items &&
-          invoice.items.map(
-            ent =>
-              ent && (
-                <Markdown
-                  key={ent.id}
-                  className="content"
-                  source={ent.description}
-                />
-              )
-          )}
+
+        {invoice.summary && (
+          <Markdown className="content" source={invoice.summary} />
+        )}
         <BrandLine />
         {this.input}
       </>

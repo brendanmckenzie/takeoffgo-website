@@ -35,14 +35,13 @@
     "build": "next build",
     "start": "next start",
     "deploy": "now --prod",
-    "models": "graphql-codegen --config codegen.yml"
+    "model": "graphql-codegen"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.7.0",
-    "@graphql-codegen/introspection": "1.7.0",
-    "@graphql-codegen/typescript": "1.7.0",
-    "@graphql-codegen/typescript-operations": "1.7.0",
-    "@graphql-codegen/typescript-react-apollo": "1.7.0",
+    "@graphql-codegen/cli": "^1.10.0",
+    "@graphql-codegen/typescript": "^1.10.0",
+    "@graphql-codegen/typescript-operations": "^1.10.0",
+    "@graphql-codegen/typescript-react-apollo": "^1.10.0",
     "@types/classnames": "^2.2.9",
     "@types/google-map-react": "^1.1.4",
     "@types/graphql": "^14.5.0",

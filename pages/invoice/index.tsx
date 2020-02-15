@@ -1,44 +1,22 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
 import Invoice from "../../components/Invoice";
 import Meta from "../../components/Meta";
 
-import { ApolloProvider } from "@apollo/react-hooks";
-import withApolloClient from "../../lib/with-apollo-client";
+import withData from "../../lib/apollo";
 import Header from "../../components/Header";
+import {
+  useGetInvoiceQuery,
+  GetInvoiceQueryResult,
+  InvoicePublic
+} from "../../lib/graphql";
 
-// import "../../style/print.scss";
-
-export const INVOICE_QUERY = gql`
-  query invoice($id: ID!) {
-    invoice(id: $id) {
-      amountDue
-      amountPaid
-      currency
-      due
-      id
-      invoiced
-      items {
-        id
-        description
-        amount
-        quantity
-        total
-        currency
-      }
-      number
-      paid
-      paymentUrl
-      subtitle
-      total
-    }
-  }
-`;
-
-const InvoiceContent: React.FC<any> = ({ loading, error, data }) => {
-  if (loading) {
+const InvoiceContent: React.FC<GetInvoiceQueryResult> = ({
+  loading,
+  error,
+  data
+}) => {
+  if (loading || !data?.invoice) {
     return (
       <main className="body">
         <div className="message">
@@ -62,14 +40,14 @@ const InvoiceContent: React.FC<any> = ({ loading, error, data }) => {
     );
   }
 
-  return <Invoice model={data.invoice} />;
+  return <Invoice model={data?.invoice as InvoicePublic} />;
 };
 
 const InvoicePage: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const query = useQuery(INVOICE_QUERY, {
+  const query = useGetInvoiceQuery({
     variables: { id }
   });
 
@@ -88,10 +66,4 @@ const InvoicePage: React.FC = () => {
   );
 };
 
-const InvoicePageWrapped: React.FC = ({ apolloClient }: any) => (
-  <ApolloProvider client={apolloClient}>
-    <InvoicePage />
-  </ApolloProvider>
-);
-
-export default withApolloClient(InvoicePageWrapped);
+export default withData(InvoicePage);

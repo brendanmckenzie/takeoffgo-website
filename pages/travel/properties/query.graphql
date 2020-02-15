@@ -1,0 +1,46 @@
+query GetProperty($id: UUID!) {
+  property(id: $id) {
+    id
+    name
+    city
+    summary
+    nearestAirport
+    country {
+      id
+      name
+    }
+    latitude
+    longitude
+    heroMedia {
+      id
+      hash
+    }
+    gallery {
+      id
+      mediaGalleryItems {
+        nodes {
+          id
+          mediaItem {
+            hash
+            name
+          }
+        }
+      }
+      mediaGalleriesByParentId {
+        nodes {
+          id
+          name
+          mediaGalleryItems {
+            nodes {
+              id
+              mediaItem {
+                name
+                hash
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

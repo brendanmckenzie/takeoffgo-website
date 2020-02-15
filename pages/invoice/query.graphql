@@ -1,0 +1,15 @@
+query GetInvoice($id: UUID!) {
+  invoice: invoicePublic(id: $id) {
+    amount
+    amountDue
+    amountPaid
+    currency
+    due
+    id
+    invoiced
+    number
+    paid
+    summary
+    trip
+  }
+}

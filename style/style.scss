@@ -132,12 +132,28 @@ hr.brand {
   text-transform: uppercase;
 }
 
-svg.logo {
-  height: 60px;
-  margin-bottom: -10px;
+header {
+  top: 0;
+  z-index: 100;
+  background-color: white;
+  padding: $gap / 2;
 
-  @include mobile {
-    height: initial;
+  svg.logo {
+    height: 60px;
+    margin-bottom: -10px;
+
+    @include mobile {
+      width: 80vw;
+      height: auto;
+    }
+  }
+
+  &.is-stuck {
+    svg.logo {
+      height: 30px;
+      width: auto;
+      // margin-bottom: 10px;
+    }
   }
 }
 
@@ -200,30 +216,6 @@ code.is-flight-number {
   }
 }
 
-header {
-  top: 0;
-  z-index: 100;
-  background-color: white;
-  padding-top: $gap / 2;
-
-  .container {
-    padding: 0 1.5rem;
-  }
-
-  &.is-stuck {
-    svg.logo {
-      height: 30px;
-      margin-bottom: -20px;
-    }
-
-    padding: 0;
-
-    .container {
-      padding: 0 0.5rem;
-    }
-  }
-}
-
 .is-sticky {
   position: sticky;
 
@@ -243,4 +235,9 @@ header {
 
 img[onclick] {
   cursor: pointer;
+}
+
+.section-header {
+  text-transform: uppercase;
+  font-weight: 200;
 }

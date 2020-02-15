@@ -1,8 +1,8 @@
 import React from "react";
 import PaymentOptions from "./PaymentOptions";
-import { InvoiceComponentProps } from "../index.d";
+import { InvoicePublic } from "../../../lib/graphql";
 
-const Footer: React.FC<InvoiceComponentProps> = ({ data }) => (
+const Footer: React.FC<{ data: InvoicePublic }> = ({ data }) => (
   <footer>
     <PaymentOptions data={data} />
     <p className="has-text-centered">

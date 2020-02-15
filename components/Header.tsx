@@ -25,8 +25,8 @@ const Header: React.FC<HeaderProps> = ({ showHomeButton, overrideLogo }) => {
   return (
     <header className={cx("header is-sticky", { "is-stuck": stuck })}>
       <Container>
-        <Columns gapless>
-          <Column>
+        <Columns>
+          <Column className="is-hidden-mobile">
             {showHomeButton && (
               <LinkButton iconLeft="chevron-left" text href="/">
                 Back home
@@ -48,7 +48,6 @@ const Header: React.FC<HeaderProps> = ({ showHomeButton, overrideLogo }) => {
             )}
           </Column>
         </Columns>
-        <hr />
       </Container>
     </header>
   );

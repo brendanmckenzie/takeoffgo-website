@@ -1,6 +1,15 @@
-overwrite: true
-schema: "https://api.takeoffgo.com/dev/graphql/public"
+schema: "http://localhost:5000/jambo/graphql"
+documents: "./**/*.graphql"
+config:
+  scalars:
+    Datetime: "string"
+    JSON: "{ [key: string]: any }"
+  noGraphQLTag: false
+  withHOC: false
+  withComponent: false
+  withHooks: true
 generates:
-  lib/models/types.tsx:
-    plugins:
-      - "typescript"
+  lib/graphql.ts:
+    - typescript
+    - typescript-operations
+    - typescript-react-apollo

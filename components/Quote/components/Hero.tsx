@@ -1,11 +1,12 @@
 import React from "react";
 import Image from "../../Image";
+import { GetQuoteQuery } from "../../../lib/graphql";
 
-const Hero = ({ data }: any) => (
+const Hero = ({ data }: { data: GetQuoteQuery }) => (
   <div className="columns">
     <div className="column is-3">
-      <h1 className="title">{data.hero.title}</h1>
-      <h2 className="subtitle">{data.hero.subtitle}</h2>
+      <h1 className="title">{data.quote?.hero?.title}</h1>
+      <h2 className="subtitle">{data.quote?.hero?.subtitle}</h2>
       <div className="menu is-hidden-print">
         <p className="menu-label">Sections</p>
         <ul className="menu-list">
@@ -27,7 +28,7 @@ const Hero = ({ data }: any) => (
           <li>
             <a href="#contact">Contact information</a>
           </li>
-          {data.total > 0 && (
+          {data.quote?.total > 0 && (
             <>
               <li>
                 <a href="#finance">Finances</a>
@@ -41,9 +42,14 @@ const Hero = ({ data }: any) => (
       </div>
     </div>
     <div className="column">
-      <figure className="image is-cover">
-        <Image src={data.hero.image} alt={data.hero.title} />
-      </figure>
+      {data.quote?.hero?.image?.hash && (
+        <figure className="image is-cover">
+          <Image
+            src={data.quote.hero.image.hash}
+            alt={data.quote.hero.title || ""}
+          />
+        </figure>
+      )}
     </div>
   </div>
 );

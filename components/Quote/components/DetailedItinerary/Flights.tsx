@@ -1,15 +1,28 @@
 import React from "react";
-import moment from "moment";
+import moment, { Moment } from "moment";
 import _ from "lodash";
 import { dateFormat, timeFormat, timeFormatExt } from "../../global/constants";
+import { TripFlight, Airport } from "../../../../lib/graphql";
 
-const Flights = ({ flights, data, includeDate, referenceDate }: any) =>
+export type FlightDetail = TripFlight & {
+  departureDate: Moment;
+  departureAirport: Airport;
+  arrivalAirport: Airport;
+};
+
+type Props = {
+  flights: FlightDetail[];
+  includeDate?: boolean;
+  referenceDate?: Moment;
+};
+
+const Flights: React.FC<Props> = ({ flights, includeDate, referenceDate }) =>
   flights.length > 0 ? (
     <React.Fragment>
       {_(flights)
-        .groupBy((ent: any) => moment(ent.departure.date).format("YYYY-MM-DD"))
+        .groupBy(ent => moment(ent.departure).format("YYYY-MM-DD"))
         .toPairs()
-        .map(([date, list]: any[]) => (
+        .map(([date, list]) => (
           <div key={date} className="columns">
             {includeDate && (
               <div className="column is-2">
@@ -19,23 +32,15 @@ const Flights = ({ flights, data, includeDate, referenceDate }: any) =>
             <div className="column">
               <article className="message">
                 <div className="message-body">
-                  {list.map((flight: any) => {
-                    const departureAirport = data.airports.find(
-                      (a: any) =>
-                        a.iata === flight.departure.airport ||
-                        a.icao === flight.departure.airport
-                    );
-                    const arrivalAirport = data.airports.find(
-                      (a: any) =>
-                        a.iata === flight.arrival.airport ||
-                        a.icao === flight.departure.airport
-                    );
+                  {list.map(flight => {
+                    const { departureAirport, arrivalAirport } = flight;
+
                     if (!arrivalAirport || !departureAirport) {
                       return null;
                     }
 
-                    const sameDay = moment(flight.departure.date).isSame(
-                      flight.arrival.date,
+                    const sameDay = moment(flight.departure).isSame(
+                      flight.arrival,
                       "day"
                     );
 
@@ -43,11 +48,11 @@ const Flights = ({ flights, data, includeDate, referenceDate }: any) =>
                       <React.Fragment key={flight.id}>
                         {referenceDate &&
                           !referenceDate.isSame(
-                            moment.utc(flight.departure.date),
+                            moment.utc(moment(flight.departure)),
                             "day"
                           ) && (
                             <p className="heading">
-                              {moment(flight.departure.date).format(dateFormat)}
+                              {moment(flight.departure).format(dateFormat)}
                             </p>
                           )}
 
@@ -73,13 +78,11 @@ const Flights = ({ flights, data, includeDate, referenceDate }: any) =>
                               <li>
                                 {[
                                   departureAirport.city,
-                                  departureAirport.country
+                                  departureAirport.country?.name
                                 ].join(", ")}
                               </li>
                               <li>
-                                {moment(flight.departure.date).format(
-                                  timeFormat
-                                )}
+                                {moment(flight.departure).format(timeFormat)}
                               </li>
                             </ul>
                             <ul className="inline reset-mobile">
@@ -89,11 +92,11 @@ const Flights = ({ flights, data, includeDate, referenceDate }: any) =>
                               <li>
                                 {[
                                   arrivalAirport.city,
-                                  arrivalAirport.country
+                                  arrivalAirport.country?.name
                                 ].join(", ")}
                               </li>
                               <li>
-                                {moment(flight.arrival.date).format(
+                                {moment(flight.arrival).format(
                                   sameDay ? timeFormat : timeFormatExt
                                 )}
                               </li>

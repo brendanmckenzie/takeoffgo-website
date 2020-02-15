@@ -1,7 +1,7 @@
 import React from "react";
-import { InvoiceComponentProps } from "../index.d";
+import { InvoicePublic } from "../../../lib/graphql";
 
-const PaymentOptions: React.FC<InvoiceComponentProps> = ({ data }) => (
+const PaymentOptions: React.FC<{ data: InvoicePublic }> = ({ data }) => (
   <div className="section is-emphasised">
     <h2 className="subtitle is-5">Payment options</h2>
     <div className="columns is-variable is-vcentered is-1">
@@ -12,7 +12,7 @@ const PaymentOptions: React.FC<InvoiceComponentProps> = ({ data }) => (
       </div>
       <div className="column">
         <p className="is-hidden-print">
-          <a target="_blank" href={data.paymentUrl}>
+          <a target="_blank" href={`/payment/${data.id}`}>
             <strong>Online payment form</strong>
           </a>{" "}
           follow this link to make payment using our secure online payment form

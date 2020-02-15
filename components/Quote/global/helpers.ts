@@ -1,4 +1,5 @@
 import moment from "moment-timezone";
+import { GetQuoteQuery } from "../../../lib/graphql";
 
 const queryString = (params: any) =>
   Object.keys(params)
@@ -31,21 +32,17 @@ export const toSentence = (input: string[]) =>
         .slice(0, -2)
     : null;
 
-export const extractSortedFlights = (data: any) => {
-  const { flights, airports } = data;
+export const extractSortedFlights = (data: GetQuoteQuery) => {
+  const flights = data.quote?.trip?.tripFlights.nodes;
+  if (!flights) {
+    return [];
+  }
   return flights
-    .map((flight: any) => {
-      const departureAirport = airports.find(
-        (airport: any) =>
-          airport.iata === flight.departure.airport ||
-          airport.icao === flight.departure.airport
-      );
-      return {
-        ...flight,
-        departureDate: departureAirport
-          ? moment.tz(flight.departure.date, departureAirport.timezone)
-          : moment(flight.departure.date)
-      };
-    })
-    .sort((a: any, b: any) => a.departureDate.diff(b.departureDate));
+    .map(flight => ({
+      ...flight,
+      departureDate: flight?.departureAirport?.timezone
+        ? moment.tz(flight.departure, flight?.departureAirport?.timezone)
+        : moment(flight?.departure)
+    }))
+    .sort((a, b) => a.departureDate.diff(b.departureDate));
 };

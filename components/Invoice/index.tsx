@@ -3,16 +3,16 @@ import Footer from "./components/Footer";
 import Summary from "./components/Summary";
 import LineItems from "./components/LineItems";
 import Total from "./components/Total";
+import { InvoicePublic } from "../../lib/graphql";
 
 type InvoiceProps = {
-  model: any;
+  model: InvoicePublic;
 };
 
-const Invoice: React.FC<InvoiceProps> = ({ model }: any) => (
+const Invoice: React.FC<InvoiceProps> = ({ model }) => (
   <>
     <main className="body">
       <Summary data={model} />
-      <hr className="is-emphasised" />
       <LineItems data={model} />
       <Total data={model} />
     </main>

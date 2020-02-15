@@ -17,67 +17,17 @@ import Image from "../../../components/Image";
 import Map from "../../../components/Quote/components/Map";
 import Footer from "../../../components/Footer";
 import withData from "../../../lib/apollo";
-import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
 import ReactMarkdown from "react-markdown";
+import { useGetPropertyQuery, Property } from "../../../lib/graphql";
 
-const query = gql`
-  query($id: UUID!) {
-    property(id: $id) {
-      id
-      name
-      city
-      summary
-      nearestAirport
-      country {
-        id
-        name
-      }
-      latitude
-      longitude
-      heroMedia {
-        id
-        hash
-      }
-      gallery {
-        id
-        mediaGalleryItems {
-          nodes {
-            id
-            mediaItem {
-              hash
-              name
-            }
-          }
-        }
-        mediaGalleriesByParentId {
-          nodes {
-            id
-            name
-            mediaGalleryItems {
-              nodes {
-                id
-                mediaItem {
-                  name
-                  hash
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-const Property: React.FC = () => {
+const PropertyPage: React.FC = () => {
   const router = useRouter();
 
   const [image, setImage] = useState<string | null>(null);
 
-  const data = useQuery(query, { variables: { id: router.query.key } });
+  const query = useGetPropertyQuery({ variables: { id: router.query.key } });
 
-  if (data.loading) {
+  if (query.loading || !query.data) {
     return (
       <Message>
         <MessageHeader>Loading...</MessageHeader>
@@ -86,10 +36,12 @@ const Property: React.FC = () => {
     );
   }
 
+  const property = query.data.property as Property;
+
   return (
     <>
       <Head>
-        <title>{data.data.property.name} - Properties - Take Off Go</title>
+        <title>{property.name} - Properties - Take Off Go</title>
         <Meta router={router} />
       </Head>
       <>
@@ -98,21 +50,21 @@ const Property: React.FC = () => {
         <Section container>
           <Columns>
             <Column>
-              <h2 className="title is-2">{data.data.property.name}</h2>
+              <h2 className="title is-2">{property.name}</h2>
               <BrandLine />
               <Content>
                 <ReactMarkdown
                   className="content"
-                  source={data.data.property.summary}
+                  source={property.summary || ""}
                 />
               </Content>
             </Column>
             <Column>
-              {data.data.property.heroMedia && (
+              {property.heroMedia && property.heroMedia.hash && (
                 <div className="image is-cover">
                   <Image
-                    src={data.data.property.heroMedia.hash}
-                    alt={data.data.property.name}
+                    src={property.heroMedia.hash}
+                    alt={property.name || "Image of property"}
                   />
                 </div>
               )}
@@ -123,11 +75,11 @@ const Property: React.FC = () => {
           <Columns>
             <Column narrow>
               <h3 className="heading">Country</h3>
-              <h4 className="title">{data.data.property.country.name}</h4>
+              <h4 className="title">{property.country?.name}</h4>
             </Column>
             <Column narrow>
               <h3 className="heading">Nearest airport</h3>
-              <h4 className="title">{data.data.property.nearestAirport}</h4>
+              <h4 className="title">{property.nearestAirport}</h4>
             </Column>
             <Column />
           </Columns>
@@ -135,70 +87,65 @@ const Property: React.FC = () => {
 
         <Section container>
           <Columns multiline>
-            {data.data.property.gallery.mediaGalleryItems.nodes.map(
-              (ent: any) => (
-                <Column key={ent.id} width={4}>
-                  <div className="image">
-                    <Image
-                      src={ent.mediaItem.hash}
-                      alt={ent.mediaItem.name}
-                      onClick={() =>
-                        setImage(
-                          image === ent.mediaItem.hash
-                            ? null
-                            : ent.mediaItem.hash
-                        )
-                      }
-                    />
-                  </div>
-                </Column>
-              )
-            )}
+            {property.gallery?.mediaGalleryItems.nodes.map((ent: any) => (
+              <Column key={ent.id} width={4}>
+                <div className="image">
+                  <Image
+                    src={ent.mediaItem.hash}
+                    alt={ent.mediaItem.name}
+                    onClick={() =>
+                      setImage(
+                        image === ent.mediaItem.hash ? null : ent.mediaItem.hash
+                      )
+                    }
+                  />
+                </div>
+              </Column>
+            ))}
           </Columns>
-          {data.data.property.gallery.mediaGalleriesByParentId.nodes.map(
-            (ent: any) => (
-              <React.Fragment key={ent.id}>
-                <p className="heading">{ent.name}</p>
-                <Columns multiline>
-                  {ent.mediaGalleryItems.nodes.map((ent: any) => (
-                    <Column key={ent.id} width={4}>
-                      <div className="image">
-                        <Image
-                          src={ent.mediaItem.hash}
-                          alt={ent.mediaItem.name}
-                          onClick={() =>
-                            setImage(
-                              image === ent.mediaItem.hash
-                                ? null
-                                : ent.mediaItem.hash
-                            )
-                          }
-                        />
-                      </div>
-                    </Column>
-                  ))}
-                </Columns>
-              </React.Fragment>
-            )
-          )}
+          {property.gallery?.mediaGalleriesByParentId.nodes.map((ent: any) => (
+            <React.Fragment key={ent.id}>
+              <p className="heading">{ent.name}</p>
+              <Columns multiline>
+                {ent.mediaGalleryItems.nodes.map((ent: any) => (
+                  <Column key={ent.id} width={4}>
+                    <div className="image">
+                      <Image
+                        src={ent.mediaItem.hash}
+                        alt={ent.mediaItem.name}
+                        onClick={() =>
+                          setImage(
+                            image === ent.mediaItem.hash
+                              ? null
+                              : ent.mediaItem.hash
+                          )
+                        }
+                      />
+                    </div>
+                  </Column>
+                ))}
+              </Columns>
+            </React.Fragment>
+          ))}
           {image && (
             <div className="image is-cover">
               <Image src={image} />
             </div>
           )}
         </Section>
-        {data.data.property.latitude && data.data.property.longitude && (
+        {property.latitude && property.longitude && (
           <Map
-            data={{
-              properties: [
-                {
-                  latitude: data.data.property.latitude,
-                  longitude: data.data.property.longitude,
-                  id: data.data.property.id
-                }
-              ],
-              airports: []
-            }}
+            points={[
+              {
+                lat: property.latitude,
+                lng: property.longitude,
+                id: property.id,
+                icon: "hotel",
+                title: property.name || "",
+                body: property.summary || "",
+                type: "property"
+              }
+            ]}
           />
         )}
         <Footer />
@@ -207,4 +154,4 @@ const Property: React.FC = () => {
   );
 };
 
-export default withData(Property);
+export default withData(PropertyPage);
