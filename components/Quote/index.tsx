@@ -4,9 +4,6 @@ import { useRouter } from "next/router";
 import moment from "moment";
 
 import { mediaUrl } from "./global/helpers";
-import initApollo from "../../lib/init-apollo";
-import { ApolloClient } from "apollo-boost";
-import gql from "graphql-tag";
 
 import Accommodation from "./components/Accommodation";
 import ContactInformation from "./components/ContactInformation";
@@ -21,7 +18,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import Meta from "../Meta";
 import Image from "../Image";
-import { GetQuoteQuery } from "../../lib/graphql";
+import { GetQuoteQuery, useTrackQuoteViewMutation } from "../../lib/graphql";
 
 const mapModelToMeta = (model: any) => {
   const fromHero = () => {
@@ -50,22 +47,12 @@ type QuoteProps = {
 
 const QuoteComp: React.FC<QuoteProps> = ({ model, viewType }) => {
   const router = useRouter();
+  const [trackQuoteView] = useTrackQuoteViewMutation();
 
   useEffect(() => {
     if (router.query.preview !== "true") {
-      const apollo = initApollo({}) as ApolloClient<{}>;
-      apollo.query({
-        query: gql`
-          query trackQuoteView($key: String!, $viewType: String!) {
-            trackQuoteView(key: $key, viewType: $viewType) {
-              success
-            }
-          }
-        `,
-        variables: {
-          key: router.query.key,
-          viewType
-        }
+      trackQuoteView({
+        variables: { key: router.query.key as string, viewType }
       });
     }
   }, []);

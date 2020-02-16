@@ -4560,12 +4560,6 @@ export type ExecutePaymentInput = {
   amount?: Maybe<Scalars['BigFloat']>,
 };
 
-export type ExecutePaymentResponse = {
-   __typename?: 'ExecutePaymentResponse',
-  success: Scalars['Boolean'],
-  message?: Maybe<Scalars['String']>,
-};
-
 export type Expense = Node & {
    __typename?: 'Expense',
   nodeId: Scalars['ID'],
@@ -10743,6 +10737,12 @@ export type FloatFilter = {
   greaterThanOrEqualTo?: Maybe<Scalars['Float']>,
 };
 
+export type GenericResponse = {
+   __typename?: 'GenericResponse',
+  success: Scalars['Boolean'],
+  message?: Maybe<Scalars['String']>,
+};
+
 export type IntFilter = {
   isNull?: Maybe<Scalars['Boolean']>,
   equalTo?: Maybe<Scalars['Int']>,
@@ -12411,7 +12411,8 @@ export type Mutation = {
   dateWeek?: Maybe<DateWeekPayload>,
   randomString?: Maybe<RandomStringPayload>,
   recordStripePayment?: Maybe<RecordStripePaymentPayload>,
-  executePayment?: Maybe<ExecutePaymentResponse>,
+  executePayment?: Maybe<GenericResponse>,
+  trackQuoteView?: Maybe<GenericResponse>,
 };
 
 
@@ -13612,6 +13613,11 @@ export type MutationRecordStripePaymentArgs = {
 
 export type MutationExecutePaymentArgs = {
   input: ExecutePaymentInput
+};
+
+
+export type MutationTrackQuoteViewArgs = {
+  input: TrackQuoteViewInput
 };
 
 export type Node = {
@@ -18822,6 +18828,11 @@ export enum TimelinesOrderBy {
   ActionedAsc = 'ACTIONED_ASC',
   ActionedDesc = 'ACTIONED_DESC'
 }
+
+export type TrackQuoteViewInput = {
+  key: Scalars['String'],
+  viewType: Scalars['String'],
+};
 
 export type Transaction = Node & {
    __typename?: 'Transaction',
@@ -26415,8 +26426,22 @@ export type PayInvoiceMutationVariables = {
 export type PayInvoiceMutation = (
   { __typename?: 'Mutation' }
   & { executePayment: Maybe<(
-    { __typename?: 'ExecutePaymentResponse' }
-    & Pick<ExecutePaymentResponse, 'success' | 'message'>
+    { __typename?: 'GenericResponse' }
+    & Pick<GenericResponse, 'success' | 'message'>
+  )> }
+);
+
+export type TrackQuoteViewMutationVariables = {
+  key: Scalars['String'],
+  viewType: Scalars['String']
+};
+
+
+export type TrackQuoteViewMutation = (
+  { __typename?: 'Mutation' }
+  & { trackQuoteView: Maybe<(
+    { __typename?: 'GenericResponse' }
+    & Pick<GenericResponse, 'success'>
   )> }
 );
 
@@ -26610,6 +26635,39 @@ export function usePayInvoiceMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type PayInvoiceMutationHookResult = ReturnType<typeof usePayInvoiceMutation>;
 export type PayInvoiceMutationResult = ApolloReactCommon.MutationResult<PayInvoiceMutation>;
 export type PayInvoiceMutationOptions = ApolloReactCommon.BaseMutationOptions<PayInvoiceMutation, PayInvoiceMutationVariables>;
+export const TrackQuoteViewDocument = gql`
+    mutation TrackQuoteView($key: String!, $viewType: String!) {
+  trackQuoteView(input: {key: $key, viewType: $viewType}) {
+    success
+  }
+}
+    `;
+export type TrackQuoteViewMutationFn = ApolloReactCommon.MutationFunction<TrackQuoteViewMutation, TrackQuoteViewMutationVariables>;
+
+/**
+ * __useTrackQuoteViewMutation__
+ *
+ * To run a mutation, you first call `useTrackQuoteViewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useTrackQuoteViewMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [trackQuoteViewMutation, { data, loading, error }] = useTrackQuoteViewMutation({
+ *   variables: {
+ *      key: // value for 'key'
+ *      viewType: // value for 'viewType'
+ *   },
+ * });
+ */
+export function useTrackQuoteViewMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<TrackQuoteViewMutation, TrackQuoteViewMutationVariables>) {
+        return ApolloReactHooks.useMutation<TrackQuoteViewMutation, TrackQuoteViewMutationVariables>(TrackQuoteViewDocument, baseOptions);
+      }
+export type TrackQuoteViewMutationHookResult = ReturnType<typeof useTrackQuoteViewMutation>;
+export type TrackQuoteViewMutationResult = ApolloReactCommon.MutationResult<TrackQuoteViewMutation>;
+export type TrackQuoteViewMutationOptions = ApolloReactCommon.BaseMutationOptions<TrackQuoteViewMutation, TrackQuoteViewMutationVariables>;
 export const GetInvoiceDocument = gql`
     query GetInvoice($id: UUID!) {
   invoice: invoicePublic(id: $id) {
