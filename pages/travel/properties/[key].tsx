@@ -8,10 +8,7 @@ import {
   Columns,
   Column,
   BrandLine,
-  Content,
-  Message,
-  MessageHeader,
-  MessageBody
+  Content
 } from "../../../components/Bulma";
 import Image from "../../../components/Image";
 import Map from "../../../components/Quote/components/Map";
@@ -28,12 +25,7 @@ const PropertyPage: React.FC = () => {
   const query = useGetPropertyQuery({ variables: { id: router.query.key } });
 
   if (query.loading || !query.data) {
-    return (
-      <Message>
-        <MessageHeader>Loading...</MessageHeader>
-        <MessageBody>Content loading...</MessageBody>
-      </Message>
-    );
+    return null;
   }
 
   const property = query.data.property as Property;
