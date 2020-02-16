@@ -12,7 +12,7 @@ const PaymentOptions: React.FC<{ data: InvoicePublic }> = ({ data }) => (
       </div>
       <div className="column">
         <p className="is-hidden-print">
-          <a target="_blank" href={`/payment/${data.id}`}>
+          <a target="_blank" href={`/payment?id=${data.id}`}>
             <strong>Online payment form</strong>
           </a>{" "}
           follow this link to make payment using our secure online payment form
