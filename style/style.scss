@@ -141,6 +141,8 @@ header {
   svg.logo {
     height: 60px;
     margin-bottom: -10px;
+    will-change: height;
+    transition: ease-in-out height 200ms;
 
     @include mobile {
       width: 80vw;
