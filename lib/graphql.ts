@@ -1485,6 +1485,24 @@ export type CreateNotePayloadNoteEdgeArgs = {
   orderBy?: Maybe<Array<NotesOrderBy>>
 };
 
+export type CreateOutstandingInput = {
+  clientMutationId?: Maybe<Scalars['String']>,
+  outstanding: OutstandingInput,
+};
+
+export type CreateOutstandingPayload = {
+   __typename?: 'CreateOutstandingPayload',
+  clientMutationId?: Maybe<Scalars['String']>,
+  outstanding?: Maybe<Outstanding>,
+  query?: Maybe<Query>,
+  outstandingEdge?: Maybe<OutstandingsEdge>,
+};
+
+
+export type CreateOutstandingPayloadOutstandingEdgeArgs = {
+  orderBy?: Maybe<Array<OutstandingsOrderBy>>
+};
+
 export type CreatePassportInput = {
   clientMutationId?: Maybe<Scalars['String']>,
   passport: PassportInput,
@@ -12201,6 +12219,7 @@ export type Mutation = {
   createTripFlight?: Maybe<CreateTripFlightPayload>,
   createUser?: Maybe<CreateUserPayload>,
   createVisaRequirement?: Maybe<CreateVisaRequirementPayload>,
+  createOutstanding?: Maybe<CreateOutstandingPayload>,
   updateAccountByNodeId?: Maybe<UpdateAccountPayload>,
   updateAccount?: Maybe<UpdateAccountPayload>,
   updateAgencyByNodeId?: Maybe<UpdateAgencyPayload>,
@@ -12391,6 +12410,8 @@ export type Mutation = {
   deleteVisaRequirement?: Maybe<DeleteVisaRequirementPayload>,
   dateWeek?: Maybe<DateWeekPayload>,
   randomString?: Maybe<RandomStringPayload>,
+  recordStripePayment?: Maybe<RecordStripePaymentPayload>,
+  executePayment?: Maybe<ExecutePaymentResponse>,
 };
 
 
@@ -12626,6 +12647,11 @@ export type MutationCreateUserArgs = {
 
 export type MutationCreateVisaRequirementArgs = {
   input: CreateVisaRequirementInput
+};
+
+
+export type MutationCreateOutstandingArgs = {
+  input: CreateOutstandingInput
 };
 
 
@@ -13578,6 +13604,16 @@ export type MutationRandomStringArgs = {
   input: RandomStringInput
 };
 
+
+export type MutationRecordStripePaymentArgs = {
+  input: RecordStripePaymentInput
+};
+
+
+export type MutationExecutePaymentArgs = {
+  input: ExecutePaymentInput
+};
+
 export type Node = {
   nodeId: Scalars['ID'],
 };
@@ -13714,6 +13750,46 @@ export enum NotesOrderBy {
   TitleDesc = 'TITLE_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
+}
+
+export type Outstanding = {
+   __typename?: 'Outstanding',
+  outstanding?: Maybe<Scalars['BigFloat']>,
+};
+
+export type OutstandingCondition = {
+  outstanding?: Maybe<Scalars['BigFloat']>,
+};
+
+export type OutstandingFilter = {
+  outstanding?: Maybe<BigFloatFilter>,
+  and?: Maybe<Array<OutstandingFilter>>,
+  or?: Maybe<Array<OutstandingFilter>>,
+  not?: Maybe<OutstandingFilter>,
+};
+
+export type OutstandingInput = {
+  outstanding?: Maybe<Scalars['BigFloat']>,
+};
+
+export type OutstandingsConnection = {
+   __typename?: 'OutstandingsConnection',
+  nodes: Array<Maybe<Outstanding>>,
+  edges: Array<OutstandingsEdge>,
+  pageInfo: PageInfo,
+  totalCount: Scalars['Int'],
+};
+
+export type OutstandingsEdge = {
+   __typename?: 'OutstandingsEdge',
+  cursor?: Maybe<Scalars['Cursor']>,
+  node?: Maybe<Outstanding>,
+};
+
+export enum OutstandingsOrderBy {
+  Natural = 'NATURAL',
+  OutstandingAsc = 'OUTSTANDING_ASC',
+  OutstandingDesc = 'OUTSTANDING_DESC'
 }
 
 export type PageInfo = {
@@ -14455,6 +14531,7 @@ export type Query = Node & {
   users?: Maybe<UsersConnection>,
   virtualTransactions?: Maybe<VirtualTransactionsConnection>,
   visaRequirements?: Maybe<VisaRequirementsConnection>,
+  outstandings?: Maybe<OutstandingsConnection>,
   account?: Maybe<Account>,
   agency?: Maybe<Agency>,
   agencyMember?: Maybe<AgencyMember>,
@@ -14554,7 +14631,6 @@ export type Query = Node & {
   tripFlightByNodeId?: Maybe<TripFlight>,
   userByNodeId?: Maybe<User>,
   visaRequirementByNodeId?: Maybe<VisaRequirement>,
-  executePayment?: Maybe<ExecutePaymentResponse>,
 };
 
 
@@ -15223,6 +15299,18 @@ export type QueryVisaRequirementsArgs = {
 };
 
 
+export type QueryOutstandingsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<OutstandingsOrderBy>>,
+  condition?: Maybe<OutstandingCondition>,
+  filter?: Maybe<OutstandingFilter>
+};
+
+
 export type QueryAccountArgs = {
   id: Scalars['UUID']
 };
@@ -15705,11 +15793,6 @@ export type QueryUserByNodeIdArgs = {
 
 export type QueryVisaRequirementByNodeIdArgs = {
   nodeId: Scalars['ID']
-};
-
-
-export type QueryExecutePaymentArgs = {
-  input: ExecutePaymentInput
 };
 
 export type Quote = Node & {
@@ -17850,6 +17933,23 @@ export type RandomStringPayload = {
    __typename?: 'RandomStringPayload',
   clientMutationId?: Maybe<Scalars['String']>,
   string?: Maybe<Scalars['String']>,
+  query?: Maybe<Query>,
+};
+
+export type RecordStripePaymentInput = {
+  clientMutationId?: Maybe<Scalars['String']>,
+  invoiceId?: Maybe<Scalars['UUID']>,
+  chargeId?: Maybe<Scalars['String']>,
+  chargeAmount?: Maybe<Scalars['Int']>,
+  chargeCreated?: Maybe<Scalars['Int']>,
+  balanceId?: Maybe<Scalars['String']>,
+  balanceFee?: Maybe<Scalars['Int']>,
+  balanceCurrency?: Maybe<Scalars['String']>,
+};
+
+export type RecordStripePaymentPayload = {
+   __typename?: 'RecordStripePaymentPayload',
+  clientMutationId?: Maybe<Scalars['String']>,
   query?: Maybe<Query>,
 };
 
@@ -26305,6 +26405,21 @@ export enum VisaRequirementsOrderBy {
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC'
 }
 
+export type PayInvoiceMutationVariables = {
+  invoice: Scalars['UUID'],
+  token: Scalars['String'],
+  amount?: Maybe<Scalars['BigFloat']>
+};
+
+
+export type PayInvoiceMutation = (
+  { __typename?: 'Mutation' }
+  & { executePayment: Maybe<(
+    { __typename?: 'ExecutePaymentResponse' }
+    & Pick<ExecutePaymentResponse, 'success' | 'message'>
+  )> }
+);
+
 export type GetInvoiceQueryVariables = {
   id: Scalars['UUID']
 };
@@ -26460,6 +26575,41 @@ export type GetPropertyQuery = (
 );
 
 
+export const PayInvoiceDocument = gql`
+    mutation PayInvoice($invoice: UUID!, $token: String!, $amount: BigFloat) {
+  executePayment(input: {invoice: $invoice, token: $token, amount: $amount}) {
+    success
+    message
+  }
+}
+    `;
+export type PayInvoiceMutationFn = ApolloReactCommon.MutationFunction<PayInvoiceMutation, PayInvoiceMutationVariables>;
+
+/**
+ * __usePayInvoiceMutation__
+ *
+ * To run a mutation, you first call `usePayInvoiceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePayInvoiceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [payInvoiceMutation, { data, loading, error }] = usePayInvoiceMutation({
+ *   variables: {
+ *      invoice: // value for 'invoice'
+ *      token: // value for 'token'
+ *      amount: // value for 'amount'
+ *   },
+ * });
+ */
+export function usePayInvoiceMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<PayInvoiceMutation, PayInvoiceMutationVariables>) {
+        return ApolloReactHooks.useMutation<PayInvoiceMutation, PayInvoiceMutationVariables>(PayInvoiceDocument, baseOptions);
+      }
+export type PayInvoiceMutationHookResult = ReturnType<typeof usePayInvoiceMutation>;
+export type PayInvoiceMutationResult = ApolloReactCommon.MutationResult<PayInvoiceMutation>;
+export type PayInvoiceMutationOptions = ApolloReactCommon.BaseMutationOptions<PayInvoiceMutation, PayInvoiceMutationVariables>;
 export const GetInvoiceDocument = gql`
     query GetInvoice($id: UUID!) {
   invoice: invoicePublic(id: $id) {

@@ -1,9 +1,9 @@
 import React, { ChangeEventHandler } from "react";
 
 type FieldProps = {
+  label: string;
   autoFocus?: boolean;
   disabled?: boolean;
-  label: string;
   name: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   placeholder?: string;
