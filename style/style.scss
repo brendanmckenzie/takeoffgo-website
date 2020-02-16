@@ -149,11 +149,16 @@ header {
   }
 
   &.is-stuck {
+    background-color: rgba(255, 255, 255, 0.8);
+
     svg.logo {
       height: 30px;
       width: auto;
-      // margin-bottom: 10px;
     }
+  }
+
+  .heading {
+    font-weight: 600;
   }
 }
 
@@ -235,9 +240,4 @@ code.is-flight-number {
 
 img[onclick] {
   cursor: pointer;
-}
-
-.section-header {
-  text-transform: uppercase;
-  font-weight: 200;
 }
