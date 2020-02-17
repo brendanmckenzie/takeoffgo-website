@@ -1,18 +1,24 @@
-import Quote from "../../components/Quote";
-import "isomorphic-fetch";
+import QuoteComp from "../../components/Quote";
+import withData from "../../lib/apollo";
+import { useGetQuoteQuery } from "../../lib/graphql";
+import { useRouter } from "next/router";
 
-const ItineraryPage = ({ quote }: any) => {
-  return <Quote model={quote} viewType="itinerary" />;
-};
+const QuotePage = () => {
+  const router = useRouter();
+  const query = useGetQuoteQuery({
+    variables: { key: router.query.key as string }
+  });
 
-ItineraryPage.getInitialProps = async ({ query }: any) => {
-  const quote = await fetch(`https://cdn.takeoffgo.com/q/${query.key}`).then(
-    res => res.json()
+  if (query.loading || !query.data) {
+    return null;
+  }
+
+  return (
+    <QuoteComp
+      model={{ quote: { ...query.data.quote, total: 0 } }}
+      viewType="itinerary"
+    />
   );
-
-  return {
-    quote: { ...quote, total: 0, nextPayment: null, totalOutstanding: 0 }
-  };
 };
 
-export default ItineraryPage;
+export default withData(QuotePage);

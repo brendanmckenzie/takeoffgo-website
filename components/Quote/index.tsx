@@ -19,6 +19,7 @@ import Footer from "../Footer";
 import Meta from "../Meta";
 import Image from "../Image";
 import { GetQuoteQuery, useTrackQuoteViewMutation } from "../../lib/graphql";
+import withData from "../../lib/apollo";
 
 const mapModelToMeta = (model: any) => {
   const fromHero = () => {
@@ -130,4 +131,4 @@ const QuoteComp: React.FC<QuoteProps> = ({ model, viewType }) => {
   );
 };
 
-export default QuoteComp;
+export default withData(QuoteComp);
