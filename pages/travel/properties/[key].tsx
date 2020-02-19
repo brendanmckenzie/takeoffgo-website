@@ -10,6 +10,7 @@ import Footer from "../../../components/Footer";
 import withData from "../../../lib/apollo";
 import ReactMarkdown from "react-markdown";
 import { useGetPropertyQuery, Property } from "../../../lib/graphql";
+import { extractUrlJson } from "../../../lib/util";
 
 const PropertyPage: React.FC = () => {
   const router = useRouter();
@@ -24,6 +25,8 @@ const PropertyPage: React.FC = () => {
 
   const property = query.data.property as Property;
 
+  const back = extractUrlJson(router.query.back);
+
   return (
     <>
       <Head>
@@ -31,7 +34,17 @@ const PropertyPage: React.FC = () => {
         <Meta router={router} />
       </Head>
       <>
-        <Header showHomeButton />
+        <Header
+          showHomeButton={!back?.quote}
+          overrideBackButton={
+            back
+              ? {
+                  text: "Back to quote",
+                  link: `/quote/${back.quote}`
+                }
+              : undefined
+          }
+        />
 
         <Section container>
           <Columns>

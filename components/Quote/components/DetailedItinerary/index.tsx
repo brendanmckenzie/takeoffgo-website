@@ -7,8 +7,10 @@ import { dateFormat } from "../../global/constants";
 import { toSentence, extractSortedFlights } from "../../global/helpers";
 import Flights, { FlightDetail } from "./Flights";
 import { GetQuoteQuery } from "../../../../lib/graphql";
+import { useRouter } from "next/router";
 
 const DetailedItinerary = ({ data }: { data: GetQuoteQuery }) => {
+  const router = useRouter();
   const flights = extractSortedFlights(data);
   const flightsPrior =
     data.quote?.days && data.quote?.days.nodes.length === 0
@@ -125,7 +127,11 @@ const DetailedItinerary = ({ data }: { data: GetQuoteQuery }) => {
                             .map(d => [
                               <a
                                 key={d?.destination?.id}
-                                href={`/travel/destinations/${d?.destination?.id}`}
+                                href={`/travel/destinations/${
+                                  d?.destination?.id
+                                }?back=${encodeURI(
+                                  JSON.stringify({ quote: router.query.key })
+                                )}`}
                               >
                                 {d?.destination?.name ?? ""}
                               </a>

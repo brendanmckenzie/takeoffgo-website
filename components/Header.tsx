@@ -5,10 +5,18 @@ import cx from "classnames";
 
 type HeaderProps = {
   showHomeButton?: boolean;
+  overrideBackButton?: {
+    link: string;
+    text: string;
+  };
   overrideLogo?: () => JSX.Element;
 };
 
-const Header: React.FC<HeaderProps> = ({ showHomeButton, overrideLogo }) => {
+const Header: React.FC<HeaderProps> = ({
+  showHomeButton,
+  overrideLogo,
+  overrideBackButton
+}) => {
   const [stuck, setStuck] = React.useState(false);
   React.useEffect(() => {
     const handler = () => {
@@ -27,6 +35,15 @@ const Header: React.FC<HeaderProps> = ({ showHomeButton, overrideLogo }) => {
       <Container>
         <Columns>
           <Column className="is-hidden-mobile">
+            {overrideBackButton && (
+              <LinkButton
+                iconLeft="chevron-left"
+                text
+                href={overrideBackButton.link}
+              >
+                {overrideBackButton.text}
+              </LinkButton>
+            )}
             {showHomeButton && (
               <LinkButton iconLeft="chevron-left" text href="/">
                 Back home

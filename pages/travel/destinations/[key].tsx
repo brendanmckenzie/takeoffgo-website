@@ -10,9 +10,12 @@ import Footer from "../../../components/Footer";
 import withData from "../../../lib/apollo";
 import ReactMarkdown from "react-markdown";
 import { useGetDestinationQuery, Destination } from "../../../lib/graphql";
+import { extractUrlJson } from "../../../lib/util";
 
 const DestinationPage: React.FC = () => {
   const router = useRouter();
+
+  console.log(router.query);
 
   const [image, setImage] = useState<string | null>(null);
 
@@ -25,6 +28,7 @@ const DestinationPage: React.FC = () => {
   const destination = query.data.destination as Destination;
 
   const heroMedia = destination.gallery?.mediaGalleryItems.nodes[0];
+  const back = extractUrlJson(router.query.back);
 
   return (
     <>
@@ -33,7 +37,17 @@ const DestinationPage: React.FC = () => {
         <Meta router={router} />
       </Head>
       <>
-        <Header showHomeButton />
+        <Header
+          showHomeButton={!back?.quote}
+          overrideBackButton={
+            back
+              ? {
+                  text: "Back to quote",
+                  link: `/quote/${back.quote}`
+                }
+              : undefined
+          }
+        />
 
         <Section container>
           <Columns>

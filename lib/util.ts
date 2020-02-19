@@ -7,6 +7,7 @@ type ImageOptions = {
   w?: number;
   h?: number;
 };
+
 export const imageUrl = (hash: string, options?: ImageOptions) => {
   const baseUrl = "https://cdn.takeoffgo.com";
 
@@ -22,4 +23,12 @@ export const imageUrl = (hash: string, options?: ImageOptions) => {
   }
 
   return `${baseUrl}/${hash}`;
+};
+
+export const extractUrlJson = (input: any) => {
+  try {
+    return JSON.parse(decodeURIComponent(input));
+  } catch {
+    return null;
+  }
 };
