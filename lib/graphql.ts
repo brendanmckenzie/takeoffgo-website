@@ -28971,6 +28971,54 @@ export type GetQuoteQuery = (
   )> }
 );
 
+export type GetDestinationQueryVariables = {
+  id: Scalars['UUID']
+};
+
+
+export type GetDestinationQuery = (
+  { __typename?: 'Query' }
+  & { destination: Maybe<(
+    { __typename?: 'Destination' }
+    & Pick<Destination, 'id' | 'name' | 'body'>
+    & { country: Maybe<(
+      { __typename?: 'Country' }
+      & Pick<Country, 'id' | 'name'>
+    )>, gallery: Maybe<(
+      { __typename?: 'MediaGallery' }
+      & Pick<MediaGallery, 'id'>
+      & { mediaGalleryItems: (
+        { __typename?: 'MediaGalleryItemsConnection' }
+        & { nodes: Array<Maybe<(
+          { __typename?: 'MediaGalleryItem' }
+          & Pick<MediaGalleryItem, 'id'>
+          & { mediaItem: Maybe<(
+            { __typename?: 'MediaItem' }
+            & Pick<MediaItem, 'hash' | 'name'>
+          )> }
+        )>> }
+      ), mediaGalleriesByParentId: (
+        { __typename?: 'MediaGalleriesConnection' }
+        & { nodes: Array<Maybe<(
+          { __typename?: 'MediaGallery' }
+          & Pick<MediaGallery, 'id' | 'name'>
+          & { mediaGalleryItems: (
+            { __typename?: 'MediaGalleryItemsConnection' }
+            & { nodes: Array<Maybe<(
+              { __typename?: 'MediaGalleryItem' }
+              & Pick<MediaGalleryItem, 'id'>
+              & { mediaItem: Maybe<(
+                { __typename?: 'MediaItem' }
+                & Pick<MediaItem, 'name' | 'hash'>
+              )> }
+            )>> }
+          ) }
+        )>> }
+      ) }
+    )> }
+  )> }
+);
+
 export type GetPropertyQueryVariables = {
   id: Scalars['UUID']
 };
@@ -29280,6 +29328,72 @@ export function useGetQuoteLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHoo
 export type GetQuoteQueryHookResult = ReturnType<typeof useGetQuoteQuery>;
 export type GetQuoteLazyQueryHookResult = ReturnType<typeof useGetQuoteLazyQuery>;
 export type GetQuoteQueryResult = ApolloReactCommon.QueryResult<GetQuoteQuery, GetQuoteQueryVariables>;
+export const GetDestinationDocument = gql`
+    query GetDestination($id: UUID!) {
+  destination(id: $id) {
+    id
+    name
+    body
+    country {
+      id
+      name
+    }
+    gallery {
+      id
+      mediaGalleryItems {
+        nodes {
+          id
+          mediaItem {
+            hash
+            name
+          }
+        }
+      }
+      mediaGalleriesByParentId {
+        nodes {
+          id
+          name
+          mediaGalleryItems {
+            nodes {
+              id
+              mediaItem {
+                name
+                hash
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetDestinationQuery__
+ *
+ * To run a query within a React component, call `useGetDestinationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDestinationQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetDestinationQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetDestinationQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetDestinationQuery, GetDestinationQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetDestinationQuery, GetDestinationQueryVariables>(GetDestinationDocument, baseOptions);
+      }
+export function useGetDestinationLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetDestinationQuery, GetDestinationQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetDestinationQuery, GetDestinationQueryVariables>(GetDestinationDocument, baseOptions);
+        }
+export type GetDestinationQueryHookResult = ReturnType<typeof useGetDestinationQuery>;
+export type GetDestinationLazyQueryHookResult = ReturnType<typeof useGetDestinationLazyQuery>;
+export type GetDestinationQueryResult = ApolloReactCommon.QueryResult<GetDestinationQuery, GetDestinationQueryVariables>;
 export const GetPropertyDocument = gql`
     query GetProperty($id: UUID!) {
   property(id: $id) {

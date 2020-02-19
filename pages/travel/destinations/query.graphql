@@ -1,0 +1,38 @@
+query GetDestination($id: UUID!) {
+  destination(id: $id) {
+    id
+    name
+    body
+    country {
+      id
+      name
+    }
+    gallery {
+      id
+      mediaGalleryItems {
+        nodes {
+          id
+          mediaItem {
+            hash
+            name
+          }
+        }
+      }
+      mediaGalleriesByParentId {
+        nodes {
+          id
+          name
+          mediaGalleryItems {
+            nodes {
+              id
+              mediaItem {
+                name
+                hash
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

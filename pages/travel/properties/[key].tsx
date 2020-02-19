@@ -3,13 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import Meta from "../../../components/Meta";
 import Header from "../../../components/Header";
-import {
-  Section,
-  Columns,
-  Column,
-  BrandLine,
-  Content
-} from "../../../components/Bulma";
+import { Section, Columns, Column, BrandLine } from "../../../components/Bulma";
 import Image from "../../../components/Image";
 import Map from "../../../components/Quote/components/Map";
 import Footer from "../../../components/Footer";
@@ -44,12 +38,9 @@ const PropertyPage: React.FC = () => {
             <Column>
               <h2 className="title is-2">{property.name}</h2>
               <BrandLine />
-              <Content>
-                <ReactMarkdown
-                  className="content"
-                  source={property.summary || ""}
-                />
-              </Content>
+              {property.summary && (
+                <ReactMarkdown className="content" source={property.summary} />
+              )}
             </Column>
             <Column>
               {property.heroMedia && property.heroMedia.hash && (
@@ -120,7 +111,7 @@ const PropertyPage: React.FC = () => {
             </React.Fragment>
           ))}
           {image && (
-            <div className="image is-cover">
+            <div className="image is-cover is-hidden-mobile">
               <Image src={image} />
             </div>
           )}
