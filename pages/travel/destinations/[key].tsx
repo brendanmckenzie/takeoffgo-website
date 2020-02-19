@@ -29,7 +29,7 @@ const DestinationPage: React.FC = () => {
   return (
     <>
       <Head>
-        <title>{destination.name} - Properties - Take Off Go</title>
+        <title>{destination.name} - Destinations - Take Off Go</title>
         <Meta router={router} />
       </Head>
       <>
