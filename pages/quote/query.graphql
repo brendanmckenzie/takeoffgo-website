@@ -47,7 +47,7 @@ query GetQuote($key: String!) {
           carrier
           departure
           number
-          departureAirport: airportByDepartureAirport {
+          departureAirport {
             id
             latitude
             longitude
@@ -59,7 +59,7 @@ query GetQuote($key: String!) {
               name
             }
           }
-          arrivalAirport: airportByArrivalAirport {
+          arrivalAirport {
             id
             latitude
             longitude
