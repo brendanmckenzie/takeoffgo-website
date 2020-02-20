@@ -72,6 +72,14 @@ const Terms = ({ data }: { data: GetQuoteQuery }) => (
               seasons and with client bookings made within 90 days of tour date
               we may be forced to offer substitutes
             </li>
+            <li>
+              Any Egypt itineraries will incur a 25% penalty of the cost of the
+              tour for all private and tailor-made tours or 50% of the cost of
+              the tour for discounted/voucher bookings made through agents of
+              the Company, in addition to the full price of any internal or
+              international flights and travel insurance booked as part of the
+              package.
+            </li>
           </ol>
         </div>
       </div>
