@@ -7,6 +7,12 @@ query GetDestination($id: UUID!) {
       id
       name
     }
+    latitude
+    longitude
+    heroMedia {
+      id
+      hash
+    }
     gallery {
       id
       mediaGalleryItems {

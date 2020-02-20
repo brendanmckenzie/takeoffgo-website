@@ -5,7 +5,7 @@ import Meta from "../../../components/Meta";
 import Header from "../../../components/Header";
 import { Section, Columns, Column, BrandLine } from "../../../components/Bulma";
 import Image from "../../../components/Image";
-// import Map from "../../../components/Quote/components/Map";
+import Map from "../../../components/Quote/components/Map";
 import Footer from "../../../components/Footer";
 import withData from "../../../lib/apollo";
 import ReactMarkdown from "react-markdown";
@@ -14,8 +14,6 @@ import { extractUrlJson } from "../../../lib/util";
 
 const DestinationPage: React.FC = () => {
   const router = useRouter();
-
-  console.log(router.query);
 
   const [image, setImage] = useState<string | null>(null);
 
@@ -27,7 +25,6 @@ const DestinationPage: React.FC = () => {
 
   const destination = query.data.destination as Destination;
 
-  const heroMedia = destination.gallery?.mediaGalleryItems.nodes[0];
   const back = extractUrlJson(router.query.back);
 
   return (
@@ -58,16 +55,14 @@ const DestinationPage: React.FC = () => {
                 <ReactMarkdown className="content" source={destination.body} />
               )}
             </Column>
-            {heroMedia && (
+            {destination.heroMedia && destination.heroMedia.hash && (
               <Column>
-                {heroMedia && heroMedia.mediaItem?.hash && (
-                  <div className="image is-cover">
-                    <Image
-                      src={heroMedia.mediaItem.hash}
-                      alt={destination.name || "Image of Destination"}
-                    />
-                  </div>
-                )}
+                <div className="image is-cover">
+                  <Image
+                    src={destination.heroMedia.hash}
+                    alt={destination.name || "Image of destination"}
+                  />
+                </div>
               </Column>
             )}
           </Columns>
@@ -132,21 +127,21 @@ const DestinationPage: React.FC = () => {
             </div>
           )}
         </Section>
-        {/* {destination.latitude && destination.longitude && (
-          <Map
-            points={[
-              {
-                lat: destination.latitude,
-                lng: destination.longitude,
-                id: destination.id,
-                icon: "hotel",
-                title: destination.name || "",
-                body: destination.summary || "",
-                type: "Destination"
-              }
-            ]}
-          />
-        )} */}
+        {isFinite(destination.latitude ?? NaN) &&
+          isFinite(destination.longitude ?? NaN) && (
+            <Map
+              points={[
+                {
+                  lat: destination.latitude ?? 0,
+                  lng: destination.longitude ?? 0,
+                  id: destination.id,
+                  type: "destination",
+                  title: destination.name ?? "",
+                  icon: "monument"
+                }
+              ]}
+            />
+          )}
         <Footer />
       </>
     </>

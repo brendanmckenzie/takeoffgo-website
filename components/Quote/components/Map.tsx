@@ -15,7 +15,7 @@ type MapMarker = {
 };
 
 const extractCentre = (points: MapMarker[]) => {
-  const applicablePoints = points.filter((ent: any) => ent.type === "property");
+  const applicablePoints = points.filter((ent: any) => ent.type !== "airport");
   const lat =
     applicablePoints
       .map((ent: any) => ent.lat)
@@ -67,8 +67,8 @@ export const extractPoints = (data: GetQuoteQuery): MapMarker[] => {
 const Marker = (props: any) => {
   return (
     <div className="map-icon">
-      <span className="icon has-text-link">
-        <i className={`fad fa-lg fa-${props.icon}`} title={props.title}></i>
+      <span className="icon is-medium has-text-link">
+        <i className={`fad fa-2x fa-${props.icon}`} title={props.title}></i>
       </span>
     </div>
   );
@@ -84,6 +84,7 @@ const Map = ({ points }: { points: MapMarker[] }) => {
   if (!centre) {
     return null;
   }
+  console.log(points);
 
   return (
     <section className="is-page-break">

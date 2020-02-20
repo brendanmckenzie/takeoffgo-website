@@ -1352,6 +1352,7 @@ export type CreateDestinationPayload = {
   gallery?: Maybe<MediaGallery>,
   parent?: Maybe<Destination>,
   country?: Maybe<Country>,
+  heroMedia?: Maybe<MediaItem>,
   destinationEdge?: Maybe<DestinationsEdge>,
 };
 
@@ -2841,6 +2842,7 @@ export type DeleteDestinationPayload = {
   gallery?: Maybe<MediaGallery>,
   parent?: Maybe<Destination>,
   country?: Maybe<Country>,
+  heroMedia?: Maybe<MediaItem>,
   destinationEdge?: Maybe<DestinationsEdge>,
 };
 
@@ -3828,9 +3830,13 @@ export type Destination = Node & {
   galleryId?: Maybe<Scalars['UUID']>,
   parentId?: Maybe<Scalars['UUID']>,
   countryId: Scalars['UUID'],
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   gallery?: Maybe<MediaGallery>,
   parent?: Maybe<Destination>,
   country?: Maybe<Country>,
+  heroMedia?: Maybe<MediaItem>,
   destinationsByParentId: DestinationsConnection,
   destinationFeatures: DestinationFeaturesConnection,
   destinationGuides: DestinationGuidesConnection,
@@ -3894,6 +3900,9 @@ export type DestinationCondition = {
   galleryId?: Maybe<Scalars['UUID']>,
   parentId?: Maybe<Scalars['UUID']>,
   countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
 };
 
 export type DestinationFeature = Node & {
@@ -4044,6 +4053,12 @@ export enum DestinationFeaturesOrderBy {
   DestinationByDestinationIdParentIdDesc = 'DESTINATION_BY_DESTINATION_ID__PARENT_ID_DESC',
   DestinationByDestinationIdCountryIdAsc = 'DESTINATION_BY_DESTINATION_ID__COUNTRY_ID_ASC',
   DestinationByDestinationIdCountryIdDesc = 'DESTINATION_BY_DESTINATION_ID__COUNTRY_ID_DESC',
+  DestinationByDestinationIdLatitudeAsc = 'DESTINATION_BY_DESTINATION_ID__LATITUDE_ASC',
+  DestinationByDestinationIdLatitudeDesc = 'DESTINATION_BY_DESTINATION_ID__LATITUDE_DESC',
+  DestinationByDestinationIdLongitudeAsc = 'DESTINATION_BY_DESTINATION_ID__LONGITUDE_ASC',
+  DestinationByDestinationIdLongitudeDesc = 'DESTINATION_BY_DESTINATION_ID__LONGITUDE_DESC',
+  DestinationByDestinationIdHeroMediaIdAsc = 'DESTINATION_BY_DESTINATION_ID__HERO_MEDIA_ID_ASC',
+  DestinationByDestinationIdHeroMediaIdDesc = 'DESTINATION_BY_DESTINATION_ID__HERO_MEDIA_ID_DESC',
   MediaGalleryByGalleryIdIdAsc = 'MEDIA_GALLERY_BY_GALLERY_ID__ID_ASC',
   MediaGalleryByGalleryIdIdDesc = 'MEDIA_GALLERY_BY_GALLERY_ID__ID_DESC',
   MediaGalleryByGalleryIdCreatedAsc = 'MEDIA_GALLERY_BY_GALLERY_ID__CREATED_ASC',
@@ -4067,6 +4082,9 @@ export type DestinationFilter = {
   galleryId?: Maybe<UuidFilter>,
   parentId?: Maybe<UuidFilter>,
   countryId?: Maybe<UuidFilter>,
+  latitude?: Maybe<FloatFilter>,
+  longitude?: Maybe<FloatFilter>,
+  heroMediaId?: Maybe<UuidFilter>,
   destinationsByParentId?: Maybe<DestinationToManyDestinationFilter>,
   destinationsByParentIdExist?: Maybe<Scalars['Boolean']>,
   destinationFeatures?: Maybe<DestinationToManyDestinationFeatureFilter>,
@@ -4080,6 +4098,8 @@ export type DestinationFilter = {
   parent?: Maybe<DestinationFilter>,
   parentExists?: Maybe<Scalars['Boolean']>,
   country?: Maybe<CountryFilter>,
+  heroMedia?: Maybe<MediaItemFilter>,
+  heroMediaExists?: Maybe<Scalars['Boolean']>,
   and?: Maybe<Array<DestinationFilter>>,
   or?: Maybe<Array<DestinationFilter>>,
   not?: Maybe<DestinationFilter>,
@@ -4210,8 +4230,73 @@ export enum DestinationGuidesOrderBy {
   DestinationByDestinationIdParentIdAsc = 'DESTINATION_BY_DESTINATION_ID__PARENT_ID_ASC',
   DestinationByDestinationIdParentIdDesc = 'DESTINATION_BY_DESTINATION_ID__PARENT_ID_DESC',
   DestinationByDestinationIdCountryIdAsc = 'DESTINATION_BY_DESTINATION_ID__COUNTRY_ID_ASC',
-  DestinationByDestinationIdCountryIdDesc = 'DESTINATION_BY_DESTINATION_ID__COUNTRY_ID_DESC'
+  DestinationByDestinationIdCountryIdDesc = 'DESTINATION_BY_DESTINATION_ID__COUNTRY_ID_DESC',
+  DestinationByDestinationIdLatitudeAsc = 'DESTINATION_BY_DESTINATION_ID__LATITUDE_ASC',
+  DestinationByDestinationIdLatitudeDesc = 'DESTINATION_BY_DESTINATION_ID__LATITUDE_DESC',
+  DestinationByDestinationIdLongitudeAsc = 'DESTINATION_BY_DESTINATION_ID__LONGITUDE_ASC',
+  DestinationByDestinationIdLongitudeDesc = 'DESTINATION_BY_DESTINATION_ID__LONGITUDE_DESC',
+  DestinationByDestinationIdHeroMediaIdAsc = 'DESTINATION_BY_DESTINATION_ID__HERO_MEDIA_ID_ASC',
+  DestinationByDestinationIdHeroMediaIdDesc = 'DESTINATION_BY_DESTINATION_ID__HERO_MEDIA_ID_DESC'
 }
+
+export type DestinationHeroMediaIdFkeyDestinationCreateInput = {
+  id?: Maybe<Scalars['UUID']>,
+  created?: Maybe<Scalars['Datetime']>,
+  modified?: Maybe<Scalars['Datetime']>,
+  name?: Maybe<Scalars['String']>,
+  body?: Maybe<Scalars['String']>,
+  galleryId?: Maybe<Scalars['UUID']>,
+  parentId?: Maybe<Scalars['UUID']>,
+  countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
+  destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
+  countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
+  destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
+  destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
+  quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
+};
+
+export type DestinationHeroMediaIdFkeyInput = {
+  connectById?: Maybe<MediaItemPkMediaItemConnect>,
+  connectByNodeId?: Maybe<MediaItemNodeIdConnect>,
+  deleteById?: Maybe<MediaItemPkMediaItemDelete>,
+  deleteByNodeId?: Maybe<MediaItemNodeIdDelete>,
+  updateById?: Maybe<MediaItemOnDestinationForDestinationHeroMediaIdFkeyUsingPkMediaItemUpdate>,
+  updateByNodeId?: Maybe<DestinationOnDestinationForDestinationHeroMediaIdFkeyNodeIdUpdate>,
+  create?: Maybe<DestinationHeroMediaIdFkeyMediaItemCreateInput>,
+};
+
+export type DestinationHeroMediaIdFkeyInverseInput = {
+  deleteOthers?: Maybe<Scalars['Boolean']>,
+  connectById?: Maybe<Array<DestinationPkDestinationConnect>>,
+  connectByNodeId?: Maybe<Array<DestinationNodeIdConnect>>,
+  deleteById?: Maybe<Array<DestinationPkDestinationDelete>>,
+  deleteByNodeId?: Maybe<Array<DestinationNodeIdDelete>>,
+  updateById?: Maybe<Array<DestinationOnDestinationForDestinationHeroMediaIdFkeyUsingPkDestinationUpdate>>,
+  updateByNodeId?: Maybe<Array<MediaItemOnDestinationForDestinationHeroMediaIdFkeyNodeIdUpdate>>,
+  create?: Maybe<Array<DestinationHeroMediaIdFkeyDestinationCreateInput>>,
+};
+
+export type DestinationHeroMediaIdFkeyMediaItemCreateInput = {
+  id?: Maybe<Scalars['UUID']>,
+  contentType?: Maybe<Scalars['String']>,
+  created?: Maybe<Scalars['Datetime']>,
+  modified?: Maybe<Scalars['Datetime']>,
+  name?: Maybe<Scalars['String']>,
+  fileName?: Maybe<Scalars['String']>,
+  summary?: Maybe<Scalars['String']>,
+  hash?: Maybe<Scalars['String']>,
+  agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
+  supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
+  mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
+  propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
+  quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
+  quoteHeroesUsingId?: Maybe<FkQuoteHeroMediaItemImageIdInverseInput>,
+};
 
 export type DestinationInput = {
   id?: Maybe<Scalars['UUID']>,
@@ -4222,9 +4307,13 @@ export type DestinationInput = {
   galleryId?: Maybe<Scalars['UUID']>,
   parentId?: Maybe<Scalars['UUID']>,
   countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
   destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
   countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
   destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
   destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
   quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
@@ -4245,6 +4334,16 @@ export type DestinationOnDestinationFeatureForFkDestinationFeatureDestinationDes
 
 export type DestinationOnDestinationFeatureForFkDestinationFeatureDestinationDestinationIdUsingPkDestinationUpdate = {
   patch: UpdateDestinationOnDestinationFeatureForFkDestinationFeatureDestinationDestinationIdPatch,
+  id: Scalars['UUID'],
+};
+
+export type DestinationOnDestinationForDestinationHeroMediaIdFkeyNodeIdUpdate = {
+  nodeId: Scalars['ID'],
+  patch: MediaItemPatch,
+};
+
+export type DestinationOnDestinationForDestinationHeroMediaIdFkeyUsingPkDestinationUpdate = {
+  patch: UpdateDestinationOnDestinationForDestinationHeroMediaIdFkeyPatch,
   id: Scalars['UUID'],
 };
 
@@ -4307,9 +4406,13 @@ export type DestinationPatch = {
   galleryId?: Maybe<Scalars['UUID']>,
   parentId?: Maybe<Scalars['UUID']>,
   countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
   destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
   countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
   destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
   destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
   quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
@@ -4355,6 +4458,12 @@ export enum DestinationsOrderBy {
   ParentIdDesc = 'PARENT_ID_DESC',
   CountryIdAsc = 'COUNTRY_ID_ASC',
   CountryIdDesc = 'COUNTRY_ID_DESC',
+  LatitudeAsc = 'LATITUDE_ASC',
+  LatitudeDesc = 'LATITUDE_DESC',
+  LongitudeAsc = 'LONGITUDE_ASC',
+  LongitudeDesc = 'LONGITUDE_DESC',
+  HeroMediaIdAsc = 'HERO_MEDIA_ID_ASC',
+  HeroMediaIdDesc = 'HERO_MEDIA_ID_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
   MediaGalleryByGalleryIdIdAsc = 'MEDIA_GALLERY_BY_GALLERY_ID__ID_ASC',
@@ -4385,6 +4494,12 @@ export enum DestinationsOrderBy {
   DestinationByParentIdParentIdDesc = 'DESTINATION_BY_PARENT_ID__PARENT_ID_DESC',
   DestinationByParentIdCountryIdAsc = 'DESTINATION_BY_PARENT_ID__COUNTRY_ID_ASC',
   DestinationByParentIdCountryIdDesc = 'DESTINATION_BY_PARENT_ID__COUNTRY_ID_DESC',
+  DestinationByParentIdLatitudeAsc = 'DESTINATION_BY_PARENT_ID__LATITUDE_ASC',
+  DestinationByParentIdLatitudeDesc = 'DESTINATION_BY_PARENT_ID__LATITUDE_DESC',
+  DestinationByParentIdLongitudeAsc = 'DESTINATION_BY_PARENT_ID__LONGITUDE_ASC',
+  DestinationByParentIdLongitudeDesc = 'DESTINATION_BY_PARENT_ID__LONGITUDE_DESC',
+  DestinationByParentIdHeroMediaIdAsc = 'DESTINATION_BY_PARENT_ID__HERO_MEDIA_ID_ASC',
+  DestinationByParentIdHeroMediaIdDesc = 'DESTINATION_BY_PARENT_ID__HERO_MEDIA_ID_DESC',
   CountryByCountryIdIdAsc = 'COUNTRY_BY_COUNTRY_ID__ID_ASC',
   CountryByCountryIdIdDesc = 'COUNTRY_BY_COUNTRY_ID__ID_DESC',
   CountryByCountryIdCreatedAsc = 'COUNTRY_BY_COUNTRY_ID__CREATED_ASC',
@@ -4397,6 +4512,22 @@ export enum DestinationsOrderBy {
   CountryByCountryIdIso3Desc = 'COUNTRY_BY_COUNTRY_ID__ISO3_DESC',
   CountryByCountryIdNameAsc = 'COUNTRY_BY_COUNTRY_ID__NAME_ASC',
   CountryByCountryIdNameDesc = 'COUNTRY_BY_COUNTRY_ID__NAME_DESC',
+  MediaItemByHeroMediaIdIdAsc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__ID_ASC',
+  MediaItemByHeroMediaIdIdDesc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__ID_DESC',
+  MediaItemByHeroMediaIdContentTypeAsc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__CONTENT_TYPE_ASC',
+  MediaItemByHeroMediaIdContentTypeDesc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__CONTENT_TYPE_DESC',
+  MediaItemByHeroMediaIdCreatedAsc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__CREATED_ASC',
+  MediaItemByHeroMediaIdCreatedDesc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__CREATED_DESC',
+  MediaItemByHeroMediaIdModifiedAsc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__MODIFIED_ASC',
+  MediaItemByHeroMediaIdModifiedDesc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__MODIFIED_DESC',
+  MediaItemByHeroMediaIdNameAsc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__NAME_ASC',
+  MediaItemByHeroMediaIdNameDesc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__NAME_DESC',
+  MediaItemByHeroMediaIdFileNameAsc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__FILE_NAME_ASC',
+  MediaItemByHeroMediaIdFileNameDesc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__FILE_NAME_DESC',
+  MediaItemByHeroMediaIdSummaryAsc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__SUMMARY_ASC',
+  MediaItemByHeroMediaIdSummaryDesc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__SUMMARY_DESC',
+  MediaItemByHeroMediaIdHashAsc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__HASH_ASC',
+  MediaItemByHeroMediaIdHashDesc = 'MEDIA_ITEM_BY_HERO_MEDIA_ID__HASH_DESC',
   DestinationsByParentIdCountAsc = 'DESTINATIONS_BY_PARENT_ID__COUNT_ASC',
   DestinationsByParentIdCountDesc = 'DESTINATIONS_BY_PARENT_ID__COUNT_DESC',
   DestinationFeaturesByDestinationIdCountAsc = 'DESTINATION_FEATURES_BY_DESTINATION_ID__COUNT_ASC',
@@ -6130,6 +6261,7 @@ export type FkAgencyMediaItemLogoIdMediaItemCreateInput = {
   hash?: Maybe<Scalars['String']>,
   agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
   supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
   mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
   propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
   quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
@@ -6351,9 +6483,13 @@ export type FkDestinationCountryCountryIdDestinationCreateInput = {
   body?: Maybe<Scalars['String']>,
   galleryId?: Maybe<Scalars['UUID']>,
   parentId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
   destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
   countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
   destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
   destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
   quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
@@ -6388,9 +6524,13 @@ export type FkDestinationDestinationParentIdDestinationCreateInput = {
   body?: Maybe<Scalars['String']>,
   galleryId?: Maybe<Scalars['UUID']>,
   countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
   destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
   countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
   destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
   destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
   quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
@@ -6415,9 +6555,13 @@ export type FkDestinationFeatureDestinationDestinationIdDestinationCreateInput =
   galleryId?: Maybe<Scalars['UUID']>,
   parentId?: Maybe<Scalars['UUID']>,
   countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
   destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
   countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
   destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
   destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
   quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
@@ -6513,9 +6657,13 @@ export type FkDestinationGuideDestinationDestinationIdDestinationCreateInput = {
   galleryId?: Maybe<Scalars['UUID']>,
   parentId?: Maybe<Scalars['UUID']>,
   countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
   destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
   countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
   destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
   destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
   quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
@@ -6559,9 +6707,13 @@ export type FkDestinationMediaGalleryGalleryIdDestinationCreateInput = {
   body?: Maybe<Scalars['String']>,
   parentId?: Maybe<Scalars['UUID']>,
   countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
   destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
   countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
   destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
   destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
   quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
@@ -7705,6 +7857,7 @@ export type FkMediaGalleryItemMediaItemMediaItemIdMediaItemCreateInput = {
   hash?: Maybe<Scalars['String']>,
   agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
   supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
   mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
   propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
   quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
@@ -8342,6 +8495,7 @@ export type FkPropertyMediaItemHeroMediaIdMediaItemCreateInput = {
   hash?: Maybe<Scalars['String']>,
   agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
   supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
   mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
   propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
   quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
@@ -8604,9 +8758,13 @@ export type FkQuoteDayDestinationDestinationDestinationIdDestinationCreateInput 
   galleryId?: Maybe<Scalars['UUID']>,
   parentId?: Maybe<Scalars['UUID']>,
   countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
   destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
   countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
   destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
   destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
   quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
@@ -8982,6 +9140,7 @@ export type FkQuoteHeroMediaItemImageIdMediaItemCreateInput = {
   hash?: Maybe<Scalars['String']>,
   agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
   supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
   mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
   propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
   quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
@@ -9030,6 +9189,7 @@ export type FkQuoteMediaItemHeroImageIdMediaItemCreateInput = {
   hash?: Maybe<Scalars['String']>,
   agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
   supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
   mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
   propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
   quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
@@ -9550,6 +9710,7 @@ export type FkSupplierInvoiceMediaItemMediaItemIdMediaItemCreateInput = {
   hash?: Maybe<Scalars['String']>,
   agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
   supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
   mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
   propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
   quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
@@ -12420,6 +12581,7 @@ export type MediaItem = Node & {
   hash?: Maybe<Scalars['String']>,
   agenciesByLogoId: AgenciesConnection,
   supplierInvoices: SupplierInvoicesConnection,
+  destinationsByHeroMediaId: DestinationsConnection,
   mediaGalleryItems: MediaGalleryItemsConnection,
   propertiesByHeroMediaId: PropertiesConnection,
   quotesByHeroImageId: QuotesConnection,
@@ -12448,6 +12610,18 @@ export type MediaItemSupplierInvoicesArgs = {
   orderBy?: Maybe<Array<SupplierInvoicesOrderBy>>,
   condition?: Maybe<SupplierInvoiceCondition>,
   filter?: Maybe<SupplierInvoiceFilter>
+};
+
+
+export type MediaItemDestinationsByHeroMediaIdArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<DestinationsOrderBy>>,
+  condition?: Maybe<DestinationCondition>,
+  filter?: Maybe<DestinationFilter>
 };
 
 
@@ -12522,6 +12696,8 @@ export type MediaItemFilter = {
   agenciesByLogoIdExist?: Maybe<Scalars['Boolean']>,
   supplierInvoices?: Maybe<MediaItemToManySupplierInvoiceFilter>,
   supplierInvoicesExist?: Maybe<Scalars['Boolean']>,
+  destinationsByHeroMediaId?: Maybe<MediaItemToManyDestinationFilter>,
+  destinationsByHeroMediaIdExist?: Maybe<Scalars['Boolean']>,
   mediaGalleryItems?: Maybe<MediaItemToManyMediaGalleryItemFilter>,
   mediaGalleryItemsExist?: Maybe<Scalars['Boolean']>,
   propertiesByHeroMediaId?: Maybe<MediaItemToManyPropertyFilter>,
@@ -12546,6 +12722,7 @@ export type MediaItemInput = {
   hash?: Maybe<Scalars['String']>,
   agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
   supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
   mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
   propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
   quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
@@ -12567,6 +12744,16 @@ export type MediaItemOnAgencyForFkAgencyMediaItemLogoIdNodeIdUpdate = {
 
 export type MediaItemOnAgencyForFkAgencyMediaItemLogoIdUsingPkMediaItemUpdate = {
   patch: UpdateMediaItemOnAgencyForFkAgencyMediaItemLogoIdPatch,
+  id: Scalars['UUID'],
+};
+
+export type MediaItemOnDestinationForDestinationHeroMediaIdFkeyNodeIdUpdate = {
+  nodeId: Scalars['ID'],
+  patch: DestinationPatch,
+};
+
+export type MediaItemOnDestinationForDestinationHeroMediaIdFkeyUsingPkMediaItemUpdate = {
+  patch: UpdateMediaItemOnDestinationForDestinationHeroMediaIdFkeyPatch,
   id: Scalars['UUID'],
 };
 
@@ -12631,6 +12818,7 @@ export type MediaItemPatch = {
   hash?: Maybe<Scalars['String']>,
   agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
   supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
   mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
   propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
   quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
@@ -12683,6 +12871,8 @@ export enum MediaItemsOrderBy {
   AgenciesByLogoIdCountDesc = 'AGENCIES_BY_LOGO_ID__COUNT_DESC',
   SupplierInvoicesByMediaItemIdCountAsc = 'SUPPLIER_INVOICES_BY_MEDIA_ITEM_ID__COUNT_ASC',
   SupplierInvoicesByMediaItemIdCountDesc = 'SUPPLIER_INVOICES_BY_MEDIA_ITEM_ID__COUNT_DESC',
+  DestinationsByHeroMediaIdCountAsc = 'DESTINATIONS_BY_HERO_MEDIA_ID__COUNT_ASC',
+  DestinationsByHeroMediaIdCountDesc = 'DESTINATIONS_BY_HERO_MEDIA_ID__COUNT_DESC',
   MediaGalleryItemsByMediaItemIdCountAsc = 'MEDIA_GALLERY_ITEMS_BY_MEDIA_ITEM_ID__COUNT_ASC',
   MediaGalleryItemsByMediaItemIdCountDesc = 'MEDIA_GALLERY_ITEMS_BY_MEDIA_ITEM_ID__COUNT_DESC',
   PropertiesByHeroMediaIdCountAsc = 'PROPERTIES_BY_HERO_MEDIA_ID__COUNT_ASC',
@@ -12697,6 +12887,12 @@ export type MediaItemToManyAgencyFilter = {
   every?: Maybe<AgencyFilter>,
   some?: Maybe<AgencyFilter>,
   none?: Maybe<AgencyFilter>,
+};
+
+export type MediaItemToManyDestinationFilter = {
+  every?: Maybe<DestinationFilter>,
+  some?: Maybe<DestinationFilter>,
+  none?: Maybe<DestinationFilter>,
 };
 
 export type MediaItemToManyMediaGalleryItemFilter = {
@@ -17431,6 +17627,12 @@ export enum QuoteDayDestinationsOrderBy {
   DestinationByDestinationIdParentIdDesc = 'DESTINATION_BY_DESTINATION_ID__PARENT_ID_DESC',
   DestinationByDestinationIdCountryIdAsc = 'DESTINATION_BY_DESTINATION_ID__COUNTRY_ID_ASC',
   DestinationByDestinationIdCountryIdDesc = 'DESTINATION_BY_DESTINATION_ID__COUNTRY_ID_DESC',
+  DestinationByDestinationIdLatitudeAsc = 'DESTINATION_BY_DESTINATION_ID__LATITUDE_ASC',
+  DestinationByDestinationIdLatitudeDesc = 'DESTINATION_BY_DESTINATION_ID__LATITUDE_DESC',
+  DestinationByDestinationIdLongitudeAsc = 'DESTINATION_BY_DESTINATION_ID__LONGITUDE_ASC',
+  DestinationByDestinationIdLongitudeDesc = 'DESTINATION_BY_DESTINATION_ID__LONGITUDE_DESC',
+  DestinationByDestinationIdHeroMediaIdAsc = 'DESTINATION_BY_DESTINATION_ID__HERO_MEDIA_ID_ASC',
+  DestinationByDestinationIdHeroMediaIdDesc = 'DESTINATION_BY_DESTINATION_ID__HERO_MEDIA_ID_DESC',
   QuoteDayByDayIdIdAsc = 'QUOTE_DAY_BY_DAY_ID__ID_ASC',
   QuoteDayByDayIdIdDesc = 'QUOTE_DAY_BY_DAY_ID__ID_DESC',
   QuoteDayByDayIdOrderAsc = 'QUOTE_DAY_BY_DAY_ID__ORDER_ASC',
@@ -23758,9 +23960,33 @@ export type UpdateDestinationOnDestinationFeatureForFkDestinationFeatureDestinat
   galleryId?: Maybe<Scalars['UUID']>,
   parentId?: Maybe<Scalars['UUID']>,
   countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
   destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
   countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
+  destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
+  destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
+  quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
+};
+
+export type UpdateDestinationOnDestinationForDestinationHeroMediaIdFkeyPatch = {
+  id?: Maybe<Scalars['UUID']>,
+  created?: Maybe<Scalars['Datetime']>,
+  modified?: Maybe<Scalars['Datetime']>,
+  name?: Maybe<Scalars['String']>,
+  body?: Maybe<Scalars['String']>,
+  galleryId?: Maybe<Scalars['UUID']>,
+  parentId?: Maybe<Scalars['UUID']>,
+  countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
+  destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
+  countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
   destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
   destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
   quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
@@ -23774,9 +24000,13 @@ export type UpdateDestinationOnDestinationForFkDestinationCountryCountryIdPatch 
   body?: Maybe<Scalars['String']>,
   galleryId?: Maybe<Scalars['UUID']>,
   parentId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
   destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
   countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
   destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
   destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
   quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
@@ -23790,9 +24020,13 @@ export type UpdateDestinationOnDestinationForFkDestinationDestinationParentIdPat
   body?: Maybe<Scalars['String']>,
   galleryId?: Maybe<Scalars['UUID']>,
   countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
   destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
   countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
   destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
   destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
   quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
@@ -23806,9 +24040,13 @@ export type UpdateDestinationOnDestinationForFkDestinationMediaGalleryGalleryIdP
   body?: Maybe<Scalars['String']>,
   parentId?: Maybe<Scalars['UUID']>,
   countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
   destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
   countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
   destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
   destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
   quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
@@ -23823,9 +24061,13 @@ export type UpdateDestinationOnDestinationGuideForFkDestinationGuideDestinationD
   galleryId?: Maybe<Scalars['UUID']>,
   parentId?: Maybe<Scalars['UUID']>,
   countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
   destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
   countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
   destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
   destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
   quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
@@ -23840,9 +24082,13 @@ export type UpdateDestinationOnQuoteDayDestinationForFkQuoteDayDestinationDestin
   galleryId?: Maybe<Scalars['UUID']>,
   parentId?: Maybe<Scalars['UUID']>,
   countryId?: Maybe<Scalars['UUID']>,
+  latitude?: Maybe<Scalars['Float']>,
+  longitude?: Maybe<Scalars['Float']>,
+  heroMediaId?: Maybe<Scalars['UUID']>,
   mediaGalleryToGalleryId?: Maybe<FkDestinationMediaGalleryGalleryIdInput>,
   destinationToParentId?: Maybe<FkDestinationDestinationParentIdInput>,
   countryToCountryId?: Maybe<FkDestinationCountryCountryIdInput>,
+  mediaItemToHeroMediaId?: Maybe<DestinationHeroMediaIdFkeyInput>,
   destinationFeaturesUsingId?: Maybe<FkDestinationFeatureDestinationDestinationIdInverseInput>,
   destinationGuidesUsingId?: Maybe<FkDestinationGuideDestinationDestinationIdInverseInput>,
   quoteDayDestinationsUsingId?: Maybe<FkQuoteDayDestinationDestinationDestinationIdInverseInput>,
@@ -23856,6 +24102,7 @@ export type UpdateDestinationPayload = {
   gallery?: Maybe<MediaGallery>,
   parent?: Maybe<Destination>,
   country?: Maybe<Country>,
+  heroMedia?: Maybe<MediaItem>,
   destinationEdge?: Maybe<DestinationsEdge>,
 };
 
@@ -24765,6 +25012,25 @@ export type UpdateMediaItemOnAgencyForFkAgencyMediaItemLogoIdPatch = {
   hash?: Maybe<Scalars['String']>,
   agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
   supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
+  mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
+  propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
+  quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
+  quoteHeroesUsingId?: Maybe<FkQuoteHeroMediaItemImageIdInverseInput>,
+};
+
+export type UpdateMediaItemOnDestinationForDestinationHeroMediaIdFkeyPatch = {
+  id?: Maybe<Scalars['UUID']>,
+  contentType?: Maybe<Scalars['String']>,
+  created?: Maybe<Scalars['Datetime']>,
+  modified?: Maybe<Scalars['Datetime']>,
+  name?: Maybe<Scalars['String']>,
+  fileName?: Maybe<Scalars['String']>,
+  summary?: Maybe<Scalars['String']>,
+  hash?: Maybe<Scalars['String']>,
+  agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
+  supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
   mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
   propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
   quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
@@ -24782,6 +25048,7 @@ export type UpdateMediaItemOnMediaGalleryItemForFkMediaGalleryItemMediaItemMedia
   hash?: Maybe<Scalars['String']>,
   agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
   supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
   mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
   propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
   quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
@@ -24799,6 +25066,7 @@ export type UpdateMediaItemOnPropertyForFkPropertyMediaItemHeroMediaIdPatch = {
   hash?: Maybe<Scalars['String']>,
   agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
   supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
   mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
   propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
   quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
@@ -24816,6 +25084,7 @@ export type UpdateMediaItemOnQuoteForFkQuoteMediaItemHeroImageIdPatch = {
   hash?: Maybe<Scalars['String']>,
   agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
   supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
   mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
   propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
   quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
@@ -24833,6 +25102,7 @@ export type UpdateMediaItemOnQuoteHeroForFkQuoteHeroMediaItemImageIdPatch = {
   hash?: Maybe<Scalars['String']>,
   agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
   supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
   mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
   propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
   quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
@@ -24850,6 +25120,7 @@ export type UpdateMediaItemOnSupplierInvoiceForFkSupplierInvoiceMediaItemMediaIt
   hash?: Maybe<Scalars['String']>,
   agenciesUsingId?: Maybe<FkAgencyMediaItemLogoIdInverseInput>,
   supplierInvoicesUsingId?: Maybe<FkSupplierInvoiceMediaItemMediaItemIdInverseInput>,
+  destinationsUsingId?: Maybe<DestinationHeroMediaIdFkeyInverseInput>,
   mediaGalleryItemsUsingId?: Maybe<FkMediaGalleryItemMediaItemMediaItemIdInverseInput>,
   propertiesUsingId?: Maybe<FkPropertyMediaItemHeroMediaIdInverseInput>,
   quotesUsingId?: Maybe<FkQuoteMediaItemHeroImageIdInverseInput>,
@@ -28980,10 +29251,13 @@ export type GetDestinationQuery = (
   { __typename?: 'Query' }
   & { destination: Maybe<(
     { __typename?: 'Destination' }
-    & Pick<Destination, 'id' | 'name' | 'body'>
+    & Pick<Destination, 'id' | 'name' | 'body' | 'latitude' | 'longitude'>
     & { country: Maybe<(
       { __typename?: 'Country' }
       & Pick<Country, 'id' | 'name'>
+    )>, heroMedia: Maybe<(
+      { __typename?: 'MediaItem' }
+      & Pick<MediaItem, 'id' | 'hash'>
     )>, gallery: Maybe<(
       { __typename?: 'MediaGallery' }
       & Pick<MediaGallery, 'id'>
@@ -29337,6 +29611,12 @@ export const GetDestinationDocument = gql`
     country {
       id
       name
+    }
+    latitude
+    longitude
+    heroMedia {
+      id
+      hash
     }
     gallery {
       id
