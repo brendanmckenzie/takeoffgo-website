@@ -48,6 +48,15 @@ const Terms: React.FC = () => {
               cancellation.
             </p>
 
+            <p>
+              Any Egypt itineraries will incur a 25% penalty of the cost of the
+              tour for all private and tailor-made tours or 50% of the cost of
+              the tour for discounted/voucher bookings made through agents of
+              the Company, in addition to the full price of any internal or
+              international flights and travel insurance booked as part of the
+              package.
+            </p>
+
             <h2>Insurance</h2>
 
             <p>
@@ -253,7 +262,7 @@ const Terms: React.FC = () => {
               warned against.
             </p>
 
-            <h3>Travelers Representations</h3>
+            <h3>Travellers Representations</h3>
 
             <p>
               The Traveler represents that neither he nor she nor anyone
