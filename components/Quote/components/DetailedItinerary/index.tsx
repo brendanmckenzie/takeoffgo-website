@@ -15,15 +15,15 @@ const DetailedItinerary = ({ data }: { data: GetQuoteQuery }) => {
   const flightsPrior =
     data.quote?.days && data.quote?.days.nodes.length === 0
       ? []
-      : flights.filter((flight: any) =>
+      : flights.filter(flight =>
           flight.departureDate
             .utc()
             .isBefore(moment.utc(data.quote?.days?.nodes[0]?.date || ""), "day")
         );
-  const flightsAfter = flights.filter((flight: any) =>
+  const flightsAfter = flights.filter(flight =>
     flight.departureDate
       .utc()
-      .isAfter(
+      .isSameOrAfter(
         moment
           .utc(data.quote?.start ?? "")
           .add((data.quote?.duration ?? 0) - 1, "day"),
