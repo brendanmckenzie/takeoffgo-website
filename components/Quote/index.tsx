@@ -25,12 +25,12 @@ const mapModelToMeta = (model: GetQuoteQuery) => {
   const fromHero = () => {
     if (model.quote?.hero) {
       return {
-        title: model.quote?.hero.title,
-        description: model.quote?.hero.subtitle,
-        "og:image": model.quote?.hero.image?.hash
-          ? mediaUrl(model.quote?.hero.image?.hash as string, {
-              width: 1000,
-              height: 1000
+        title: model.quote.hero.title,
+        description: model.quote.hero.subtitle,
+        "og:image": model.quote.hero.image?.hash
+          ? mediaUrl(model.quote.hero.image?.hash, {
+              w: 1000,
+              h: 1000
             })
           : null
       };
