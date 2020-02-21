@@ -84,7 +84,6 @@ const Map = ({ points }: { points: MapMarker[] }) => {
   if (!centre) {
     return null;
   }
-  console.log(points);
 
   return (
     <section className="is-page-break">
