@@ -21,14 +21,17 @@ import Image from "../Image";
 import { GetQuoteQuery, useTrackQuoteViewMutation } from "../../lib/graphql";
 import withData from "../../lib/apollo";
 
-const mapModelToMeta = (model: any) => {
+const mapModelToMeta = (model: GetQuoteQuery) => {
   const fromHero = () => {
-    if (model.hero) {
+    if (model.quote?.hero) {
       return {
-        title: model.hero.title,
-        description: model.hero.subtitle,
-        "og:image": model.hero
-          ? mediaUrl(model.hero.image as string, { width: 1000, height: 1000 })
+        title: model.quote?.hero.title,
+        description: model.quote?.hero.subtitle,
+        "og:image": model.quote?.hero.image?.hash
+          ? mediaUrl(model.quote?.hero.image?.hash as string, {
+              width: 1000,
+              height: 1000
+            })
           : null
       };
     } else {
