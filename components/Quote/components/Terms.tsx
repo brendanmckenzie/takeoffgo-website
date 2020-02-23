@@ -48,14 +48,20 @@ const Terms = ({ data }: { data: GetQuoteQuery }) => (
             </li>
             <li>The balance is due 90 days prior to departure.</li>
             <li>
-              Cancellations of confirmed bookings 90 days or more prior to
-              departure will receive full refund minus a $500{" "}
-              {data.quote?.baseCurrency} (per person) administrative fee and any
-              non refundable paid fees (such as non refundable airfare, cruise
-              or hotel deposits). 60-89 days will be subject to loss of 30% of
-              program price. 30-59 days will be subject to loss of 50% of
-              program price. 29 days or less will be subject to loss of 100% of
-              program price.
+              All cancellations of confirmed reservations are subject to a $500
+              per person administrative fee. Additionally, clients are subject
+              to any cancellation fees assessed by the purveyors of services
+              including hotels, cruises, or airlines used in the itinerary.
+            </li>
+            <li>
+              Cancellations 90 days or more prior to departure will receive a
+              full refund minus the $500 per person administrative fee and any
+              non refundable servies. 60-89 days will be subject to loss of
+              deposit (30% trip price). 30-59 days will be subject to loss of
+              50% of program price. 29 days or less will be subject to 100% of
+              program price, all of the above may vary depending on seasonality
+              and cancellation charges by the hotels and airlines which costs
+              will be passed on to the traveller at the time of cancellation.
             </li>
             <li>
               Tour quotes do not include airfare to/from the trip start point
