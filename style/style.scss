@@ -151,12 +151,14 @@ header {
     }
   }
 
-  &.is-stuck {
-    background-color: rgba(255, 255, 255, 0.8);
+  html:not(.invoice) {
+    &.is-stuck {
+      background-color: rgba(255, 255, 255, 0.8);
 
-    svg.logo {
-      height: 30px;
-      width: auto;
+      svg.logo {
+        height: 30px;
+        width: auto;
+      }
     }
   }
 
@@ -224,12 +226,14 @@ code.is-flight-number {
   }
 }
 
-.is-sticky {
-  position: sticky;
+html:not(.invoice) {
+  .is-sticky {
+    position: sticky;
 
-  &.is-stuck {
-    .hidden-stuck {
-      display: none;
+    &.is-stuck {
+      .hidden-stuck {
+        display: none;
+      }
     }
   }
 }
