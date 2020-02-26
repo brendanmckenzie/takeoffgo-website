@@ -151,19 +151,29 @@ header {
     }
   }
 
-  html:not(.invoice) {
-    &.is-stuck {
-      background-color: rgba(255, 255, 255, 0.8);
+  .heading {
+    font-weight: 600;
+  }
+}
 
-      svg.logo {
-        height: 30px;
-        width: auto;
-      }
+html:not(.invoice) {
+  header.is-stuck {
+    background-color: rgba(255, 255, 255, 0.8);
+
+    svg.logo {
+      height: 30px;
+      width: auto;
     }
   }
 
-  .heading {
-    font-weight: 600;
+  .is-sticky {
+    position: sticky;
+
+    &.is-stuck {
+      .hidden-stuck {
+        display: none;
+      }
+    }
   }
 }
 
@@ -223,18 +233,6 @@ code.is-flight-number {
   span {
     display: block;
     font-size: $size-5;
-  }
-}
-
-html:not(.invoice) {
-  .is-sticky {
-    position: sticky;
-
-    &.is-stuck {
-      .hidden-stuck {
-        display: none;
-      }
-    }
   }
 }
 
