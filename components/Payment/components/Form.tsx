@@ -31,6 +31,7 @@ export const Form: React.FC<Props> = ({
         label="Card number"
         placeholder="•••• •••• •••• ••••"
         value={value.number}
+        inputMode="numeric"
         onChange={ev => onChange("number", ev.currentTarget.value)}
         disabled={loading}
       />

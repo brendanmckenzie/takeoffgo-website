@@ -2,7 +2,7 @@ const { withData } = require("next-apollo");
 import { HttpLink } from "apollo-boost";
 
 const urlMap: { [url: string]: string } = {
-  "www.takeoffgo.com": "https://api2.takeoffgo.com/jambo/graphql",
+  "www.takeoffgo.com": "https://api.takeoffgo.com/jambo/graphql",
   default: "http://localhost:5000/jambo/graphql"
 };
 
