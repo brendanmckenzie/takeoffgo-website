@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <header className={cx("header is-sticky", { "is-stuck": stuck })}>
       <Container>
-        <Columns>
+        <Columns vcentred>
           <Column className="is-hidden-mobile">
             {overrideBackButton && (
               <LinkButton

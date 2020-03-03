@@ -1,10 +1,11 @@
 import Markdown from "react-markdown";
-import { Section, Columns, Column, BrandLine, Content } from "./Bulma";
+import { Section, Columns, Column, BrandLine, Content, LinkButton, Buttons } from "./Bulma";
 import ContactButton from "./ContactButton";
 import Image from "./Image";
 
 export type PlacesWeLoveProps = {
   body: string;
+  link?: string;
   image: {
     src: string;
     alt: string;
@@ -23,7 +24,10 @@ const PlacesWeLove: React.FC<PlacesWeLoveProps> = props => (
         <Content>
           <Markdown>{props.body}</Markdown>
         </Content>
-        <ContactButton />
+        <Buttons>
+          <ContactButton />
+          {props.link && <LinkButton text iconRight="chevron-right" href={props.link}>Read more</LinkButton>}
+        </Buttons>
       </Column>
       <Column>
         <figure className="image is-cover">
