@@ -16,8 +16,7 @@ import {
 } from "../components/Bulma";
 import ContactButton from "../components/ContactButton";
 import { imageUrl } from "../lib/util";
-import PlacesWeLove, { PlacesWeLoveProps } from "../components/PlacesWeLove";
-import PlacesWeLoveData from "../data/places-we-love/current";
+import PlacesWeLove from "../components/PlacesWeLove";
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -122,7 +121,7 @@ const Home: React.FC = () => {
           <Image src="3593b8a3e9a7632172cb889797eb1829" alt="Two cheetah" />
         </Section>
 
-        <PlacesWeLove {...(PlacesWeLoveData as PlacesWeLoveProps)} />
+        <PlacesWeLove />
 
         <Section container>
           <Image

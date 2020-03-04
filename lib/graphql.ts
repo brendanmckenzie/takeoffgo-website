@@ -7325,7 +7325,7 @@ export type FkExpenseSupplierInvoiceSupplierInvoiceIdSupplierInvoiceCreateInput 
   due: Scalars['Datetime'],
   key?: Maybe<Scalars['String']>,
   modified?: Maybe<Scalars['Datetime']>,
-  number: Scalars['Int'],
+  number?: Maybe<Scalars['Int']>,
   summary?: Maybe<Scalars['String']>,
   supplierId?: Maybe<Scalars['UUID']>,
   tripId?: Maybe<Scalars['UUID']>,
@@ -8328,6 +8328,8 @@ export type FkPropertyCountryCountryIdPropertyCreateInput = {
   archived?: Maybe<Scalars['Datetime']>,
   mapPointId?: Maybe<Scalars['UUID']>,
   plusCode?: Maybe<Scalars['String']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   mediaGalleryToGalleryId?: Maybe<FkPropertyMediaGalleryGalleryIdInput>,
   mediaItemToHeroMediaId?: Maybe<FkPropertyMediaItemHeroMediaIdInput>,
   mapPointToMapPointId?: Maybe<FkPropertyMapPointMapPointIdInput>,
@@ -8388,6 +8390,8 @@ export type FkPropertyMapPointMapPointIdPropertyCreateInput = {
   archived?: Maybe<Scalars['Datetime']>,
   plusCode?: Maybe<Scalars['String']>,
   countryId?: Maybe<Scalars['UUID']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   mediaGalleryToGalleryId?: Maybe<FkPropertyMediaGalleryGalleryIdInput>,
   mediaItemToHeroMediaId?: Maybe<FkPropertyMediaItemHeroMediaIdInput>,
   mapPointToMapPointId?: Maybe<FkPropertyMapPointMapPointIdInput>,
@@ -8455,6 +8459,8 @@ export type FkPropertyMediaGalleryGalleryIdPropertyCreateInput = {
   mapPointId?: Maybe<Scalars['UUID']>,
   plusCode?: Maybe<Scalars['String']>,
   countryId?: Maybe<Scalars['UUID']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   mediaGalleryToGalleryId?: Maybe<FkPropertyMediaGalleryGalleryIdInput>,
   mediaItemToHeroMediaId?: Maybe<FkPropertyMediaItemHeroMediaIdInput>,
   mapPointToMapPointId?: Maybe<FkPropertyMapPointMapPointIdInput>,
@@ -8523,6 +8529,8 @@ export type FkPropertyMediaItemHeroMediaIdPropertyCreateInput = {
   mapPointId?: Maybe<Scalars['UUID']>,
   plusCode?: Maybe<Scalars['String']>,
   countryId?: Maybe<Scalars['UUID']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   mediaGalleryToGalleryId?: Maybe<FkPropertyMediaGalleryGalleryIdInput>,
   mediaItemToHeroMediaId?: Maybe<FkPropertyMediaItemHeroMediaIdInput>,
   mapPointToMapPointId?: Maybe<FkPropertyMapPointMapPointIdInput>,
@@ -8574,6 +8582,8 @@ export type FkQuoteAccommodationDetailPropertyPropertyIdPropertyCreateInput = {
   mapPointId?: Maybe<Scalars['UUID']>,
   plusCode?: Maybe<Scalars['String']>,
   countryId?: Maybe<Scalars['UUID']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   mediaGalleryToGalleryId?: Maybe<FkPropertyMediaGalleryGalleryIdInput>,
   mediaItemToHeroMediaId?: Maybe<FkPropertyMediaItemHeroMediaIdInput>,
   mapPointToMapPointId?: Maybe<FkPropertyMapPointMapPointIdInput>,
@@ -9661,7 +9671,7 @@ export type FkSupplierInvoiceFinanceCategoryCategoryIdSupplierInvoiceCreateInput
   due: Scalars['Datetime'],
   key?: Maybe<Scalars['String']>,
   modified?: Maybe<Scalars['Datetime']>,
-  number: Scalars['Int'],
+  number?: Maybe<Scalars['Int']>,
   summary?: Maybe<Scalars['String']>,
   supplierId?: Maybe<Scalars['UUID']>,
   tripId?: Maybe<Scalars['UUID']>,
@@ -9726,7 +9736,7 @@ export type FkSupplierInvoiceMediaItemMediaItemIdSupplierInvoiceCreateInput = {
   due: Scalars['Datetime'],
   key?: Maybe<Scalars['String']>,
   modified?: Maybe<Scalars['Datetime']>,
-  number: Scalars['Int'],
+  number?: Maybe<Scalars['Int']>,
   summary?: Maybe<Scalars['String']>,
   supplierId?: Maybe<Scalars['UUID']>,
   tripId?: Maybe<Scalars['UUID']>,
@@ -9789,7 +9799,7 @@ export type FkSupplierInvoiceSupplierSupplierIdSupplierInvoiceCreateInput = {
   due: Scalars['Datetime'],
   key?: Maybe<Scalars['String']>,
   modified?: Maybe<Scalars['Datetime']>,
-  number: Scalars['Int'],
+  number?: Maybe<Scalars['Int']>,
   summary?: Maybe<Scalars['String']>,
   tripId?: Maybe<Scalars['UUID']>,
   type?: Maybe<Scalars['String']>,
@@ -9835,7 +9845,7 @@ export type FkSupplierInvoiceTripTripIdSupplierInvoiceCreateInput = {
   due: Scalars['Datetime'],
   key?: Maybe<Scalars['String']>,
   modified?: Maybe<Scalars['Datetime']>,
-  number: Scalars['Int'],
+  number?: Maybe<Scalars['Int']>,
   summary?: Maybe<Scalars['String']>,
   supplierId?: Maybe<Scalars['UUID']>,
   type?: Maybe<Scalars['String']>,
@@ -10381,7 +10391,7 @@ export type FkTransactionLinkSupplierInvoiceSupplierInvoiceIdSupplierInvoiceCrea
   due: Scalars['Datetime'],
   key?: Maybe<Scalars['String']>,
   modified?: Maybe<Scalars['Datetime']>,
-  number: Scalars['Int'],
+  number?: Maybe<Scalars['Int']>,
   summary?: Maybe<Scalars['String']>,
   supplierId?: Maybe<Scalars['UUID']>,
   tripId?: Maybe<Scalars['UUID']>,
@@ -13164,7 +13174,6 @@ export type Mutation = {
   deleteVisaRequirement?: Maybe<DeleteVisaRequirementPayload>,
   dateWeek?: Maybe<DateWeekPayload>,
   randomString?: Maybe<RandomStringPayload>,
-  recordStripePayment?: Maybe<RecordStripePaymentPayload>,
   executePayment?: Maybe<GenericResponse>,
   trackQuoteView?: Maybe<GenericResponse>,
   generateUploadUrl?: Maybe<Scalars['String']>,
@@ -14356,11 +14365,6 @@ export type MutationRandomStringArgs = {
 };
 
 
-export type MutationRecordStripePaymentArgs = {
-  input: RecordStripePaymentInput
-};
-
-
 export type MutationExecutePaymentArgs = {
   input: ExecutePaymentInput
 };
@@ -15186,6 +15190,10 @@ export enum PropertiesOrderBy {
   PlusCodeDesc = 'PLUS_CODE_DESC',
   CountryIdAsc = 'COUNTRY_ID_ASC',
   CountryIdDesc = 'COUNTRY_ID_DESC',
+  FeaturedAsc = 'FEATURED_ASC',
+  FeaturedDesc = 'FEATURED_DESC',
+  FeatureCopyAsc = 'FEATURE_COPY_ASC',
+  FeatureCopyDesc = 'FEATURE_COPY_DESC',
   PrimaryKeyAsc = 'PRIMARY_KEY_ASC',
   PrimaryKeyDesc = 'PRIMARY_KEY_DESC',
   MediaGalleryByGalleryIdIdAsc = 'MEDIA_GALLERY_BY_GALLERY_ID__ID_ASC',
@@ -15270,6 +15278,8 @@ export type Property = Node & {
   mapPointId?: Maybe<Scalars['UUID']>,
   plusCode?: Maybe<Scalars['String']>,
   countryId: Scalars['UUID'],
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   gallery?: Maybe<MediaGallery>,
   heroMedia?: Maybe<MediaItem>,
   mapPoint?: Maybe<MapPoint>,
@@ -15324,6 +15334,8 @@ export type PropertyCondition = {
   mapPointId?: Maybe<Scalars['UUID']>,
   plusCode?: Maybe<Scalars['String']>,
   countryId?: Maybe<Scalars['UUID']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
 };
 
 export type PropertyFilter = {
@@ -15348,6 +15360,8 @@ export type PropertyFilter = {
   mapPointId?: Maybe<UuidFilter>,
   plusCode?: Maybe<StringFilter>,
   countryId?: Maybe<UuidFilter>,
+  featured?: Maybe<DatetimeFilter>,
+  featureCopy?: Maybe<StringFilter>,
   quoteAccommodationDetails?: Maybe<PropertyToManyQuoteAccommodationDetailFilter>,
   quoteAccommodationDetailsExist?: Maybe<Scalars['Boolean']>,
   quoteDays?: Maybe<PropertyToManyQuoteDayFilter>,
@@ -15386,6 +15400,8 @@ export type PropertyInput = {
   mapPointId?: Maybe<Scalars['UUID']>,
   plusCode?: Maybe<Scalars['String']>,
   countryId?: Maybe<Scalars['UUID']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   mediaGalleryToGalleryId?: Maybe<FkPropertyMediaGalleryGalleryIdInput>,
   mediaItemToHeroMediaId?: Maybe<FkPropertyMediaItemHeroMediaIdInput>,
   mapPointToMapPointId?: Maybe<FkPropertyMapPointMapPointIdInput>,
@@ -15484,6 +15500,8 @@ export type PropertyPatch = {
   mapPointId?: Maybe<Scalars['UUID']>,
   plusCode?: Maybe<Scalars['String']>,
   countryId?: Maybe<Scalars['UUID']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   mediaGalleryToGalleryId?: Maybe<FkPropertyMediaGalleryGalleryIdInput>,
   mediaItemToHeroMediaId?: Maybe<FkPropertyMediaItemHeroMediaIdInput>,
   mapPointToMapPointId?: Maybe<FkPropertyMapPointMapPointIdInput>,
@@ -15620,6 +15638,7 @@ export type Query = Node & {
   visaRequirement?: Maybe<VisaRequirement>,
   currentUserRoles?: Maybe<Scalars['String']>,
   currentUserSub?: Maybe<Scalars['String']>,
+  featuredProperty?: Maybe<Property>,
   userCan?: Maybe<Scalars['Boolean']>,
   accountByNodeId?: Maybe<Account>,
   agencyByNodeId?: Maybe<Agency>,
@@ -17188,6 +17207,10 @@ export enum QuoteAccommodationDetailsOrderBy {
   PropertyByPropertyIdPlusCodeDesc = 'PROPERTY_BY_PROPERTY_ID__PLUS_CODE_DESC',
   PropertyByPropertyIdCountryIdAsc = 'PROPERTY_BY_PROPERTY_ID__COUNTRY_ID_ASC',
   PropertyByPropertyIdCountryIdDesc = 'PROPERTY_BY_PROPERTY_ID__COUNTRY_ID_DESC',
+  PropertyByPropertyIdFeaturedAsc = 'PROPERTY_BY_PROPERTY_ID__FEATURED_ASC',
+  PropertyByPropertyIdFeaturedDesc = 'PROPERTY_BY_PROPERTY_ID__FEATURED_DESC',
+  PropertyByPropertyIdFeatureCopyAsc = 'PROPERTY_BY_PROPERTY_ID__FEATURE_COPY_ASC',
+  PropertyByPropertyIdFeatureCopyDesc = 'PROPERTY_BY_PROPERTY_ID__FEATURE_COPY_DESC',
   QuoteByQuoteIdIdAsc = 'QUOTE_BY_QUOTE_ID__ID_ASC',
   QuoteByQuoteIdIdDesc = 'QUOTE_BY_QUOTE_ID__ID_DESC',
   QuoteByQuoteIdCreatedAsc = 'QUOTE_BY_QUOTE_ID__CREATED_ASC',
@@ -17816,6 +17839,8 @@ export type QuoteDayPropertyIdFkeyPropertyCreateInput = {
   mapPointId?: Maybe<Scalars['UUID']>,
   plusCode?: Maybe<Scalars['String']>,
   countryId?: Maybe<Scalars['UUID']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   mediaGalleryToGalleryId?: Maybe<FkPropertyMediaGalleryGalleryIdInput>,
   mediaItemToHeroMediaId?: Maybe<FkPropertyMediaItemHeroMediaIdInput>,
   mapPointToMapPointId?: Maybe<FkPropertyMapPointMapPointIdInput>,
@@ -17991,6 +18016,10 @@ export enum QuoteDaysOrderBy {
   PropertyByPropertyIdPlusCodeDesc = 'PROPERTY_BY_PROPERTY_ID__PLUS_CODE_DESC',
   PropertyByPropertyIdCountryIdAsc = 'PROPERTY_BY_PROPERTY_ID__COUNTRY_ID_ASC',
   PropertyByPropertyIdCountryIdDesc = 'PROPERTY_BY_PROPERTY_ID__COUNTRY_ID_DESC',
+  PropertyByPropertyIdFeaturedAsc = 'PROPERTY_BY_PROPERTY_ID__FEATURED_ASC',
+  PropertyByPropertyIdFeaturedDesc = 'PROPERTY_BY_PROPERTY_ID__FEATURED_DESC',
+  PropertyByPropertyIdFeatureCopyAsc = 'PROPERTY_BY_PROPERTY_ID__FEATURE_COPY_ASC',
+  PropertyByPropertyIdFeatureCopyDesc = 'PROPERTY_BY_PROPERTY_ID__FEATURE_COPY_DESC',
   QuotePublicByQuoteIdIdAsc = 'QUOTE_PUBLIC_BY_QUOTE_ID__ID_ASC',
   QuotePublicByQuoteIdIdDesc = 'QUOTE_PUBLIC_BY_QUOTE_ID__ID_DESC',
   QuotePublicByQuoteIdKeyAsc = 'QUOTE_PUBLIC_BY_QUOTE_ID__KEY_ASC',
@@ -19628,23 +19657,6 @@ export type RandomStringPayload = {
   query?: Maybe<Query>,
 };
 
-export type RecordStripePaymentInput = {
-  clientMutationId?: Maybe<Scalars['String']>,
-  invoiceId?: Maybe<Scalars['UUID']>,
-  chargeId?: Maybe<Scalars['String']>,
-  chargeAmount?: Maybe<Scalars['Int']>,
-  chargeCreated?: Maybe<Scalars['Int']>,
-  balanceId?: Maybe<Scalars['String']>,
-  balanceFee?: Maybe<Scalars['Int']>,
-  balanceCurrency?: Maybe<Scalars['String']>,
-};
-
-export type RecordStripePaymentPayload = {
-   __typename?: 'RecordStripePaymentPayload',
-  clientMutationId?: Maybe<Scalars['String']>,
-  query?: Maybe<Query>,
-};
-
 export type Reminder = Node & {
    __typename?: 'Reminder',
   nodeId: Scalars['ID'],
@@ -19822,6 +19834,1292 @@ export type StringListFilter = {
   anyGreaterThanOrEqualTo?: Maybe<Scalars['String']>,
 };
 
+export type Subscription = {
+   __typename?: 'Subscription',
+  query: Query,
+  nodeId: Scalars['ID'],
+  node?: Maybe<Node>,
+  accounts?: Maybe<AccountsConnection>,
+  agencies?: Maybe<AgenciesConnection>,
+  agencyMembers?: Maybe<AgencyMembersConnection>,
+  airports?: Maybe<AirportsConnection>,
+  combinedTransactions?: Maybe<CombinedTransactionsConnection>,
+  countries?: Maybe<CountriesConnection>,
+  customers?: Maybe<CustomersConnection>,
+  customerTravellers?: Maybe<CustomerTravellersConnection>,
+  dashboardSummaries?: Maybe<DashboardSummariesConnection>,
+  destinations?: Maybe<DestinationsConnection>,
+  destinationFeatures?: Maybe<DestinationFeaturesConnection>,
+  destinationGuides?: Maybe<DestinationGuidesConnection>,
+  emails?: Maybe<EmailsConnection>,
+  enquiries?: Maybe<EnquiriesConnection>,
+  expenses?: Maybe<ExpensesConnection>,
+  features?: Maybe<FeaturesConnection>,
+  financeCategories?: Maybe<FinanceCategoriesConnection>,
+  invoices?: Maybe<InvoicesConnection>,
+  invoiceSummaries?: Maybe<InvoiceSummariesConnection>,
+  mapPoints?: Maybe<MapPointsConnection>,
+  mediaGalleries?: Maybe<MediaGalleriesConnection>,
+  mediaGalleryItems?: Maybe<MediaGalleryItemsConnection>,
+  mediaItems?: Maybe<MediaItemsConnection>,
+  notes?: Maybe<NotesConnection>,
+  passports?: Maybe<PassportsConnection>,
+  payments?: Maybe<PaymentsConnection>,
+  properties?: Maybe<PropertiesConnection>,
+  quotes?: Maybe<QuotesConnection>,
+  quoteViews?: Maybe<QuoteViewsConnection>,
+  quoteAccommodationDetails?: Maybe<QuoteAccommodationDetailsConnection>,
+  quoteCurrencies?: Maybe<QuoteCurrenciesConnection>,
+  quoteDays?: Maybe<QuoteDaysConnection>,
+  quoteDayDestinations?: Maybe<QuoteDayDestinationsConnection>,
+  quoteFinanceLineItems?: Maybe<QuoteFinanceLineItemsConnection>,
+  quoteFinanceLineItemSummaries?: Maybe<QuoteFinanceLineItemSummariesConnection>,
+  quoteFinanceSummaries?: Maybe<QuoteFinanceSummariesConnection>,
+  quoteHeroes?: Maybe<QuoteHeroesConnection>,
+  reminders?: Maybe<RemindersConnection>,
+  suppliers?: Maybe<SuppliersConnection>,
+  supplierInvoices?: Maybe<SupplierInvoicesConnection>,
+  testimonials?: Maybe<TestimonialsConnection>,
+  timelines?: Maybe<TimelinesConnection>,
+  transactions?: Maybe<TransactionsConnection>,
+  transactionImportBatches?: Maybe<TransactionImportBatchesConnection>,
+  transactionLinks?: Maybe<TransactionLinksConnection>,
+  transactionNotes?: Maybe<TransactionNotesConnection>,
+  travellers?: Maybe<TravellersConnection>,
+  trips?: Maybe<TripsConnection>,
+  tripTravellers?: Maybe<TripTravellersConnection>,
+  tripFlights?: Maybe<TripFlightsConnection>,
+  users?: Maybe<UsersConnection>,
+  virtualTransactions?: Maybe<VirtualTransactionsConnection>,
+  visaRequirements?: Maybe<VisaRequirementsConnection>,
+  account?: Maybe<Account>,
+  agency?: Maybe<Agency>,
+  agencyMember?: Maybe<AgencyMember>,
+  airport?: Maybe<Airport>,
+  country?: Maybe<Country>,
+  customer?: Maybe<Customer>,
+  customerTraveller?: Maybe<CustomerTraveller>,
+  destination?: Maybe<Destination>,
+  destinationFeature?: Maybe<DestinationFeature>,
+  destinationGuide?: Maybe<DestinationGuide>,
+  email?: Maybe<Email>,
+  enquiry?: Maybe<Enquiry>,
+  expense?: Maybe<Expense>,
+  feature?: Maybe<Feature>,
+  financeCategory?: Maybe<FinanceCategory>,
+  invoice?: Maybe<Invoice>,
+  invoicePublic?: Maybe<InvoicePublic>,
+  mapPoint?: Maybe<MapPoint>,
+  mediaGallery?: Maybe<MediaGallery>,
+  mediaGalleryItem?: Maybe<MediaGalleryItem>,
+  mediaItem?: Maybe<MediaItem>,
+  note?: Maybe<Note>,
+  passport?: Maybe<Passport>,
+  payment?: Maybe<Payment>,
+  property?: Maybe<Property>,
+  quote?: Maybe<Quote>,
+  quoteView?: Maybe<QuoteView>,
+  quoteAccommodationDetail?: Maybe<QuoteAccommodationDetail>,
+  quoteCurrency?: Maybe<QuoteCurrency>,
+  quoteDay?: Maybe<QuoteDay>,
+  quoteDayDestination?: Maybe<QuoteDayDestination>,
+  quoteFinanceLineItem?: Maybe<QuoteFinanceLineItem>,
+  quoteHero?: Maybe<QuoteHero>,
+  quotePublic?: Maybe<QuotePublic>,
+  reminder?: Maybe<Reminder>,
+  supplier?: Maybe<Supplier>,
+  supplierInvoice?: Maybe<SupplierInvoice>,
+  testimonial?: Maybe<Testimonial>,
+  transaction?: Maybe<Transaction>,
+  transactionImportBatch?: Maybe<TransactionImportBatch>,
+  transactionLink?: Maybe<TransactionLink>,
+  transactionNote?: Maybe<TransactionNote>,
+  traveller?: Maybe<Traveller>,
+  trip?: Maybe<Trip>,
+  tripTraveller?: Maybe<TripTraveller>,
+  tripFlight?: Maybe<TripFlight>,
+  user?: Maybe<User>,
+  visaRequirement?: Maybe<VisaRequirement>,
+  currentUserRoles?: Maybe<Scalars['String']>,
+  currentUserSub?: Maybe<Scalars['String']>,
+  featuredProperty?: Maybe<Property>,
+  userCan?: Maybe<Scalars['Boolean']>,
+  accountByNodeId?: Maybe<Account>,
+  agencyByNodeId?: Maybe<Agency>,
+  agencyMemberByNodeId?: Maybe<AgencyMember>,
+  airportByNodeId?: Maybe<Airport>,
+  countryByNodeId?: Maybe<Country>,
+  customerByNodeId?: Maybe<Customer>,
+  customerTravellerByNodeId?: Maybe<CustomerTraveller>,
+  destinationByNodeId?: Maybe<Destination>,
+  destinationFeatureByNodeId?: Maybe<DestinationFeature>,
+  destinationGuideByNodeId?: Maybe<DestinationGuide>,
+  emailByNodeId?: Maybe<Email>,
+  enquiryByNodeId?: Maybe<Enquiry>,
+  expenseByNodeId?: Maybe<Expense>,
+  featureByNodeId?: Maybe<Feature>,
+  financeCategoryByNodeId?: Maybe<FinanceCategory>,
+  invoiceByNodeId?: Maybe<Invoice>,
+  invoicePublicByNodeId?: Maybe<InvoicePublic>,
+  mapPointByNodeId?: Maybe<MapPoint>,
+  mediaGalleryByNodeId?: Maybe<MediaGallery>,
+  mediaGalleryItemByNodeId?: Maybe<MediaGalleryItem>,
+  mediaItemByNodeId?: Maybe<MediaItem>,
+  noteByNodeId?: Maybe<Note>,
+  passportByNodeId?: Maybe<Passport>,
+  paymentByNodeId?: Maybe<Payment>,
+  propertyByNodeId?: Maybe<Property>,
+  quoteByNodeId?: Maybe<Quote>,
+  quoteViewByNodeId?: Maybe<QuoteView>,
+  quoteAccommodationDetailByNodeId?: Maybe<QuoteAccommodationDetail>,
+  quoteCurrencyByNodeId?: Maybe<QuoteCurrency>,
+  quoteDayByNodeId?: Maybe<QuoteDay>,
+  quoteDayDestinationByNodeId?: Maybe<QuoteDayDestination>,
+  quoteFinanceLineItemByNodeId?: Maybe<QuoteFinanceLineItem>,
+  quoteHeroByNodeId?: Maybe<QuoteHero>,
+  quotePublicByNodeId?: Maybe<QuotePublic>,
+  reminderByNodeId?: Maybe<Reminder>,
+  supplierByNodeId?: Maybe<Supplier>,
+  supplierInvoiceByNodeId?: Maybe<SupplierInvoice>,
+  testimonialByNodeId?: Maybe<Testimonial>,
+  transactionByNodeId?: Maybe<Transaction>,
+  transactionImportBatchByNodeId?: Maybe<TransactionImportBatch>,
+  transactionLinkByNodeId?: Maybe<TransactionLink>,
+  transactionNoteByNodeId?: Maybe<TransactionNote>,
+  travellerByNodeId?: Maybe<Traveller>,
+  tripByNodeId?: Maybe<Trip>,
+  tripTravellerByNodeId?: Maybe<TripTraveller>,
+  tripFlightByNodeId?: Maybe<TripFlight>,
+  userByNodeId?: Maybe<User>,
+  visaRequirementByNodeId?: Maybe<VisaRequirement>,
+};
+
+
+export type SubscriptionNodeArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionAccountsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<AccountsOrderBy>>,
+  condition?: Maybe<AccountCondition>,
+  filter?: Maybe<AccountFilter>
+};
+
+
+export type SubscriptionAgenciesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<AgenciesOrderBy>>,
+  condition?: Maybe<AgencyCondition>,
+  filter?: Maybe<AgencyFilter>
+};
+
+
+export type SubscriptionAgencyMembersArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<AgencyMembersOrderBy>>,
+  condition?: Maybe<AgencyMemberCondition>,
+  filter?: Maybe<AgencyMemberFilter>
+};
+
+
+export type SubscriptionAirportsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<AirportsOrderBy>>,
+  condition?: Maybe<AirportCondition>,
+  filter?: Maybe<AirportFilter>
+};
+
+
+export type SubscriptionCombinedTransactionsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<CombinedTransactionsOrderBy>>,
+  condition?: Maybe<CombinedTransactionCondition>,
+  filter?: Maybe<CombinedTransactionFilter>
+};
+
+
+export type SubscriptionCountriesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<CountriesOrderBy>>,
+  condition?: Maybe<CountryCondition>,
+  filter?: Maybe<CountryFilter>
+};
+
+
+export type SubscriptionCustomersArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<CustomersOrderBy>>,
+  condition?: Maybe<CustomerCondition>,
+  filter?: Maybe<CustomerFilter>
+};
+
+
+export type SubscriptionCustomerTravellersArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<CustomerTravellersOrderBy>>,
+  condition?: Maybe<CustomerTravellerCondition>,
+  filter?: Maybe<CustomerTravellerFilter>
+};
+
+
+export type SubscriptionDashboardSummariesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<DashboardSummariesOrderBy>>,
+  condition?: Maybe<DashboardSummaryCondition>,
+  filter?: Maybe<DashboardSummaryFilter>
+};
+
+
+export type SubscriptionDestinationsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<DestinationsOrderBy>>,
+  condition?: Maybe<DestinationCondition>,
+  filter?: Maybe<DestinationFilter>
+};
+
+
+export type SubscriptionDestinationFeaturesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<DestinationFeaturesOrderBy>>,
+  condition?: Maybe<DestinationFeatureCondition>,
+  filter?: Maybe<DestinationFeatureFilter>
+};
+
+
+export type SubscriptionDestinationGuidesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<DestinationGuidesOrderBy>>,
+  condition?: Maybe<DestinationGuideCondition>,
+  filter?: Maybe<DestinationGuideFilter>
+};
+
+
+export type SubscriptionEmailsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<EmailsOrderBy>>,
+  condition?: Maybe<EmailCondition>,
+  filter?: Maybe<EmailFilter>
+};
+
+
+export type SubscriptionEnquiriesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<EnquiriesOrderBy>>,
+  condition?: Maybe<EnquiryCondition>,
+  filter?: Maybe<EnquiryFilter>
+};
+
+
+export type SubscriptionExpensesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<ExpensesOrderBy>>,
+  condition?: Maybe<ExpenseCondition>,
+  filter?: Maybe<ExpenseFilter>
+};
+
+
+export type SubscriptionFeaturesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<FeaturesOrderBy>>,
+  condition?: Maybe<FeatureCondition>,
+  filter?: Maybe<FeatureFilter>
+};
+
+
+export type SubscriptionFinanceCategoriesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<FinanceCategoriesOrderBy>>,
+  condition?: Maybe<FinanceCategoryCondition>,
+  filter?: Maybe<FinanceCategoryFilter>
+};
+
+
+export type SubscriptionInvoicesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<InvoicesOrderBy>>,
+  condition?: Maybe<InvoiceCondition>,
+  filter?: Maybe<InvoiceFilter>
+};
+
+
+export type SubscriptionInvoiceSummariesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<InvoiceSummariesOrderBy>>,
+  condition?: Maybe<InvoiceSummaryCondition>,
+  filter?: Maybe<InvoiceSummaryFilter>
+};
+
+
+export type SubscriptionMapPointsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<MapPointsOrderBy>>,
+  condition?: Maybe<MapPointCondition>,
+  filter?: Maybe<MapPointFilter>
+};
+
+
+export type SubscriptionMediaGalleriesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<MediaGalleriesOrderBy>>,
+  condition?: Maybe<MediaGalleryCondition>,
+  filter?: Maybe<MediaGalleryFilter>
+};
+
+
+export type SubscriptionMediaGalleryItemsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<MediaGalleryItemsOrderBy>>,
+  condition?: Maybe<MediaGalleryItemCondition>,
+  filter?: Maybe<MediaGalleryItemFilter>
+};
+
+
+export type SubscriptionMediaItemsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<MediaItemsOrderBy>>,
+  condition?: Maybe<MediaItemCondition>,
+  filter?: Maybe<MediaItemFilter>
+};
+
+
+export type SubscriptionNotesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<NotesOrderBy>>,
+  condition?: Maybe<NoteCondition>,
+  filter?: Maybe<NoteFilter>
+};
+
+
+export type SubscriptionPassportsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<PassportsOrderBy>>,
+  condition?: Maybe<PassportCondition>,
+  filter?: Maybe<PassportFilter>
+};
+
+
+export type SubscriptionPaymentsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<PaymentsOrderBy>>,
+  condition?: Maybe<PaymentCondition>,
+  filter?: Maybe<PaymentFilter>
+};
+
+
+export type SubscriptionPropertiesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<PropertiesOrderBy>>,
+  condition?: Maybe<PropertyCondition>,
+  filter?: Maybe<PropertyFilter>
+};
+
+
+export type SubscriptionQuotesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<QuotesOrderBy>>,
+  condition?: Maybe<QuoteCondition>,
+  filter?: Maybe<QuoteFilter>
+};
+
+
+export type SubscriptionQuoteViewsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<QuoteViewsOrderBy>>,
+  condition?: Maybe<QuoteViewCondition>,
+  filter?: Maybe<QuoteViewFilter>
+};
+
+
+export type SubscriptionQuoteAccommodationDetailsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<QuoteAccommodationDetailsOrderBy>>,
+  condition?: Maybe<QuoteAccommodationDetailCondition>,
+  filter?: Maybe<QuoteAccommodationDetailFilter>
+};
+
+
+export type SubscriptionQuoteCurrenciesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<QuoteCurrenciesOrderBy>>,
+  condition?: Maybe<QuoteCurrencyCondition>,
+  filter?: Maybe<QuoteCurrencyFilter>
+};
+
+
+export type SubscriptionQuoteDaysArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<QuoteDaysOrderBy>>,
+  condition?: Maybe<QuoteDayCondition>,
+  filter?: Maybe<QuoteDayFilter>
+};
+
+
+export type SubscriptionQuoteDayDestinationsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<QuoteDayDestinationsOrderBy>>,
+  condition?: Maybe<QuoteDayDestinationCondition>,
+  filter?: Maybe<QuoteDayDestinationFilter>
+};
+
+
+export type SubscriptionQuoteFinanceLineItemsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<QuoteFinanceLineItemsOrderBy>>,
+  condition?: Maybe<QuoteFinanceLineItemCondition>,
+  filter?: Maybe<QuoteFinanceLineItemFilter>
+};
+
+
+export type SubscriptionQuoteFinanceLineItemSummariesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<QuoteFinanceLineItemSummariesOrderBy>>,
+  condition?: Maybe<QuoteFinanceLineItemSummaryCondition>,
+  filter?: Maybe<QuoteFinanceLineItemSummaryFilter>
+};
+
+
+export type SubscriptionQuoteFinanceSummariesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<QuoteFinanceSummariesOrderBy>>,
+  condition?: Maybe<QuoteFinanceSummaryCondition>,
+  filter?: Maybe<QuoteFinanceSummaryFilter>
+};
+
+
+export type SubscriptionQuoteHeroesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<QuoteHeroesOrderBy>>,
+  condition?: Maybe<QuoteHeroCondition>,
+  filter?: Maybe<QuoteHeroFilter>
+};
+
+
+export type SubscriptionRemindersArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<RemindersOrderBy>>,
+  condition?: Maybe<ReminderCondition>,
+  filter?: Maybe<ReminderFilter>
+};
+
+
+export type SubscriptionSuppliersArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<SuppliersOrderBy>>,
+  condition?: Maybe<SupplierCondition>,
+  filter?: Maybe<SupplierFilter>
+};
+
+
+export type SubscriptionSupplierInvoicesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<SupplierInvoicesOrderBy>>,
+  condition?: Maybe<SupplierInvoiceCondition>,
+  filter?: Maybe<SupplierInvoiceFilter>
+};
+
+
+export type SubscriptionTestimonialsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<TestimonialsOrderBy>>,
+  condition?: Maybe<TestimonialCondition>,
+  filter?: Maybe<TestimonialFilter>
+};
+
+
+export type SubscriptionTimelinesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<TimelinesOrderBy>>,
+  condition?: Maybe<TimelineCondition>,
+  filter?: Maybe<TimelineFilter>
+};
+
+
+export type SubscriptionTransactionsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<TransactionsOrderBy>>,
+  condition?: Maybe<TransactionCondition>,
+  filter?: Maybe<TransactionFilter>
+};
+
+
+export type SubscriptionTransactionImportBatchesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<TransactionImportBatchesOrderBy>>,
+  condition?: Maybe<TransactionImportBatchCondition>,
+  filter?: Maybe<TransactionImportBatchFilter>
+};
+
+
+export type SubscriptionTransactionLinksArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<TransactionLinksOrderBy>>,
+  condition?: Maybe<TransactionLinkCondition>,
+  filter?: Maybe<TransactionLinkFilter>
+};
+
+
+export type SubscriptionTransactionNotesArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<TransactionNotesOrderBy>>,
+  condition?: Maybe<TransactionNoteCondition>,
+  filter?: Maybe<TransactionNoteFilter>
+};
+
+
+export type SubscriptionTravellersArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<TravellersOrderBy>>,
+  condition?: Maybe<TravellerCondition>,
+  filter?: Maybe<TravellerFilter>
+};
+
+
+export type SubscriptionTripsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<TripsOrderBy>>,
+  condition?: Maybe<TripCondition>,
+  filter?: Maybe<TripFilter>
+};
+
+
+export type SubscriptionTripTravellersArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<TripTravellersOrderBy>>,
+  condition?: Maybe<TripTravellerCondition>,
+  filter?: Maybe<TripTravellerFilter>
+};
+
+
+export type SubscriptionTripFlightsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<TripFlightsOrderBy>>,
+  condition?: Maybe<TripFlightCondition>,
+  filter?: Maybe<TripFlightFilter>
+};
+
+
+export type SubscriptionUsersArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<UsersOrderBy>>,
+  condition?: Maybe<UserCondition>,
+  filter?: Maybe<UserFilter>
+};
+
+
+export type SubscriptionVirtualTransactionsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<VirtualTransactionsOrderBy>>,
+  condition?: Maybe<VirtualTransactionCondition>,
+  filter?: Maybe<VirtualTransactionFilter>
+};
+
+
+export type SubscriptionVisaRequirementsArgs = {
+  first?: Maybe<Scalars['Int']>,
+  last?: Maybe<Scalars['Int']>,
+  offset?: Maybe<Scalars['Int']>,
+  before?: Maybe<Scalars['Cursor']>,
+  after?: Maybe<Scalars['Cursor']>,
+  orderBy?: Maybe<Array<VisaRequirementsOrderBy>>,
+  condition?: Maybe<VisaRequirementCondition>,
+  filter?: Maybe<VisaRequirementFilter>
+};
+
+
+export type SubscriptionAccountArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionAgencyArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionAgencyMemberArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionAirportArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionCountryArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionCustomerArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionCustomerTravellerArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionDestinationArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionDestinationFeatureArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionDestinationGuideArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionEmailArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionEnquiryArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionExpenseArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionFeatureArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionFinanceCategoryArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionInvoiceArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionInvoicePublicArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionMapPointArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionMediaGalleryArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionMediaGalleryItemArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionMediaItemArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionNoteArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionPassportArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionPaymentArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionPropertyArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionQuoteArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionQuoteViewArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionQuoteAccommodationDetailArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionQuoteCurrencyArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionQuoteDayArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionQuoteDayDestinationArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionQuoteFinanceLineItemArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionQuoteHeroArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionQuotePublicArgs = {
+  key: Scalars['String']
+};
+
+
+export type SubscriptionReminderArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionSupplierArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionSupplierInvoiceArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionTestimonialArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionTransactionArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionTransactionImportBatchArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionTransactionLinkArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionTransactionNoteArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionTravellerArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionTripArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionTripTravellerArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionTripFlightArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionUserArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionVisaRequirementArgs = {
+  id: Scalars['UUID']
+};
+
+
+export type SubscriptionUserCanArgs = {
+  task?: Maybe<Scalars['String']>
+};
+
+
+export type SubscriptionAccountByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionAgencyByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionAgencyMemberByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionAirportByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionCountryByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionCustomerByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionCustomerTravellerByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionDestinationByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionDestinationFeatureByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionDestinationGuideByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionEmailByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionEnquiryByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionExpenseByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionFeatureByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionFinanceCategoryByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionInvoiceByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionInvoicePublicByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionMapPointByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionMediaGalleryByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionMediaGalleryItemByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionMediaItemByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionNoteByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionPassportByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionPaymentByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionPropertyByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionQuoteByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionQuoteViewByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionQuoteAccommodationDetailByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionQuoteCurrencyByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionQuoteDayByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionQuoteDayDestinationByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionQuoteFinanceLineItemByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionQuoteHeroByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionQuotePublicByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionReminderByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionSupplierByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionSupplierInvoiceByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionTestimonialByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionTransactionByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionTransactionImportBatchByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionTransactionLinkByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionTransactionNoteByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionTravellerByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionTripByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionTripTravellerByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionTripFlightByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionUserByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
+
+export type SubscriptionVisaRequirementByNodeIdArgs = {
+  nodeId: Scalars['ID']
+};
+
 export type Supplier = Node & {
    __typename?: 'Supplier',
   nodeId: Scalars['ID'],
@@ -19942,7 +21240,7 @@ export type SupplierInvoice = Node & {
   due: Scalars['Datetime'],
   key?: Maybe<Scalars['String']>,
   modified: Scalars['Datetime'],
-  number: Scalars['Int'],
+  number?: Maybe<Scalars['Int']>,
   summary?: Maybe<Scalars['String']>,
   supplierId: Scalars['UUID'],
   tripId?: Maybe<Scalars['UUID']>,
@@ -20046,7 +21344,7 @@ export type SupplierInvoiceInput = {
   due: Scalars['Datetime'],
   key?: Maybe<Scalars['String']>,
   modified?: Maybe<Scalars['Datetime']>,
-  number: Scalars['Int'],
+  number?: Maybe<Scalars['Int']>,
   summary?: Maybe<Scalars['String']>,
   supplierId?: Maybe<Scalars['UUID']>,
   tripId?: Maybe<Scalars['UUID']>,
@@ -25378,6 +26676,8 @@ export type UpdatePropertyOnPropertyForFkPropertyCountryCountryIdPatch = {
   archived?: Maybe<Scalars['Datetime']>,
   mapPointId?: Maybe<Scalars['UUID']>,
   plusCode?: Maybe<Scalars['String']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   mediaGalleryToGalleryId?: Maybe<FkPropertyMediaGalleryGalleryIdInput>,
   mediaItemToHeroMediaId?: Maybe<FkPropertyMediaItemHeroMediaIdInput>,
   mapPointToMapPointId?: Maybe<FkPropertyMapPointMapPointIdInput>,
@@ -25407,6 +26707,8 @@ export type UpdatePropertyOnPropertyForFkPropertyMapPointMapPointIdPatch = {
   archived?: Maybe<Scalars['Datetime']>,
   plusCode?: Maybe<Scalars['String']>,
   countryId?: Maybe<Scalars['UUID']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   mediaGalleryToGalleryId?: Maybe<FkPropertyMediaGalleryGalleryIdInput>,
   mediaItemToHeroMediaId?: Maybe<FkPropertyMediaItemHeroMediaIdInput>,
   mapPointToMapPointId?: Maybe<FkPropertyMapPointMapPointIdInput>,
@@ -25436,6 +26738,8 @@ export type UpdatePropertyOnPropertyForFkPropertyMediaGalleryGalleryIdPatch = {
   mapPointId?: Maybe<Scalars['UUID']>,
   plusCode?: Maybe<Scalars['String']>,
   countryId?: Maybe<Scalars['UUID']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   mediaGalleryToGalleryId?: Maybe<FkPropertyMediaGalleryGalleryIdInput>,
   mediaItemToHeroMediaId?: Maybe<FkPropertyMediaItemHeroMediaIdInput>,
   mapPointToMapPointId?: Maybe<FkPropertyMapPointMapPointIdInput>,
@@ -25465,6 +26769,8 @@ export type UpdatePropertyOnPropertyForFkPropertyMediaItemHeroMediaIdPatch = {
   mapPointId?: Maybe<Scalars['UUID']>,
   plusCode?: Maybe<Scalars['String']>,
   countryId?: Maybe<Scalars['UUID']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   mediaGalleryToGalleryId?: Maybe<FkPropertyMediaGalleryGalleryIdInput>,
   mediaItemToHeroMediaId?: Maybe<FkPropertyMediaItemHeroMediaIdInput>,
   mapPointToMapPointId?: Maybe<FkPropertyMapPointMapPointIdInput>,
@@ -25495,6 +26801,8 @@ export type UpdatePropertyOnQuoteAccommodationDetailForFkQuoteAccommodationDetai
   mapPointId?: Maybe<Scalars['UUID']>,
   plusCode?: Maybe<Scalars['String']>,
   countryId?: Maybe<Scalars['UUID']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   mediaGalleryToGalleryId?: Maybe<FkPropertyMediaGalleryGalleryIdInput>,
   mediaItemToHeroMediaId?: Maybe<FkPropertyMediaItemHeroMediaIdInput>,
   mapPointToMapPointId?: Maybe<FkPropertyMapPointMapPointIdInput>,
@@ -25525,6 +26833,8 @@ export type UpdatePropertyOnQuoteDayForQuoteDayPropertyIdFkeyPatch = {
   mapPointId?: Maybe<Scalars['UUID']>,
   plusCode?: Maybe<Scalars['String']>,
   countryId?: Maybe<Scalars['UUID']>,
+  featured?: Maybe<Scalars['Datetime']>,
+  featureCopy?: Maybe<Scalars['String']>,
   mediaGalleryToGalleryId?: Maybe<FkPropertyMediaGalleryGalleryIdInput>,
   mediaItemToHeroMediaId?: Maybe<FkPropertyMediaItemHeroMediaIdInput>,
   mapPointToMapPointId?: Maybe<FkPropertyMapPointMapPointIdInput>,
@@ -29125,6 +30435,21 @@ export type PayInvoiceMutation = (
   )> }
 );
 
+export type GetFeaturedPropertyQueryVariables = {};
+
+
+export type GetFeaturedPropertyQuery = (
+  { __typename?: 'Query' }
+  & { featuredProperty: Maybe<(
+    { __typename?: 'Property' }
+    & Pick<Property, 'id' | 'name' | 'featureCopy'>
+    & { heroMedia: Maybe<(
+      { __typename?: 'MediaItem' }
+      & Pick<MediaItem, 'hash' | 'fileName'>
+    )> }
+  )> }
+);
+
 export type TrackQuoteViewMutationVariables = {
   key: Scalars['String'],
   viewType: Scalars['String']
@@ -29380,6 +30705,44 @@ export function usePayInvoiceMutation(baseOptions?: ApolloReactHooks.MutationHoo
 export type PayInvoiceMutationHookResult = ReturnType<typeof usePayInvoiceMutation>;
 export type PayInvoiceMutationResult = ApolloReactCommon.MutationResult<PayInvoiceMutation>;
 export type PayInvoiceMutationOptions = ApolloReactCommon.BaseMutationOptions<PayInvoiceMutation, PayInvoiceMutationVariables>;
+export const GetFeaturedPropertyDocument = gql`
+    query GetFeaturedProperty {
+  featuredProperty {
+    id
+    name
+    featureCopy
+    heroMedia {
+      hash
+      fileName
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetFeaturedPropertyQuery__
+ *
+ * To run a query within a React component, call `useGetFeaturedPropertyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFeaturedPropertyQuery` returns an object from Apollo Client that contains loading, error, and data properties 
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFeaturedPropertyQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetFeaturedPropertyQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>) {
+        return ApolloReactHooks.useQuery<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>(GetFeaturedPropertyDocument, baseOptions);
+      }
+export function useGetFeaturedPropertyLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>(GetFeaturedPropertyDocument, baseOptions);
+        }
+export type GetFeaturedPropertyQueryHookResult = ReturnType<typeof useGetFeaturedPropertyQuery>;
+export type GetFeaturedPropertyLazyQueryHookResult = ReturnType<typeof useGetFeaturedPropertyLazyQuery>;
+export type GetFeaturedPropertyQueryResult = ApolloReactCommon.QueryResult<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>;
 export const TrackQuoteViewDocument = gql`
     mutation TrackQuoteView($key: String!, $viewType: String!) {
   trackQuoteView(input: {key: $key, viewType: $viewType}) {
