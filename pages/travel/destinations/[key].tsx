@@ -7,7 +7,7 @@ import { Section, Columns, Column, BrandLine } from "../../../components/Bulma";
 import Image from "../../../components/Image";
 import Map from "../../../components/Quote/components/Map";
 import Footer from "../../../components/Footer";
-import withData from "../../../lib/apollo";
+import withApollo from "../../../lib/apollo";
 import ReactMarkdown from "react-markdown";
 import { useGetDestinationQuery, Destination } from "../../../lib/graphql";
 import { extractUrlJson } from "../../../lib/util";
@@ -40,7 +40,7 @@ const DestinationPage: React.FC = () => {
             back
               ? {
                   text: "Back to quote",
-                  link: `/quote/${back.quote}`
+                  link: `/quote/${back.quote}`,
                 }
               : undefined
           }
@@ -137,8 +137,8 @@ const DestinationPage: React.FC = () => {
                   id: destination.id,
                   type: "destination",
                   title: destination.name ?? "",
-                  icon: "monument"
-                }
+                  icon: "monument",
+                },
               ]}
             />
           )}
@@ -148,4 +148,4 @@ const DestinationPage: React.FC = () => {
   );
 };
 
-export default withData(DestinationPage);
+export default withApollo({ ssr: false })(DestinationPage);

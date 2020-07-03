@@ -7,7 +7,7 @@ import { Section, Columns, Column, BrandLine } from "../../../components/Bulma";
 import Image from "../../../components/Image";
 import Map from "../../../components/Quote/components/Map";
 import Footer from "../../../components/Footer";
-import withData from "../../../lib/apollo";
+import withApollo from "../../../lib/apollo";
 import ReactMarkdown from "react-markdown";
 import { useGetPropertyQuery, Property } from "../../../lib/graphql";
 import { extractUrlJson } from "../../../lib/util";
@@ -40,7 +40,7 @@ const PropertyPage: React.FC = () => {
             back
               ? {
                   text: "Back to quote",
-                  link: `/quote/${back.quote}`
+                  link: `/quote/${back.quote}`,
                 }
               : undefined
           }
@@ -139,8 +139,8 @@ const PropertyPage: React.FC = () => {
                 icon: "hotel",
                 title: property.name || "",
                 body: property.summary || "",
-                type: "property"
-              }
+                type: "property",
+              },
             ]}
           />
         )}
@@ -150,4 +150,4 @@ const PropertyPage: React.FC = () => {
   );
 };
 
-export default withData(PropertyPage);
+export default withApollo({ ssr: false })(PropertyPage);
