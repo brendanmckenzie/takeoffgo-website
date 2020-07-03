@@ -1,18 +1,17 @@
 const { withApollo } = require("next-apollo");
-import { HttpLink } from "apollo-boost";
+import ApolloClient, { InMemoryCache } from "apollo-boost";
 
 const urlMap: { [url: string]: string } = {
   "www.takeoffgo.com": "https://api.takeoffgo.com/jambo/graphql",
-  default: "http://localhost:5000/jambo/graphql"
+  default: "http://localhost:5000/jambo/graphql",
 };
 
-const config = {
-  link: new HttpLink({
-    uri:
-      urlMap[
-        typeof window === "undefined" ? "default" : window.location.hostname
-      ] || urlMap.default
-  })
-};
+const apolloClient = new ApolloClient({
+  uri:
+    urlMap[
+      typeof window === "undefined" ? "default" : window.location.hostname
+    ] || urlMap.default,
+  cache: new InMemoryCache(),
+});
 
-export default withApollo(config);
+export default withApollo(apolloClient);
