@@ -4,18 +4,18 @@ import Head from "next/head";
 import Meta from "../../components/Meta";
 import Header from "../../components/Header";
 import { Section } from "../../components/Bulma";
-import withData from "../../lib/apollo";
+import withApollo from "../../lib/apollo";
 import {
   useGetInvoiceQuery,
   GetInvoiceQueryResult,
-  InvoicePublic
+  InvoicePublic,
 } from "../../lib/graphql";
 
 const PaymentContent: React.FC<GetInvoiceQueryResult & { amount?: number }> = ({
   loading,
   error,
   data,
-  amount
+  amount,
 }) => {
   if (loading) {
     return (
@@ -43,7 +43,7 @@ const PaymentContent: React.FC<GetInvoiceQueryResult & { amount?: number }> = ({
     <Payment
       model={{
         invoice: data?.invoice as InvoicePublic,
-        amount
+        amount,
       }}
     />
   );
@@ -54,7 +54,7 @@ const PaymentPage: React.FC = () => {
   const { id, amount } = router.query;
 
   const query = useGetInvoiceQuery({
-    variables: { id }
+    variables: { id },
   });
 
   return (
@@ -75,4 +75,4 @@ const PaymentPage: React.FC = () => {
   );
 };
 
-export default withData(PaymentPage);
+export default withApollo({ ssr: false })(PaymentPage);

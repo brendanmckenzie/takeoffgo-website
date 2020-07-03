@@ -3,18 +3,18 @@ import Head from "next/head";
 import Invoice from "../../components/Invoice";
 import Meta from "../../components/Meta";
 
-import withData from "../../lib/apollo";
+import withApollo from "../../lib/apollo";
 import Header from "../../components/Header";
 import {
   useGetInvoiceQuery,
   GetInvoiceQueryResult,
-  InvoicePublic
+  InvoicePublic,
 } from "../../lib/graphql";
 
 const InvoiceContent: React.FC<GetInvoiceQueryResult> = ({
   loading,
   error,
-  data
+  data,
 }) => {
   if (loading || !data?.invoice) {
     return (
@@ -48,7 +48,7 @@ const InvoicePage: React.FC = () => {
   const { id } = router.query;
 
   const query = useGetInvoiceQuery({
-    variables: { id }
+    variables: { id },
   });
 
   return (
@@ -66,4 +66,4 @@ const InvoicePage: React.FC = () => {
   );
 };
 
-export default withData(InvoicePage);
+export default withApollo({ ssr: false })(InvoicePage);

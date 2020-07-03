@@ -1,12 +1,12 @@
 import QuoteComp from "../../components/Quote";
-import withData from "../../lib/apollo";
+import withApollo from "../../lib/apollo";
 import { useGetQuoteQuery } from "../../lib/graphql";
 import { useRouter } from "next/router";
 
 const QuotePage = () => {
   const router = useRouter();
   const query = useGetQuoteQuery({
-    variables: { key: router.query.key as string }
+    variables: { key: router.query.key as string },
   });
 
   if (query.loading || !query.data) {
@@ -21,4 +21,4 @@ const QuotePage = () => {
   );
 };
 
-export default withData(QuotePage);
+export default withApollo({ ssr: false })(QuotePage);
