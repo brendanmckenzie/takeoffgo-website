@@ -19,7 +19,7 @@ import Footer from "../Footer";
 import Meta from "../Meta";
 import Image from "../Image";
 import { GetQuoteQuery, useTrackQuoteViewMutation } from "../../lib/graphql";
-import withData from "../../lib/apollo";
+import withApollo from "../../lib/apollo";
 
 const mapModelToMeta = (model: GetQuoteQuery) => {
   const fromHero = () => {
@@ -30,9 +30,9 @@ const mapModelToMeta = (model: GetQuoteQuery) => {
         "og:image": model.quote.hero.image?.hash
           ? mediaUrl(model.quote.hero.image?.hash, {
               w: 1000,
-              h: 1000
+              h: 1000,
             })
-          : null
+          : null,
       };
     } else {
       return {};
@@ -40,7 +40,7 @@ const mapModelToMeta = (model: GetQuoteQuery) => {
   };
 
   return {
-    ...fromHero()
+    ...fromHero(),
   };
 };
 
@@ -56,7 +56,7 @@ const QuoteComp: React.FC<QuoteProps> = ({ model, viewType }) => {
   useEffect(() => {
     if (router.query.preview !== "true") {
       trackQuoteView({
-        variables: { key: router.query.key as string, viewType }
+        variables: { key: router.query.key as string, viewType },
       });
     }
   }, []);
@@ -134,4 +134,4 @@ const QuoteComp: React.FC<QuoteProps> = ({ model, viewType }) => {
   );
 };
 
-export default withData(QuoteComp);
+export default withApollo({ ssr: false })(QuoteComp);

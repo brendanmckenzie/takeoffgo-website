@@ -9,11 +9,10 @@ import {
 } from "../Bulma";
 import ContactButton from "../ContactButton";
 import Image from "../Image";
-import withData from "../../lib/apollo";
+import withApollo from "../../lib/apollo";
 import { useGetFeaturedPropertyQuery } from "../../lib/graphql";
 
 const PlacesWeLove: React.FC = () => {
-  console.log("hi");
   const query = useGetFeaturedPropertyQuery();
   if (!query.data) {
     return null;
@@ -56,4 +55,4 @@ const PlacesWeLove: React.FC = () => {
   );
 };
 
-export default withData({ ssr: false })(PlacesWeLove);
+export default withApollo({ ssr: false })(PlacesWeLove);

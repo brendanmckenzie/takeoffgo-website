@@ -3,7 +3,7 @@ import ApolloClient, { InMemoryCache } from "apollo-boost";
 
 const urlMap: { [url: string]: string } = {
   "www.takeoffgo.com": "https://api.takeoffgo.com/jambo/graphql",
-  default: "http://localhost:5000/jambo/graphql",
+  default: "https://api.takeoffgo.com/jambo/graphql",
 };
 
 const apolloClient = new ApolloClient({
