@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "moment";
+import moment from "moment-timezone";
 import Markdown from "react-markdown";
 
 import SectionHeader from "../SectionHeader";
@@ -15,12 +15,12 @@ const DetailedItinerary = ({ data }: { data: GetQuoteQuery }) => {
   const flightsPrior =
     data.quote?.days && data.quote?.days.nodes.length === 0
       ? []
-      : flights.filter(flight =>
+      : flights.filter((flight) =>
           flight.departureDate
             .utc()
             .isBefore(moment.utc(data.quote?.days?.nodes[0]?.date || ""), "day")
         );
-  const flightsAfter = flights.filter(flight =>
+  const flightsAfter = flights.filter((flight) =>
     flight.departureDate
       .utc()
       .isSameOrAfter(
@@ -53,7 +53,7 @@ const DetailedItinerary = ({ data }: { data: GetQuoteQuery }) => {
               v?.accommodationId === day?.accommodationId && // has the same accommodation
               arr[i - 1]?.accommodationId === v?.accommodationId && // has the same accommodation as the previous entry - to avoid clashes if the same accommodation appears twice
               (arr[i - 1]?.activityDetail === v?.activityDetail ||
-                !v.activityDetail ||
+                !v!.activityDetail ||
                 !arr[i - 1]?.activityDetail) // has the same (or no) description
           ).length;
 
@@ -62,11 +62,11 @@ const DetailedItinerary = ({ data }: { data: GetQuoteQuery }) => {
             end: moment
               .utc(day?.date || "")
               .add(combinedDayCount, "day")
-              .endOf("day")
+              .endOf("day"),
           };
 
           const accom = data.quote?.accommodation?.nodes.find(
-            a => a?.id === day?.accommodationId
+            (a) => a?.id === day?.accommodationId
           );
           const property = accom?.property;
           const destinations = day?.quoteDayDestinationsByDayId.nodes;
@@ -81,7 +81,7 @@ const DetailedItinerary = ({ data }: { data: GetQuoteQuery }) => {
             day?.accommodationId === array[index - 1]?.accommodationId &&
             (day?.activityDetail === array[index - 1]?.activityDetail ||
               !array[index - 1]?.activityDetail ||
-              !day.activityDetail);
+              !day!.activityDetail);
 
           if (skip) {
             return null;
@@ -98,7 +98,7 @@ const DetailedItinerary = ({ data }: { data: GetQuoteQuery }) => {
                 <span key={`${(day?.order ?? 0) + 1}.1`}> &ndash; </span>,
                 <strong key={`${(day?.order ?? 0) + 1}.2`}>
                   {(day?.order ?? 0) + combinedDayCount + 1}
-                </strong>
+                </strong>,
               ]
             );
 
@@ -124,7 +124,7 @@ const DetailedItinerary = ({ data }: { data: GetQuoteQuery }) => {
                       <li>
                         <small>
                           {destinations
-                            .map(d => [
+                            .map((d) => [
                               <a
                                 key={d?.destination?.id}
                                 href={`/travel/destinations/${
@@ -134,7 +134,7 @@ const DetailedItinerary = ({ data }: { data: GetQuoteQuery }) => {
                                 )}`}
                               >
                                 {d?.destination?.name ?? ""}
-                              </a>
+                              </a>,
                             ])
                             .reduce((p, c) => [p[0], <span> to </span>, c[0]])}
                         </small>

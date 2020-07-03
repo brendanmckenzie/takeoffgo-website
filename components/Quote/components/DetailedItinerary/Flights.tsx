@@ -1,11 +1,11 @@
 import React from "react";
-import moment, { Moment } from "moment";
+import moment from "moment-timezone";
 import _ from "lodash";
 import { dateFormat, timeFormat, timeFormatExt } from "../../global/constants";
 import { TripFlight, Airport } from "../../../../lib/graphql";
 
 export type FlightDetail = TripFlight & {
-  departureDate: Moment;
+  departureDate: moment.Moment;
   departureAirport: Airport;
   arrivalAirport: Airport;
 };
@@ -13,14 +13,14 @@ export type FlightDetail = TripFlight & {
 type Props = {
   flights: FlightDetail[];
   includeDate?: boolean;
-  referenceDate?: Moment;
+  referenceDate?: moment.Moment;
 };
 
 const Flights: React.FC<Props> = ({ flights, includeDate, referenceDate }) =>
   flights.length > 0 ? (
     <React.Fragment>
       {_(flights)
-        .groupBy(ent => moment(ent.departure).format("YYYY-MM-DD"))
+        .groupBy((ent) => moment(ent.departure).format("YYYY-MM-DD"))
         .toPairs()
         .map(([date, list]) => (
           <div key={date} className="columns">
@@ -32,7 +32,7 @@ const Flights: React.FC<Props> = ({ flights, includeDate, referenceDate }) =>
             <div className="column">
               <article className="message">
                 <div className="message-body">
-                  {list.map(flight => {
+                  {list.map((flight) => {
                     const { departureAirport, arrivalAirport } = flight;
 
                     if (!arrivalAirport || !departureAirport) {
@@ -78,7 +78,7 @@ const Flights: React.FC<Props> = ({ flights, includeDate, referenceDate }) =>
                               <li>
                                 {[
                                   departureAirport.city,
-                                  departureAirport.country?.name
+                                  departureAirport.country?.name,
                                 ].join(", ")}
                               </li>
                               <li>
@@ -92,7 +92,7 @@ const Flights: React.FC<Props> = ({ flights, includeDate, referenceDate }) =>
                               <li>
                                 {[
                                   arrivalAirport.city,
-                                  arrivalAirport.country?.name
+                                  arrivalAirport.country?.name,
                                 ].join(", ")}
                               </li>
                               <li>

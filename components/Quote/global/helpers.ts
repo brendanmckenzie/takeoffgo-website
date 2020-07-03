@@ -3,7 +3,7 @@ import { GetQuoteQuery } from "../../../lib/graphql";
 
 const queryString = (params: any) =>
   Object.keys(params)
-    .map(key => [key, params[key]].map(encodeURIComponent).join("="))
+    .map((key) => [key, params[key]].map(encodeURIComponent).join("="))
     .join("&");
 
 export const mediaUrl = (hash: string, params?: any): string =>
@@ -25,7 +25,7 @@ export const toSentence = (input: string[]) =>
               previousValue,
               " ",
               index === 0 ? sentenceCase(currentValue) : currentValue,
-              index === array.length - 2 ? " and " : ", "
+              index === array.length - 2 ? " and " : ", ",
             ].join(""),
           ""
         )
@@ -38,11 +38,11 @@ export const extractSortedFlights = (data: GetQuoteQuery) => {
     return [];
   }
   return flights
-    .map(flight => ({
+    .map((flight) => ({
       ...flight,
       departureDate: flight?.departureAirport?.timezone
         ? moment.tz(flight.departure, flight?.departureAirport?.timezone)
-        : moment(flight?.departure)
+        : moment(flight?.departure),
     }))
     .sort((a, b) => a.departureDate.diff(b.departureDate));
 };
