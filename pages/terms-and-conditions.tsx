@@ -29,7 +29,7 @@ const Terms: React.FC = () => {
           <BrandLine />
 
           <Message>
-            <MessageHeader>Force Majeure Event</MessageHeader>
+            <MessageHeader>Force majeure event</MessageHeader>
             <MessageBody>
               <Content>
                 <p>
@@ -37,11 +37,11 @@ const Terms: React.FC = () => {
                   having on our industry and our guests, we are conferring this
                   additional benefit of a 100% Future Holiday Credit above our
                   usual terms and conditions for any departures prior to
-                  September 30th.
+                  September 30th, 2020.
                 </p>
 
                 <p>
-                  This is a situation that is classified as a Force Majeure
+                  This is a situation that is classified as a force majeure
                   event. Meaning it is beyond all reasonable control and not
                   reasonably preventable by our business. In such situations any
                   refunds requested will be less irrecoverable third party costs
