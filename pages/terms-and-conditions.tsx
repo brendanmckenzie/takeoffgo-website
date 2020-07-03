@@ -4,7 +4,14 @@ import { useRouter } from "next/router";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Meta from "../components/Meta";
-import { BrandLine, Section, Content } from "../components/Bulma";
+import {
+  BrandLine,
+  Section,
+  Content,
+  Message,
+  MessageHeader,
+  MessageBody,
+} from "../components/Bulma";
 
 const Terms: React.FC = () => {
   const router = useRouter();
@@ -20,6 +27,33 @@ const Terms: React.FC = () => {
         <Section container>
           <h2 className="title is-2">Terms and conditions</h2>
           <BrandLine />
+
+          <Message>
+            <MessageHeader>Force Majeure Event</MessageHeader>
+            <MessageBody>
+              <Content>
+                <p>
+                  Due to the exceptional and substantial impact that COVID-19 is
+                  having on our industry and our guests, we are conferring this
+                  additional benefit of a 100% Future Holiday Credit above our
+                  usual terms and conditions for any departures prior to
+                  September 30th.
+                </p>
+
+                <p>
+                  This is a situation that is classified as a Force Majeure
+                  event. Meaning it is beyond all reasonable control and not
+                  reasonably preventable by our business. In such situations any
+                  refunds requested will be less irrecoverable third party costs
+                  and fixed overhead charges.
+                </p>
+
+                <p>Our full terms and conditions are available below.</p>
+              </Content>
+            </MessageBody>
+          </Message>
+          <hr />
+
           <Content>
             <h2>Registration and payment</h2>
 

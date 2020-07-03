@@ -1,4 +1,4 @@
-const { withData } = require("next-apollo");
+const { withApollo } = require("next-apollo");
 import { HttpLink } from "apollo-boost";
 
 const urlMap: { [url: string]: string } = {
@@ -15,4 +15,4 @@ const config = {
   })
 };
 
-export default withData(config);
+export default withApollo(config);
