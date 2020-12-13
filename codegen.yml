@@ -1,4 +1,4 @@
-schema: "http://localhost:5000/jambo/graphql"
+schema: "https://api.takeoffgo.com/jambo/graphql"
 documents: "./**/*.graphql"
 config:
   scalars:
