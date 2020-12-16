@@ -8,7 +8,7 @@ const properties = [
   {
     property: "og:image",
     key: "og:image",
-    default: "https://www.takeoffgo.com/static/logo-square.png"
+    default: "https://www.takeoffgo.com/logo-square.png"
   },
   { property: "og:image:width", key: "og:image:width", default: "1000" },
   { property: "og:image:height", key: "og:image:width", default: "1000" },
