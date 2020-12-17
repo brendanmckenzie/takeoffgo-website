@@ -1,0 +1,62 @@
+query GetHome {
+  entry(path: ["website", "home"]) {
+    ... on ModularPage {
+      components {
+        __typename
+        ...HomeModule
+      }
+    }
+  }
+}
+
+fragment HomeModule on PokValue {
+  ...HeroModule
+  ...HighlightModule
+  ...ImageModule
+  ...CustomerQuoteModule
+}
+
+fragment HighlightModule on Highlight {
+  title
+  subtitle
+  body
+  image {
+    url
+  }
+  buttons {
+    ... on Button {
+      icon
+      style
+      target
+      title
+    }
+  }
+}
+
+fragment HeroModule on Hero {
+  title
+  heroBody: body
+  image {
+    url
+  }
+  buttons {
+    __typename
+    ... on Button {
+      icon
+      style
+      target
+      title
+    }
+  }
+}
+
+fragment ImageModule on Image {
+  image {
+    url
+  }
+}
+
+fragment CustomerQuoteModule on CustomerQuote {
+  author
+  body
+}

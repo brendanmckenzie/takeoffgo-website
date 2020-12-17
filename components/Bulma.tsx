@@ -17,7 +17,7 @@ export const Columns: React.FC<ColumnsProps> = ({
   centred,
   vcentred,
   multiline,
-  gapless
+  gapless,
 }) => (
   <div
     className={css({
@@ -25,7 +25,7 @@ export const Columns: React.FC<ColumnsProps> = ({
       "is-centered": centred,
       "is-vcentered": vcentred,
       "is-gapless": gapless,
-      "is-multiline": multiline
+      "is-multiline": multiline,
     })}
   >
     {children}
@@ -41,14 +41,14 @@ export const Column: React.FC<ColumnProps> = ({
   children,
   width,
   narrow,
-  className
+  className,
 }) => (
   <div
     className={css({
       column: true,
       [`is-${width}`]: width,
       "is-narrow": narrow,
-      [`${className}`]: className
+      [`${className}`]: className,
     })}
   >
     {children}
@@ -95,7 +95,8 @@ export const LinkButton: React.FC<ButtonProps> = ({
   iconLeft,
   href,
   rounded,
-  children
+  children,
+  className,
 }) => (
   <a
     className={css({
@@ -103,7 +104,8 @@ export const LinkButton: React.FC<ButtonProps> = ({
       "is-dark": dark,
       "is-text": text,
       "is-large": large,
-      "is-rounded": rounded
+      "is-rounded": rounded,
+      [className!]: className,
     })}
     href={href}
   >

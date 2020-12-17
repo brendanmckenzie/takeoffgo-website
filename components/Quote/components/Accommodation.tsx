@@ -2,7 +2,7 @@ import React from "react";
 import Markdown from "react-markdown";
 import Image from "../../Image";
 import SectionHeader from "./SectionHeader";
-import { GetQuoteQuery } from "../../../lib/graphql";
+import { GetQuoteQuery } from "../../../api/jambo";
 import { LinkButton } from "../../Bulma";
 import _ from "lodash";
 import { useRouter } from "next/router";

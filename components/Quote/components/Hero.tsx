@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "../../Image";
-import { GetQuoteQuery } from "../../../lib/graphql";
+import { GetQuoteQuery } from "../../../api/jambo";
 
 const Hero = ({ data }: { data: GetQuoteQuery }) => (
   <div className="columns">

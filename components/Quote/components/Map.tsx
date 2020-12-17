@@ -1,6 +1,6 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
-import { GetQuoteQuery } from "../../../lib/graphql";
+import { GetQuoteQuery } from "../../../api/jambo";
 
 const googleApiKey = "AIzaSyBDdBQ9QsHxhCJ174wAPDxV0K9t-apBaQo";
 

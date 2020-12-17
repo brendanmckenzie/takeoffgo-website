@@ -1,6 +1,6 @@
 import React from "react";
 import SectionHeader from "./SectionHeader";
-import { GetQuoteQuery } from "../../../lib/graphql";
+import { GetQuoteQuery } from "../../../api/jambo";
 
 const ContactInformation = ({ data }: { data: GetQuoteQuery }) => {
   const consultant = data.quote?.trip?.agencyMember ?? data.quote?.user;

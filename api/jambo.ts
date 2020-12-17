@@ -41449,6 +41449,70 @@ export type SubscriptionVisaRequirementByNodeIdArgs = {
   nodeId: Scalars['ID'];
 };
 
+export type GetDestinationQueryVariables = Exact<{
+  id: Scalars['UUID'];
+}>;
+
+
+export type GetDestinationQuery = (
+  { __typename?: 'Query' }
+  & { destination?: Maybe<(
+    { __typename?: 'Destination' }
+    & Pick<Destination, 'id' | 'name' | 'body' | 'latitude' | 'longitude'>
+    & { country?: Maybe<(
+      { __typename?: 'Country' }
+      & Pick<Country, 'id' | 'name'>
+    )>, heroMedia?: Maybe<(
+      { __typename?: 'MediaItem' }
+      & Pick<MediaItem, 'id' | 'hash'>
+    )>, gallery?: Maybe<(
+      { __typename?: 'MediaGallery' }
+      & Pick<MediaGallery, 'id'>
+      & { mediaGalleryItems: (
+        { __typename?: 'MediaGalleryItemsConnection' }
+        & { nodes: Array<Maybe<(
+          { __typename?: 'MediaGalleryItem' }
+          & Pick<MediaGalleryItem, 'id'>
+          & { mediaItem?: Maybe<(
+            { __typename?: 'MediaItem' }
+            & Pick<MediaItem, 'hash' | 'name'>
+          )> }
+        )>> }
+      ), mediaGalleriesByParentId: (
+        { __typename?: 'MediaGalleriesConnection' }
+        & { nodes: Array<Maybe<(
+          { __typename?: 'MediaGallery' }
+          & Pick<MediaGallery, 'id' | 'name'>
+          & { mediaGalleryItems: (
+            { __typename?: 'MediaGalleryItemsConnection' }
+            & { nodes: Array<Maybe<(
+              { __typename?: 'MediaGalleryItem' }
+              & Pick<MediaGalleryItem, 'id'>
+              & { mediaItem?: Maybe<(
+                { __typename?: 'MediaItem' }
+                & Pick<MediaItem, 'name' | 'hash'>
+              )> }
+            )>> }
+          ) }
+        )>> }
+      ) }
+    )> }
+  )> }
+);
+
+export type GetInvoiceQueryVariables = Exact<{
+  id: Scalars['UUID'];
+}>;
+
+
+export type GetInvoiceQuery = (
+  { __typename?: 'Query' }
+  & { invoice?: Maybe<(
+    { __typename?: 'InvoicePublic' }
+    & Pick<InvoicePublic, 'amount' | 'amountDue' | 'amountPaid' | 'currency' | 'due' | 'id' | 'invoiced' | 'number' | 'paid' | 'summary' | 'trip'>
+  )> }
+);
+
 export type PayInvoiceMutationVariables = Exact<{
   invoice: Scalars['UUID'];
   token: Scalars['String'];
@@ -41464,6 +41528,57 @@ export type PayInvoiceMutation = (
   )> }
 );
 
+export type GetPropertyQueryVariables = Exact<{
+  id: Scalars['UUID'];
+}>;
+
+
+export type GetPropertyQuery = (
+  { __typename?: 'Query' }
+  & { property?: Maybe<(
+    { __typename?: 'Property' }
+    & Pick<Property, 'id' | 'name' | 'city' | 'summary' | 'nearestAirport' | 'latitude' | 'longitude'>
+    & { country?: Maybe<(
+      { __typename?: 'Country' }
+      & Pick<Country, 'id' | 'name'>
+    )>, heroMedia?: Maybe<(
+      { __typename?: 'MediaItem' }
+      & Pick<MediaItem, 'id' | 'hash'>
+    )>, gallery?: Maybe<(
+      { __typename?: 'MediaGallery' }
+      & Pick<MediaGallery, 'id'>
+      & { mediaGalleryItems: (
+        { __typename?: 'MediaGalleryItemsConnection' }
+        & { nodes: Array<Maybe<(
+          { __typename?: 'MediaGalleryItem' }
+          & Pick<MediaGalleryItem, 'id'>
+          & { mediaItem?: Maybe<(
+            { __typename?: 'MediaItem' }
+            & Pick<MediaItem, 'hash' | 'name'>
+          )> }
+        )>> }
+      ), mediaGalleriesByParentId: (
+        { __typename?: 'MediaGalleriesConnection' }
+        & { nodes: Array<Maybe<(
+          { __typename?: 'MediaGallery' }
+          & Pick<MediaGallery, 'id' | 'name'>
+          & { mediaGalleryItems: (
+            { __typename?: 'MediaGalleryItemsConnection' }
+            & { nodes: Array<Maybe<(
+              { __typename?: 'MediaGalleryItem' }
+              & Pick<MediaGalleryItem, 'id'>
+              & { mediaItem?: Maybe<(
+                { __typename?: 'MediaItem' }
+                & Pick<MediaItem, 'name' | 'hash'>
+              )> }
+            )>> }
+          ) }
+        )>> }
+      ) }
+    )> }
+  )> }
+);
+
 export type GetFeaturedPropertyQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -41476,33 +41591,6 @@ export type GetFeaturedPropertyQuery = (
       { __typename?: 'MediaItem' }
       & Pick<MediaItem, 'hash' | 'fileName'>
     )> }
-  )> }
-);
-
-export type TrackQuoteViewMutationVariables = Exact<{
-  key: Scalars['String'];
-  viewType: Scalars['String'];
-}>;
-
-
-export type TrackQuoteViewMutation = (
-  { __typename?: 'Mutation' }
-  & { trackQuoteView?: Maybe<(
-    { __typename?: 'GenericResponse' }
-    & Pick<GenericResponse, 'success'>
-  )> }
-);
-
-export type GetInvoiceQueryVariables = Exact<{
-  id: Scalars['UUID'];
-}>;
-
-
-export type GetInvoiceQuery = (
-  { __typename?: 'Query' }
-  & { invoice?: Maybe<(
-    { __typename?: 'InvoicePublic' }
-    & Pick<InvoicePublic, 'amount' | 'amountDue' | 'amountPaid' | 'currency' | 'due' | 'id' | 'invoiced' | 'number' | 'paid' | 'summary' | 'trip'>
   )> }
 );
 
@@ -41596,215 +41684,93 @@ export type GetQuoteQuery = (
   )> }
 );
 
-export type GetDestinationQueryVariables = Exact<{
-  id: Scalars['UUID'];
+export type TrackQuoteViewMutationVariables = Exact<{
+  key: Scalars['String'];
+  viewType: Scalars['String'];
 }>;
 
 
-export type GetDestinationQuery = (
-  { __typename?: 'Query' }
-  & { destination?: Maybe<(
-    { __typename?: 'Destination' }
-    & Pick<Destination, 'id' | 'name' | 'body' | 'latitude' | 'longitude'>
-    & { country?: Maybe<(
-      { __typename?: 'Country' }
-      & Pick<Country, 'id' | 'name'>
-    )>, heroMedia?: Maybe<(
-      { __typename?: 'MediaItem' }
-      & Pick<MediaItem, 'id' | 'hash'>
-    )>, gallery?: Maybe<(
-      { __typename?: 'MediaGallery' }
-      & Pick<MediaGallery, 'id'>
-      & { mediaGalleryItems: (
-        { __typename?: 'MediaGalleryItemsConnection' }
-        & { nodes: Array<Maybe<(
-          { __typename?: 'MediaGalleryItem' }
-          & Pick<MediaGalleryItem, 'id'>
-          & { mediaItem?: Maybe<(
-            { __typename?: 'MediaItem' }
-            & Pick<MediaItem, 'hash' | 'name'>
-          )> }
-        )>> }
-      ), mediaGalleriesByParentId: (
-        { __typename?: 'MediaGalleriesConnection' }
-        & { nodes: Array<Maybe<(
-          { __typename?: 'MediaGallery' }
-          & Pick<MediaGallery, 'id' | 'name'>
-          & { mediaGalleryItems: (
-            { __typename?: 'MediaGalleryItemsConnection' }
-            & { nodes: Array<Maybe<(
-              { __typename?: 'MediaGalleryItem' }
-              & Pick<MediaGalleryItem, 'id'>
-              & { mediaItem?: Maybe<(
-                { __typename?: 'MediaItem' }
-                & Pick<MediaItem, 'name' | 'hash'>
-              )> }
-            )>> }
-          ) }
-        )>> }
-      ) }
-    )> }
-  )> }
-);
-
-export type GetPropertyQueryVariables = Exact<{
-  id: Scalars['UUID'];
-}>;
-
-
-export type GetPropertyQuery = (
-  { __typename?: 'Query' }
-  & { property?: Maybe<(
-    { __typename?: 'Property' }
-    & Pick<Property, 'id' | 'name' | 'city' | 'summary' | 'nearestAirport' | 'latitude' | 'longitude'>
-    & { country?: Maybe<(
-      { __typename?: 'Country' }
-      & Pick<Country, 'id' | 'name'>
-    )>, heroMedia?: Maybe<(
-      { __typename?: 'MediaItem' }
-      & Pick<MediaItem, 'id' | 'hash'>
-    )>, gallery?: Maybe<(
-      { __typename?: 'MediaGallery' }
-      & Pick<MediaGallery, 'id'>
-      & { mediaGalleryItems: (
-        { __typename?: 'MediaGalleryItemsConnection' }
-        & { nodes: Array<Maybe<(
-          { __typename?: 'MediaGalleryItem' }
-          & Pick<MediaGalleryItem, 'id'>
-          & { mediaItem?: Maybe<(
-            { __typename?: 'MediaItem' }
-            & Pick<MediaItem, 'hash' | 'name'>
-          )> }
-        )>> }
-      ), mediaGalleriesByParentId: (
-        { __typename?: 'MediaGalleriesConnection' }
-        & { nodes: Array<Maybe<(
-          { __typename?: 'MediaGallery' }
-          & Pick<MediaGallery, 'id' | 'name'>
-          & { mediaGalleryItems: (
-            { __typename?: 'MediaGalleryItemsConnection' }
-            & { nodes: Array<Maybe<(
-              { __typename?: 'MediaGalleryItem' }
-              & Pick<MediaGalleryItem, 'id'>
-              & { mediaItem?: Maybe<(
-                { __typename?: 'MediaItem' }
-                & Pick<MediaItem, 'name' | 'hash'>
-              )> }
-            )>> }
-          ) }
-        )>> }
-      ) }
-    )> }
+export type TrackQuoteViewMutation = (
+  { __typename?: 'Mutation' }
+  & { trackQuoteView?: Maybe<(
+    { __typename?: 'GenericResponse' }
+    & Pick<GenericResponse, 'success'>
   )> }
 );
 
 
-export const PayInvoiceDocument = gql`
-    mutation PayInvoice($invoice: UUID!, $token: String!, $amount: BigFloat) {
-  executePayment(input: {invoice: $invoice, token: $token, amount: $amount}) {
-    success
-    message
-  }
-}
-    `;
-export type PayInvoiceMutationFn = Apollo.MutationFunction<PayInvoiceMutation, PayInvoiceMutationVariables>;
-
-/**
- * __usePayInvoiceMutation__
- *
- * To run a mutation, you first call `usePayInvoiceMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `usePayInvoiceMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [payInvoiceMutation, { data, loading, error }] = usePayInvoiceMutation({
- *   variables: {
- *      invoice: // value for 'invoice'
- *      token: // value for 'token'
- *      amount: // value for 'amount'
- *   },
- * });
- */
-export function usePayInvoiceMutation(baseOptions?: Apollo.MutationHookOptions<PayInvoiceMutation, PayInvoiceMutationVariables>) {
-        return Apollo.useMutation<PayInvoiceMutation, PayInvoiceMutationVariables>(PayInvoiceDocument, baseOptions);
-      }
-export type PayInvoiceMutationHookResult = ReturnType<typeof usePayInvoiceMutation>;
-export type PayInvoiceMutationResult = Apollo.MutationResult<PayInvoiceMutation>;
-export type PayInvoiceMutationOptions = Apollo.BaseMutationOptions<PayInvoiceMutation, PayInvoiceMutationVariables>;
-export const GetFeaturedPropertyDocument = gql`
-    query GetFeaturedProperty {
-  featuredProperty {
+export const GetDestinationDocument = gql`
+    query GetDestination($id: UUID!) {
+  destination(id: $id) {
     id
     name
-    featureCopy
+    body
+    country {
+      id
+      name
+    }
+    latitude
+    longitude
     heroMedia {
+      id
       hash
-      fileName
+    }
+    gallery {
+      id
+      mediaGalleryItems {
+        nodes {
+          id
+          mediaItem {
+            hash
+            name
+          }
+        }
+      }
+      mediaGalleriesByParentId {
+        nodes {
+          id
+          name
+          mediaGalleryItems {
+            nodes {
+              id
+              mediaItem {
+                name
+                hash
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
     `;
 
 /**
- * __useGetFeaturedPropertyQuery__
+ * __useGetDestinationQuery__
  *
- * To run a query within a React component, call `useGetFeaturedPropertyQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetFeaturedPropertyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetDestinationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetDestinationQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetFeaturedPropertyQuery({
+ * const { data, loading, error } = useGetDestinationQuery({
  *   variables: {
+ *      id: // value for 'id'
  *   },
  * });
  */
-export function useGetFeaturedPropertyQuery(baseOptions?: Apollo.QueryHookOptions<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>) {
-        return Apollo.useQuery<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>(GetFeaturedPropertyDocument, baseOptions);
+export function useGetDestinationQuery(baseOptions: Apollo.QueryHookOptions<GetDestinationQuery, GetDestinationQueryVariables>) {
+        return Apollo.useQuery<GetDestinationQuery, GetDestinationQueryVariables>(GetDestinationDocument, baseOptions);
       }
-export function useGetFeaturedPropertyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>) {
-          return Apollo.useLazyQuery<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>(GetFeaturedPropertyDocument, baseOptions);
+export function useGetDestinationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetDestinationQuery, GetDestinationQueryVariables>) {
+          return Apollo.useLazyQuery<GetDestinationQuery, GetDestinationQueryVariables>(GetDestinationDocument, baseOptions);
         }
-export type GetFeaturedPropertyQueryHookResult = ReturnType<typeof useGetFeaturedPropertyQuery>;
-export type GetFeaturedPropertyLazyQueryHookResult = ReturnType<typeof useGetFeaturedPropertyLazyQuery>;
-export type GetFeaturedPropertyQueryResult = Apollo.QueryResult<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>;
-export const TrackQuoteViewDocument = gql`
-    mutation TrackQuoteView($key: String!, $viewType: String!) {
-  trackQuoteView(input: {key: $key, viewType: $viewType}) {
-    success
-  }
-}
-    `;
-export type TrackQuoteViewMutationFn = Apollo.MutationFunction<TrackQuoteViewMutation, TrackQuoteViewMutationVariables>;
-
-/**
- * __useTrackQuoteViewMutation__
- *
- * To run a mutation, you first call `useTrackQuoteViewMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useTrackQuoteViewMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [trackQuoteViewMutation, { data, loading, error }] = useTrackQuoteViewMutation({
- *   variables: {
- *      key: // value for 'key'
- *      viewType: // value for 'viewType'
- *   },
- * });
- */
-export function useTrackQuoteViewMutation(baseOptions?: Apollo.MutationHookOptions<TrackQuoteViewMutation, TrackQuoteViewMutationVariables>) {
-        return Apollo.useMutation<TrackQuoteViewMutation, TrackQuoteViewMutationVariables>(TrackQuoteViewDocument, baseOptions);
-      }
-export type TrackQuoteViewMutationHookResult = ReturnType<typeof useTrackQuoteViewMutation>;
-export type TrackQuoteViewMutationResult = Apollo.MutationResult<TrackQuoteViewMutation>;
-export type TrackQuoteViewMutationOptions = Apollo.BaseMutationOptions<TrackQuoteViewMutation, TrackQuoteViewMutationVariables>;
+export type GetDestinationQueryHookResult = ReturnType<typeof useGetDestinationQuery>;
+export type GetDestinationLazyQueryHookResult = ReturnType<typeof useGetDestinationLazyQuery>;
+export type GetDestinationQueryResult = Apollo.QueryResult<GetDestinationQuery, GetDestinationQueryVariables>;
 export const GetInvoiceDocument = gql`
     query GetInvoice($id: UUID!) {
   invoice: invoicePublic(id: $id) {
@@ -41848,6 +41814,153 @@ export function useGetInvoiceLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions
 export type GetInvoiceQueryHookResult = ReturnType<typeof useGetInvoiceQuery>;
 export type GetInvoiceLazyQueryHookResult = ReturnType<typeof useGetInvoiceLazyQuery>;
 export type GetInvoiceQueryResult = Apollo.QueryResult<GetInvoiceQuery, GetInvoiceQueryVariables>;
+export const PayInvoiceDocument = gql`
+    mutation PayInvoice($invoice: UUID!, $token: String!, $amount: BigFloat) {
+  executePayment(input: {invoice: $invoice, token: $token, amount: $amount}) {
+    success
+    message
+  }
+}
+    `;
+export type PayInvoiceMutationFn = Apollo.MutationFunction<PayInvoiceMutation, PayInvoiceMutationVariables>;
+
+/**
+ * __usePayInvoiceMutation__
+ *
+ * To run a mutation, you first call `usePayInvoiceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `usePayInvoiceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [payInvoiceMutation, { data, loading, error }] = usePayInvoiceMutation({
+ *   variables: {
+ *      invoice: // value for 'invoice'
+ *      token: // value for 'token'
+ *      amount: // value for 'amount'
+ *   },
+ * });
+ */
+export function usePayInvoiceMutation(baseOptions?: Apollo.MutationHookOptions<PayInvoiceMutation, PayInvoiceMutationVariables>) {
+        return Apollo.useMutation<PayInvoiceMutation, PayInvoiceMutationVariables>(PayInvoiceDocument, baseOptions);
+      }
+export type PayInvoiceMutationHookResult = ReturnType<typeof usePayInvoiceMutation>;
+export type PayInvoiceMutationResult = Apollo.MutationResult<PayInvoiceMutation>;
+export type PayInvoiceMutationOptions = Apollo.BaseMutationOptions<PayInvoiceMutation, PayInvoiceMutationVariables>;
+export const GetPropertyDocument = gql`
+    query GetProperty($id: UUID!) {
+  property(id: $id) {
+    id
+    name
+    city
+    summary
+    nearestAirport
+    country {
+      id
+      name
+    }
+    latitude
+    longitude
+    heroMedia {
+      id
+      hash
+    }
+    gallery {
+      id
+      mediaGalleryItems {
+        nodes {
+          id
+          mediaItem {
+            hash
+            name
+          }
+        }
+      }
+      mediaGalleriesByParentId {
+        nodes {
+          id
+          name
+          mediaGalleryItems {
+            nodes {
+              id
+              mediaItem {
+                name
+                hash
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetPropertyQuery__
+ *
+ * To run a query within a React component, call `useGetPropertyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPropertyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPropertyQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetPropertyQuery(baseOptions: Apollo.QueryHookOptions<GetPropertyQuery, GetPropertyQueryVariables>) {
+        return Apollo.useQuery<GetPropertyQuery, GetPropertyQueryVariables>(GetPropertyDocument, baseOptions);
+      }
+export function useGetPropertyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPropertyQuery, GetPropertyQueryVariables>) {
+          return Apollo.useLazyQuery<GetPropertyQuery, GetPropertyQueryVariables>(GetPropertyDocument, baseOptions);
+        }
+export type GetPropertyQueryHookResult = ReturnType<typeof useGetPropertyQuery>;
+export type GetPropertyLazyQueryHookResult = ReturnType<typeof useGetPropertyLazyQuery>;
+export type GetPropertyQueryResult = Apollo.QueryResult<GetPropertyQuery, GetPropertyQueryVariables>;
+export const GetFeaturedPropertyDocument = gql`
+    query GetFeaturedProperty {
+  featuredProperty {
+    id
+    name
+    featureCopy
+    heroMedia {
+      hash
+      fileName
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetFeaturedPropertyQuery__
+ *
+ * To run a query within a React component, call `useGetFeaturedPropertyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetFeaturedPropertyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetFeaturedPropertyQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetFeaturedPropertyQuery(baseOptions?: Apollo.QueryHookOptions<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>) {
+        return Apollo.useQuery<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>(GetFeaturedPropertyDocument, baseOptions);
+      }
+export function useGetFeaturedPropertyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>) {
+          return Apollo.useLazyQuery<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>(GetFeaturedPropertyDocument, baseOptions);
+        }
+export type GetFeaturedPropertyQueryHookResult = ReturnType<typeof useGetFeaturedPropertyQuery>;
+export type GetFeaturedPropertyLazyQueryHookResult = ReturnType<typeof useGetFeaturedPropertyLazyQuery>;
+export type GetFeaturedPropertyQueryResult = Apollo.QueryResult<GetFeaturedPropertyQuery, GetFeaturedPropertyQueryVariables>;
 export const GetQuoteDocument = gql`
     query GetQuote($key: String!) {
   quote: quotePublic(key: $key) {
@@ -41994,149 +42107,36 @@ export function useGetQuoteLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<G
 export type GetQuoteQueryHookResult = ReturnType<typeof useGetQuoteQuery>;
 export type GetQuoteLazyQueryHookResult = ReturnType<typeof useGetQuoteLazyQuery>;
 export type GetQuoteQueryResult = Apollo.QueryResult<GetQuoteQuery, GetQuoteQueryVariables>;
-export const GetDestinationDocument = gql`
-    query GetDestination($id: UUID!) {
-  destination(id: $id) {
-    id
-    name
-    body
-    country {
-      id
-      name
-    }
-    latitude
-    longitude
-    heroMedia {
-      id
-      hash
-    }
-    gallery {
-      id
-      mediaGalleryItems {
-        nodes {
-          id
-          mediaItem {
-            hash
-            name
-          }
-        }
-      }
-      mediaGalleriesByParentId {
-        nodes {
-          id
-          name
-          mediaGalleryItems {
-            nodes {
-              id
-              mediaItem {
-                name
-                hash
-              }
-            }
-          }
-        }
-      }
-    }
+export const TrackQuoteViewDocument = gql`
+    mutation TrackQuoteView($key: String!, $viewType: String!) {
+  trackQuoteView(input: {key: $key, viewType: $viewType}) {
+    success
   }
 }
     `;
+export type TrackQuoteViewMutationFn = Apollo.MutationFunction<TrackQuoteViewMutation, TrackQuoteViewMutationVariables>;
 
 /**
- * __useGetDestinationQuery__
+ * __useTrackQuoteViewMutation__
  *
- * To run a query within a React component, call `useGetDestinationQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetDestinationQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useTrackQuoteViewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useTrackQuoteViewMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useGetDestinationQuery({
+ * const [trackQuoteViewMutation, { data, loading, error }] = useTrackQuoteViewMutation({
  *   variables: {
- *      id: // value for 'id'
+ *      key: // value for 'key'
+ *      viewType: // value for 'viewType'
  *   },
  * });
  */
-export function useGetDestinationQuery(baseOptions: Apollo.QueryHookOptions<GetDestinationQuery, GetDestinationQueryVariables>) {
-        return Apollo.useQuery<GetDestinationQuery, GetDestinationQueryVariables>(GetDestinationDocument, baseOptions);
+export function useTrackQuoteViewMutation(baseOptions?: Apollo.MutationHookOptions<TrackQuoteViewMutation, TrackQuoteViewMutationVariables>) {
+        return Apollo.useMutation<TrackQuoteViewMutation, TrackQuoteViewMutationVariables>(TrackQuoteViewDocument, baseOptions);
       }
-export function useGetDestinationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetDestinationQuery, GetDestinationQueryVariables>) {
-          return Apollo.useLazyQuery<GetDestinationQuery, GetDestinationQueryVariables>(GetDestinationDocument, baseOptions);
-        }
-export type GetDestinationQueryHookResult = ReturnType<typeof useGetDestinationQuery>;
-export type GetDestinationLazyQueryHookResult = ReturnType<typeof useGetDestinationLazyQuery>;
-export type GetDestinationQueryResult = Apollo.QueryResult<GetDestinationQuery, GetDestinationQueryVariables>;
-export const GetPropertyDocument = gql`
-    query GetProperty($id: UUID!) {
-  property(id: $id) {
-    id
-    name
-    city
-    summary
-    nearestAirport
-    country {
-      id
-      name
-    }
-    latitude
-    longitude
-    heroMedia {
-      id
-      hash
-    }
-    gallery {
-      id
-      mediaGalleryItems {
-        nodes {
-          id
-          mediaItem {
-            hash
-            name
-          }
-        }
-      }
-      mediaGalleriesByParentId {
-        nodes {
-          id
-          name
-          mediaGalleryItems {
-            nodes {
-              id
-              mediaItem {
-                name
-                hash
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useGetPropertyQuery__
- *
- * To run a query within a React component, call `useGetPropertyQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPropertyQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetPropertyQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useGetPropertyQuery(baseOptions: Apollo.QueryHookOptions<GetPropertyQuery, GetPropertyQueryVariables>) {
-        return Apollo.useQuery<GetPropertyQuery, GetPropertyQueryVariables>(GetPropertyDocument, baseOptions);
-      }
-export function useGetPropertyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPropertyQuery, GetPropertyQueryVariables>) {
-          return Apollo.useLazyQuery<GetPropertyQuery, GetPropertyQueryVariables>(GetPropertyDocument, baseOptions);
-        }
-export type GetPropertyQueryHookResult = ReturnType<typeof useGetPropertyQuery>;
-export type GetPropertyLazyQueryHookResult = ReturnType<typeof useGetPropertyLazyQuery>;
-export type GetPropertyQueryResult = Apollo.QueryResult<GetPropertyQuery, GetPropertyQueryVariables>;
+export type TrackQuoteViewMutationHookResult = ReturnType<typeof useTrackQuoteViewMutation>;
+export type TrackQuoteViewMutationResult = Apollo.MutationResult<TrackQuoteViewMutation>;
+export type TrackQuoteViewMutationOptions = Apollo.BaseMutationOptions<TrackQuoteViewMutation, TrackQuoteViewMutationVariables>;

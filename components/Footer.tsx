@@ -5,7 +5,8 @@ const Footer: React.FC = () => (
     <ul>
       <li>
         <p className="heading">
-          Take Off Go, copyright {moment().format('YYYY')}. All rights reserved. ABN 15 634 608 567
+          Take Off Go, copyright {moment().format("YYYY")}. All rights reserved.
+          ABN 15 634 608 567
         </p>
       </li>
       <li>
@@ -16,6 +17,16 @@ const Footer: React.FC = () => (
       <li>
         <a className="heading" href="/privacy">
           Privacy policy
+        </a>
+      </li>
+      <li>
+        <a
+          className="heading"
+          href="https://www.pokko.io/"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Powered by Pokko
         </a>
       </li>
     </ul>

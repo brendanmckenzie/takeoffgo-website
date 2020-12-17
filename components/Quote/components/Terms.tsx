@@ -4,7 +4,7 @@ import moment from "moment";
 import numeral from "numeral";
 import SectionHeader from "./SectionHeader";
 import pluralize from "pluralize";
-import { GetQuoteQuery } from "../../../lib/graphql";
+import { GetQuoteQuery } from "../../../api/jambo";
 
 const Terms = ({ data }: { data: GetQuoteQuery }) => (
   <section id="terms" className="section container">

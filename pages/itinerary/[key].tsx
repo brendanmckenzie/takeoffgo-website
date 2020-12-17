@@ -1,6 +1,6 @@
 import QuoteComp from "../../components/Quote";
-import withApollo from "../../lib/apollo";
-import { useGetQuoteQuery } from "../../lib/graphql";
+import withApollo from "../../lib/jambo";
+import { useGetQuoteQuery } from "../../api/jambo";
 import { useRouter } from "next/router";
 
 const QuotePage = () => {

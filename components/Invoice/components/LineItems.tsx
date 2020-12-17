@@ -1,7 +1,7 @@
 import React from "react";
 import numeral from "numeral";
 import { moneyFormat } from "../../../lib/constants";
-import { InvoicePublic } from "../../../lib/graphql";
+import { InvoicePublic } from "../../../api/jambo";
 
 const LineItems: React.FC<{ data: InvoicePublic }> = ({ data }) => (
   <table className="table is-narrow is-striped is-fullwidth">

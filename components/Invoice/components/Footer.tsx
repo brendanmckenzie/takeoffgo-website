@@ -1,6 +1,6 @@
 import React from "react";
 import PaymentOptions from "./PaymentOptions";
-import { InvoicePublic } from "../../../lib/graphql";
+import { InvoicePublic } from "../../../api/jambo";
 
 const Footer: React.FC<{ data: InvoicePublic }> = ({ data }) => (
   <footer>

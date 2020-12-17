@@ -1,5 +1,5 @@
 import React from "react";
-import { InvoicePublic } from "../../../lib/graphql";
+import { InvoicePublic } from "../../../api/jambo";
 
 const PaymentOptions: React.FC<{ data: InvoicePublic }> = ({ data }) => (
   <div className="section is-emphasised">

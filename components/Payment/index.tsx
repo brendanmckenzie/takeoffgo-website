@@ -2,7 +2,7 @@ import React from "react";
 import numeral from "numeral";
 import Markdown from "react-markdown";
 import { BrandLine } from "../Bulma";
-import { InvoicePublic, usePayInvoiceMutation } from "../../lib/graphql";
+import { InvoicePublic, usePayInvoiceMutation } from "../../api/jambo";
 import { stripeToken } from "./stripe";
 import { Input } from "./components/Input";
 

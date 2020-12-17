@@ -1,5 +1,5 @@
 import moment from "moment-timezone";
-import { GetQuoteQuery } from "../../../lib/graphql";
+import { GetQuoteQuery } from "../../../api/jambo";
 
 const queryString = (params: any) =>
   Object.keys(params)

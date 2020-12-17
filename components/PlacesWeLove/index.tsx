@@ -9,8 +9,8 @@ import {
 } from "../Bulma";
 import ContactButton from "../ContactButton";
 import Image from "../Image";
-import withApollo from "../../lib/apollo";
-import { useGetFeaturedPropertyQuery } from "../../lib/graphql";
+import withApollo from "../../lib/jambo";
+import { useGetFeaturedPropertyQuery } from "../../api/jambo";
 
 const PlacesWeLove: React.FC = () => {
   const query = useGetFeaturedPropertyQuery();

@@ -1,7 +1,7 @@
 import React from "react";
 import numeral from "numeral";
 import SectionHeader from "./SectionHeader";
-import { GetQuoteQuery } from "../../../lib/graphql";
+import { GetQuoteQuery } from "../../../api/jambo";
 
 const Finances = ({ data }: { data: GetQuoteQuery }) => (
   <section id="finance" className="container section">

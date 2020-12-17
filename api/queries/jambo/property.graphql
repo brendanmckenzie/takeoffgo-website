@@ -44,3 +44,15 @@ query GetProperty($id: UUID!) {
     }
   }
 }
+
+query GetFeaturedProperty {
+  featuredProperty {
+    id
+    name
+    featureCopy
+    heroMedia {
+      hash
+      fileName
+    }
+  }
+}

@@ -3,13 +3,13 @@ import Head from "next/head";
 import Invoice from "../../components/Invoice";
 import Meta from "../../components/Meta";
 
-import withApollo from "../../lib/apollo";
+import withApollo from "../../lib/jambo";
 import Header from "../../components/Header";
 import {
   useGetInvoiceQuery,
   GetInvoiceQueryResult,
   InvoicePublic,
-} from "../../lib/graphql";
+} from "../../api/jambo";
 
 const InvoiceContent: React.FC<GetInvoiceQueryResult> = ({
   loading,

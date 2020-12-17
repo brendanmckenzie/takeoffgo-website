@@ -118,3 +118,9 @@ query GetQuote($key: String!) {
     }
   }
 }
+
+mutation TrackQuoteView($key: String!, $viewType: String!) {
+  trackQuoteView(input: { key: $key, viewType: $viewType }) {
+    success
+  }
+}

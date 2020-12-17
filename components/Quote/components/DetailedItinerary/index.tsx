@@ -6,7 +6,7 @@ import SectionHeader from "../SectionHeader";
 import { dateFormat } from "../../global/constants";
 import { toSentence, extractSortedFlights } from "../../global/helpers";
 import Flights, { FlightDetail } from "./Flights";
-import { GetQuoteQuery } from "../../../../lib/graphql";
+import { GetQuoteQuery } from "../../../../api/jambo";
 import { useRouter } from "next/router";
 
 const DetailedItinerary = ({ data }: { data: GetQuoteQuery }) => {

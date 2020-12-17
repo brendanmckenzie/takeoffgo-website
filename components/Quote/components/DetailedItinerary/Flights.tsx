@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment-timezone";
 import _ from "lodash";
 import { dateFormat, timeFormat, timeFormatExt } from "../../global/constants";
-import { TripFlight, Airport } from "../../../../lib/graphql";
+import { TripFlight, Airport } from "../../../../api/jambo";
 
 export type FlightDetail = TripFlight & {
   departureDate: moment.Moment;

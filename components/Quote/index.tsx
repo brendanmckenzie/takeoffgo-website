@@ -18,8 +18,8 @@ import Header from "../Header";
 import Footer from "../Footer";
 import Meta from "../Meta";
 import Image from "../Image";
-import { GetQuoteQuery, useTrackQuoteViewMutation } from "../../lib/graphql";
-import withApollo from "../../lib/apollo";
+import { GetQuoteQuery, useTrackQuoteViewMutation } from "../../api/jambo";
+import withApollo from "../../lib/jambo";
 
 const mapModelToMeta = (model: GetQuoteQuery) => {
   const fromHero = () => {

@@ -3,7 +3,7 @@ import moment from "moment";
 
 import { dateFormat } from "../global/constants";
 import { toSentence } from "../global/helpers";
-import { GetQuoteQuery } from "../../../lib/graphql";
+import { GetQuoteQuery } from "../../../api/jambo";
 
 const SummarisedItinerary = ({ data }: { data: GetQuoteQuery }) => (
   <section

@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import pluralize from "pluralize";
-import { GetQuoteQuery } from "../../../lib/graphql";
+import { GetQuoteQuery } from "../../../api/jambo";
 
 const Summary = ({ data }: { data: GetQuoteQuery }) => (
   <section className="section container">

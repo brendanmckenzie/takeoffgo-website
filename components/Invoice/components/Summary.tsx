@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import { dateFormatWithYear } from "../../../lib/constants";
-import { InvoicePublic } from "../../../lib/graphql";
+import { InvoicePublic } from "../../../api/jambo";
 
 const Summary: React.FC<{ data: InvoicePublic }> = ({ data }) => (
   <div className="columns">

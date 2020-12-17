@@ -3,7 +3,7 @@ import Footer from "./components/Footer";
 import Summary from "./components/Summary";
 import LineItems from "./components/LineItems";
 import Total from "./components/Total";
-import { InvoicePublic } from "../../lib/graphql";
+import { InvoicePublic } from "../../api/jambo";
 
 type InvoiceProps = {
   model: InvoicePublic;

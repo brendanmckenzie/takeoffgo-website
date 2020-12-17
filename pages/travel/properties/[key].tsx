@@ -7,9 +7,9 @@ import { Section, Columns, Column, BrandLine } from "../../../components/Bulma";
 import Image from "../../../components/Image";
 import Map from "../../../components/Quote/components/Map";
 import Footer from "../../../components/Footer";
-import withApollo from "../../../lib/apollo";
+import withApollo from "../../../lib/jambo";
 import ReactMarkdown from "react-markdown";
-import { useGetPropertyQuery, Property } from "../../../lib/graphql";
+import { useGetPropertyQuery, Property } from "../../../api/jambo";
 import { extractUrlJson } from "../../../lib/util";
 
 const PropertyPage: React.FC = () => {

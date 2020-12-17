@@ -13,3 +13,10 @@ query GetInvoice($id: UUID!) {
     trip
   }
 }
+
+mutation PayInvoice($invoice: UUID!, $token: String!, $amount: BigFloat) {
+  executePayment(input: { invoice: $invoice, token: $token, amount: $amount }) {
+    success
+    message
+  }
+}
