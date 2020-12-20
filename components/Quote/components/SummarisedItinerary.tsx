@@ -30,7 +30,7 @@ const SummarisedItinerary = ({ data }: { data: GetQuoteQuery }) => (
           );
           const property = accom?.property;
           const destinations = day?.quoteDayDestinationsByDayId.nodes.map(
-            ent => ent?.destination
+            (ent) => ent?.destination
           );
           const accomDayCount = property
             ? array.filter(
@@ -52,11 +52,7 @@ const SummarisedItinerary = ({ data }: { data: GetQuoteQuery }) => (
                       </a>
                     </strong>
                   </li>
-                  <li>
-                    {moment(day?.date || "")
-                      .add(day?.order, "day")
-                      .format(dateFormat)}
-                  </li>
+                  <li>{moment(day?.date || "").format(dateFormat)}</li>
                   {destinations && destinations.length > 0 && (
                     <li>
                       <small>
