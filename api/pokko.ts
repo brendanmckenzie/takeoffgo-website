@@ -283,7 +283,7 @@ export type Buttons = PokEntry & PokValue & {
   __typename?: 'Buttons';
   id: Scalars['String'];
   pokko: Pokko;
-  buttons?: Maybe<Array<Maybe<PokValue>>>;
+  buttons?: Maybe<Array<Maybe<Button>>>;
 };
 
 export type PokEntry = {
@@ -305,6 +305,21 @@ export type PokValue = {
   id?: Maybe<Scalars['String']>;
 };
 
+export type Button = PokEntry & PokValue & ITitle & {
+  __typename?: 'Button';
+  id: Scalars['String'];
+  pokko: Pokko;
+  icon?: Maybe<Scalars['String']>;
+  style?: Maybe<Scalars['String']>;
+  target?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type ITitle = {
+  id: Scalars['String'];
+  title?: Maybe<Scalars['String']>;
+};
+
 export type Title = PokEntry & PokValue & {
   __typename?: 'Title';
   id: Scalars['String'];
@@ -317,13 +332,42 @@ export type Column = PokEntry & PokValue & {
   id: Scalars['String'];
   pokko: Pokko;
   span?: Maybe<Scalars['String']>;
-  components?: Maybe<Array<Maybe<PokValue>>>;
+  components?: Maybe<Array<Maybe<Column_Components>>>;
 };
 
-export type Image = PokEntry & PokValue & {
-  __typename?: 'Image';
+export type Column_Components = MessageBox | Title | Body | MediaBox | Image | BrandLine | Buttons;
+
+export type MessageBox = PokEntry & PokValue & IBody & ITitle & {
+  __typename?: 'MessageBox';
   id: Scalars['String'];
   pokko: Pokko;
+  body?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type IBody = {
+  id: Scalars['String'];
+  body?: Maybe<Scalars['String']>;
+};
+
+export type Body = PokEntry & PokValue & {
+  __typename?: 'Body';
+  id: Scalars['String'];
+  pokko: Pokko;
+  body?: Maybe<Scalars['String']>;
+};
+
+export type MediaBox = PokEntry & PokValue & IBody & ITitle & IImage & {
+  __typename?: 'MediaBox';
+  id: Scalars['String'];
+  pokko: Pokko;
+  image?: Maybe<PokMedia>;
+  body?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type IImage = {
+  id: Scalars['String'];
   image?: Maybe<PokMedia>;
 };
 
@@ -365,12 +409,25 @@ export enum PokMediaPosition {
   LeftTop = 'LEFT_TOP'
 }
 
+export type Image = PokEntry & PokValue & {
+  __typename?: 'Image';
+  id: Scalars['String'];
+  pokko: Pokko;
+  image?: Maybe<PokMedia>;
+};
+
+export type BrandLine = PokEntry & PokValue & {
+  __typename?: 'BrandLine';
+  id: Scalars['String'];
+  pokko: Pokko;
+};
+
 export type FiftyFifty = PokEntry & PokValue & IButtons & IBody & ITitle & IImage & {
   __typename?: 'FiftyFifty';
   id: Scalars['String'];
   pokko: Pokko;
   subtitle?: Maybe<Scalars['String']>;
-  buttons?: Maybe<Array<Maybe<PokValue>>>;
+  buttons?: Maybe<Array<Maybe<Button>>>;
   image?: Maybe<PokMedia>;
   body?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
@@ -378,29 +435,14 @@ export type FiftyFifty = PokEntry & PokValue & IButtons & IBody & ITitle & IImag
 
 export type IButtons = {
   id: Scalars['String'];
-  buttons?: Maybe<Array<Maybe<PokValue>>>;
-};
-
-export type IBody = {
-  id: Scalars['String'];
-  body?: Maybe<Scalars['String']>;
-};
-
-export type ITitle = {
-  id: Scalars['String'];
-  title?: Maybe<Scalars['String']>;
-};
-
-export type IImage = {
-  id: Scalars['String'];
-  image?: Maybe<PokMedia>;
+  buttons?: Maybe<Array<Maybe<Button>>>;
 };
 
 export type Highlight = PokEntry & PokValue & IButtons & IBody & ITitle & IImage & {
   __typename?: 'Highlight';
   id: Scalars['String'];
   pokko: Pokko;
-  buttons?: Maybe<Array<Maybe<PokValue>>>;
+  buttons?: Maybe<Array<Maybe<Button>>>;
   image?: Maybe<PokMedia>;
   subtitle?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['String']>;
@@ -415,53 +457,13 @@ export type Seo = PokEntry & PokValue & {
   pageTitle?: Maybe<Scalars['String']>;
 };
 
-export type BrandLine = PokEntry & PokValue & {
-  __typename?: 'BrandLine';
-  id: Scalars['String'];
-  pokko: Pokko;
-};
-
-export type MediaBox = PokEntry & PokValue & IBody & ITitle & IImage & {
-  __typename?: 'MediaBox';
-  id: Scalars['String'];
-  pokko: Pokko;
-  image?: Maybe<PokMedia>;
-  body?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-};
-
-export type MessageBox = PokEntry & PokValue & IBody & ITitle & {
-  __typename?: 'MessageBox';
-  id: Scalars['String'];
-  pokko: Pokko;
-  body?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-};
-
-export type Body = PokEntry & PokValue & {
-  __typename?: 'Body';
-  id: Scalars['String'];
-  pokko: Pokko;
-  body?: Maybe<Scalars['String']>;
-};
-
 export type Hero = PokEntry & PokValue & IButtons & IBody & ITitle & IImage & {
   __typename?: 'Hero';
   id: Scalars['String'];
   pokko: Pokko;
-  buttons?: Maybe<Array<Maybe<PokValue>>>;
+  buttons?: Maybe<Array<Maybe<Button>>>;
   image?: Maybe<PokMedia>;
   body?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-};
-
-export type Button = PokEntry & PokValue & ITitle & {
-  __typename?: 'Button';
-  id: Scalars['String'];
-  pokko: Pokko;
-  icon?: Maybe<Scalars['String']>;
-  style?: Maybe<Scalars['String']>;
-  target?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
 };
 
@@ -469,7 +471,7 @@ export type Columns = PokEntry & PokValue & {
   __typename?: 'Columns';
   id: Scalars['String'];
   pokko: Pokko;
-  columns?: Maybe<Array<Maybe<PokValue>>>;
+  columns?: Maybe<Array<Maybe<Column>>>;
 };
 
 export type CustomerQuote = PokEntry & PokValue & IBody & {
@@ -485,7 +487,7 @@ export type ModularPage = PokEntry & PokValue & ISeo & {
   id: Scalars['String'];
   pokko: Pokko;
   description?: Maybe<Scalars['String']>;
-  components?: Maybe<Array<Maybe<PokValue>>>;
+  components?: Maybe<Array<Maybe<ModularPage_Components>>>;
   pageTitle?: Maybe<Scalars['String']>;
 };
 
@@ -494,6 +496,8 @@ export type ISeo = {
   description?: Maybe<Scalars['String']>;
   pageTitle?: Maybe<Scalars['String']>;
 };
+
+export type ModularPage_Components = Hero | Highlight | Image | FiftyFifty | CustomerQuote | Title | Body | BrandLine | MessageBox | Columns;
 
 export type ButtonsCollection = {
   __typename?: 'ButtonsCollection';
@@ -882,17 +886,14 @@ export type GetHomeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetHomeQuery = (
   { __typename?: 'Query' }
-  & { entry?: Maybe<{ __typename?: 'Buttons' } | { __typename?: 'Title' } | { __typename?: 'Column' } | { __typename?: 'Image' } | { __typename?: 'FiftyFifty' } | { __typename?: 'Highlight' } | { __typename?: 'Seo' } | { __typename?: 'BrandLine' } | { __typename?: 'MediaBox' } | { __typename?: 'MessageBox' } | { __typename?: 'Body' } | { __typename?: 'Hero' } | { __typename?: 'Button' } | { __typename?: 'Columns' } | { __typename?: 'CustomerQuote' } | (
+  & { entry?: Maybe<{ __typename?: 'Buttons' } | { __typename?: 'Button' } | { __typename?: 'Title' } | { __typename?: 'Column' } | { __typename?: 'MessageBox' } | { __typename?: 'Body' } | { __typename?: 'MediaBox' } | { __typename?: 'Image' } | { __typename?: 'BrandLine' } | { __typename?: 'FiftyFifty' } | { __typename?: 'Highlight' } | { __typename?: 'Seo' } | { __typename?: 'Hero' } | { __typename?: 'Columns' } | { __typename?: 'CustomerQuote' } | (
     { __typename?: 'ModularPage' }
     & { components?: Maybe<Array<Maybe<(
-      { __typename: 'Buttons' }
-      & HomeModule_Buttons_Fragment
+      { __typename: 'Hero' }
+      & HomeModule_Hero_Fragment
     ) | (
-      { __typename: 'Title' }
-      & HomeModule_Title_Fragment
-    ) | (
-      { __typename: 'Column' }
-      & HomeModule_Column_Fragment
+      { __typename: 'Highlight' }
+      & HomeModule_Highlight_Fragment
     ) | (
       { __typename: 'Image' }
       & HomeModule_Image_Fragment
@@ -900,52 +901,47 @@ export type GetHomeQuery = (
       { __typename: 'FiftyFifty' }
       & HomeModule_FiftyFifty_Fragment
     ) | (
-      { __typename: 'Highlight' }
-      & HomeModule_Highlight_Fragment
+      { __typename: 'CustomerQuote' }
+      & HomeModule_CustomerQuote_Fragment
     ) | (
-      { __typename: 'Seo' }
-      & HomeModule_Seo_Fragment
-    ) | (
-      { __typename: 'BrandLine' }
-      & HomeModule_BrandLine_Fragment
-    ) | (
-      { __typename: 'MediaBox' }
-      & HomeModule_MediaBox_Fragment
-    ) | (
-      { __typename: 'MessageBox' }
-      & HomeModule_MessageBox_Fragment
+      { __typename: 'Title' }
+      & HomeModule_Title_Fragment
     ) | (
       { __typename: 'Body' }
       & HomeModule_Body_Fragment
     ) | (
-      { __typename: 'Hero' }
-      & HomeModule_Hero_Fragment
+      { __typename: 'BrandLine' }
+      & HomeModule_BrandLine_Fragment
     ) | (
-      { __typename: 'Button' }
-      & HomeModule_Button_Fragment
+      { __typename: 'MessageBox' }
+      & HomeModule_MessageBox_Fragment
     ) | (
       { __typename: 'Columns' }
       & HomeModule_Columns_Fragment
-    ) | (
-      { __typename: 'CustomerQuote' }
-      & HomeModule_CustomerQuote_Fragment
-    ) | (
-      { __typename: 'ModularPage' }
-      & HomeModule_ModularPage_Fragment
     )>>> }
   )> }
 );
 
 type HomeModule_Buttons_Fragment = { __typename?: 'Buttons' };
 
+type HomeModule_Button_Fragment = { __typename?: 'Button' };
+
 type HomeModule_Title_Fragment = { __typename?: 'Title' };
 
 type HomeModule_Column_Fragment = { __typename?: 'Column' };
+
+type HomeModule_MessageBox_Fragment = { __typename?: 'MessageBox' };
+
+type HomeModule_Body_Fragment = { __typename?: 'Body' };
+
+type HomeModule_MediaBox_Fragment = { __typename?: 'MediaBox' };
 
 type HomeModule_Image_Fragment = (
   { __typename?: 'Image' }
   & ImageModuleFragment
 );
+
+type HomeModule_BrandLine_Fragment = { __typename?: 'BrandLine' };
 
 type HomeModule_FiftyFifty_Fragment = { __typename?: 'FiftyFifty' };
 
@@ -956,20 +952,10 @@ type HomeModule_Highlight_Fragment = (
 
 type HomeModule_Seo_Fragment = { __typename?: 'Seo' };
 
-type HomeModule_BrandLine_Fragment = { __typename?: 'BrandLine' };
-
-type HomeModule_MediaBox_Fragment = { __typename?: 'MediaBox' };
-
-type HomeModule_MessageBox_Fragment = { __typename?: 'MessageBox' };
-
-type HomeModule_Body_Fragment = { __typename?: 'Body' };
-
 type HomeModule_Hero_Fragment = (
   { __typename?: 'Hero' }
   & HeroModuleFragment
 );
-
-type HomeModule_Button_Fragment = { __typename?: 'Button' };
 
 type HomeModule_Columns_Fragment = { __typename?: 'Columns' };
 
@@ -980,7 +966,7 @@ type HomeModule_CustomerQuote_Fragment = (
 
 type HomeModule_ModularPage_Fragment = { __typename?: 'ModularPage' };
 
-export type HomeModuleFragment = HomeModule_Buttons_Fragment | HomeModule_Title_Fragment | HomeModule_Column_Fragment | HomeModule_Image_Fragment | HomeModule_FiftyFifty_Fragment | HomeModule_Highlight_Fragment | HomeModule_Seo_Fragment | HomeModule_BrandLine_Fragment | HomeModule_MediaBox_Fragment | HomeModule_MessageBox_Fragment | HomeModule_Body_Fragment | HomeModule_Hero_Fragment | HomeModule_Button_Fragment | HomeModule_Columns_Fragment | HomeModule_CustomerQuote_Fragment | HomeModule_ModularPage_Fragment;
+export type HomeModuleFragment = HomeModule_Buttons_Fragment | HomeModule_Button_Fragment | HomeModule_Title_Fragment | HomeModule_Column_Fragment | HomeModule_MessageBox_Fragment | HomeModule_Body_Fragment | HomeModule_MediaBox_Fragment | HomeModule_Image_Fragment | HomeModule_BrandLine_Fragment | HomeModule_FiftyFifty_Fragment | HomeModule_Highlight_Fragment | HomeModule_Seo_Fragment | HomeModule_Hero_Fragment | HomeModule_Columns_Fragment | HomeModule_CustomerQuote_Fragment | HomeModule_ModularPage_Fragment;
 
 export type HighlightModuleFragment = (
   { __typename?: 'Highlight' }
@@ -988,10 +974,10 @@ export type HighlightModuleFragment = (
   & { image?: Maybe<(
     { __typename?: 'PokMedia' }
     & Pick<PokMedia, 'url'>
-  )>, buttons?: Maybe<Array<Maybe<{ __typename?: 'Buttons' } | { __typename?: 'Title' } | { __typename?: 'Column' } | { __typename?: 'Image' } | { __typename?: 'FiftyFifty' } | { __typename?: 'Highlight' } | { __typename?: 'Seo' } | { __typename?: 'BrandLine' } | { __typename?: 'MediaBox' } | { __typename?: 'MessageBox' } | { __typename?: 'Body' } | { __typename?: 'Hero' } | (
+  )>, buttons?: Maybe<Array<Maybe<(
     { __typename?: 'Button' }
     & Pick<Button, 'icon' | 'style' | 'target' | 'title'>
-  ) | { __typename?: 'Columns' } | { __typename?: 'CustomerQuote' } | { __typename?: 'ModularPage' }>>> }
+  )>>> }
 );
 
 export type HeroModuleFragment = (
@@ -1001,10 +987,10 @@ export type HeroModuleFragment = (
   & { image?: Maybe<(
     { __typename?: 'PokMedia' }
     & Pick<PokMedia, 'url'>
-  )>, buttons?: Maybe<Array<Maybe<{ __typename: 'Buttons' } | { __typename: 'Title' } | { __typename: 'Column' } | { __typename: 'Image' } | { __typename: 'FiftyFifty' } | { __typename: 'Highlight' } | { __typename: 'Seo' } | { __typename: 'BrandLine' } | { __typename: 'MediaBox' } | { __typename: 'MessageBox' } | { __typename: 'Body' } | { __typename: 'Hero' } | (
-    { __typename: 'Button' }
+  )>, buttons?: Maybe<Array<Maybe<(
+    { __typename?: 'Button' }
     & Pick<Button, 'icon' | 'style' | 'target' | 'title'>
-  ) | { __typename: 'Columns' } | { __typename: 'CustomerQuote' } | { __typename: 'ModularPage' }>>> }
+  )>>> }
 );
 
 export type ImageModuleFragment = (
@@ -1028,13 +1014,10 @@ export const HeroModuleFragmentDoc = gql`
     url
   }
   buttons {
-    __typename
-    ... on Button {
-      icon
-      style
-      target
-      title
-    }
+    icon
+    style
+    target
+    title
   }
 }
     `;
@@ -1047,12 +1030,10 @@ export const HighlightModuleFragmentDoc = gql`
     url
   }
   buttons {
-    ... on Button {
-      icon
-      style
-      target
-      title
-    }
+    icon
+    style
+    target
+    title
   }
 }
     `;
@@ -1127,69 +1108,90 @@ export type GetHomeQueryResult = Apollo.QueryResult<GetHomeQuery, GetHomeQueryVa
   "possibleTypes": {
     "PokEntry": [
       "Buttons",
+      "Button",
       "Title",
       "Column",
+      "MessageBox",
+      "Body",
+      "MediaBox",
       "Image",
+      "BrandLine",
       "FiftyFifty",
       "Highlight",
       "Seo",
-      "BrandLine",
-      "MediaBox",
-      "MessageBox",
-      "Body",
       "Hero",
-      "Button",
       "Columns",
       "CustomerQuote",
       "ModularPage"
     ],
     "PokValue": [
       "Buttons",
+      "Button",
       "Title",
       "Column",
+      "MessageBox",
+      "Body",
+      "MediaBox",
       "Image",
+      "BrandLine",
       "FiftyFifty",
       "Highlight",
       "Seo",
-      "BrandLine",
-      "MediaBox",
-      "MessageBox",
-      "Body",
       "Hero",
-      "Button",
       "Columns",
       "CustomerQuote",
       "ModularPage"
+    ],
+    "ITitle": [
+      "Button",
+      "MessageBox",
+      "MediaBox",
+      "FiftyFifty",
+      "Highlight",
+      "Hero"
+    ],
+    "Column_Components": [
+      "MessageBox",
+      "Title",
+      "Body",
+      "MediaBox",
+      "Image",
+      "BrandLine",
+      "Buttons"
+    ],
+    "IBody": [
+      "MessageBox",
+      "MediaBox",
+      "FiftyFifty",
+      "Highlight",
+      "Hero",
+      "CustomerQuote"
+    ],
+    "IImage": [
+      "MediaBox",
+      "FiftyFifty",
+      "Highlight",
+      "Hero"
     ],
     "IButtons": [
       "FiftyFifty",
       "Highlight",
       "Hero"
     ],
-    "IBody": [
-      "FiftyFifty",
-      "Highlight",
-      "MediaBox",
-      "MessageBox",
-      "Hero",
-      "CustomerQuote"
-    ],
-    "ITitle": [
-      "FiftyFifty",
-      "Highlight",
-      "MediaBox",
-      "MessageBox",
-      "Hero",
-      "Button"
-    ],
-    "IImage": [
-      "FiftyFifty",
-      "Highlight",
-      "MediaBox",
-      "Hero"
-    ],
     "ISeo": [
       "ModularPage"
+    ],
+    "ModularPage_Components": [
+      "Hero",
+      "Highlight",
+      "Image",
+      "FiftyFifty",
+      "CustomerQuote",
+      "Title",
+      "Body",
+      "BrandLine",
+      "MessageBox",
+      "Columns"
     ]
   }
 };

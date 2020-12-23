@@ -65,26 +65,23 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-const HomeModuleHandler: React.FC<HomeModuleFragment> = ({
-  __typename,
-  ...rest
-}) => {
-  switch (__typename) {
+const HomeModuleHandler: React.FC<HomeModuleFragment> = (props) => {
+  switch (props.__typename) {
     case "Hero":
-      return <HeroModule {...(rest as any)} />;
+      return <HeroModule {...props} />;
     case "Highlight":
-      return <HighlightModule {...(rest as any)} />;
+      return <HighlightModule {...props} />;
     case "Image":
-      return <ImageModule {...(rest as any)} />;
+      return <ImageModule {...props} />;
     case "CustomerQuote":
-      return <CustomerQuoteModule {...(rest as any)} />;
+      return <CustomerQuoteModule {...props} />;
     case "FiftyFifty":
       return <PlacesWeLove />;
 
     default:
       return (
         <pre>
-          unhandled module: {__typename} - {JSON.stringify(rest)}
+          unhandled module: {props.__typename} - {JSON.stringify(props)}
         </pre>
       );
   }

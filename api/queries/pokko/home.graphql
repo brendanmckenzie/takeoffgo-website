@@ -24,12 +24,10 @@ fragment HighlightModule on Highlight {
     url
   }
   buttons {
-    ... on Button {
-      icon
-      style
-      target
-      title
-    }
+    icon
+    style
+    target
+    title
   }
 }
 
@@ -40,13 +38,10 @@ fragment HeroModule on Hero {
     url
   }
   buttons {
-    __typename
-    ... on Button {
-      icon
-      style
-      target
-      title
-    }
+    icon
+    style
+    target
+    title
   }
 }
 
