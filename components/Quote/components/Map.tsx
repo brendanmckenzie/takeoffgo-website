@@ -16,6 +16,11 @@ type MapMarker = {
 
 const extractCentre = (points: MapMarker[]) => {
   const applicablePoints = points.filter((ent: any) => ent.type !== "airport");
+
+  if (applicablePoints.length === 0) {
+    return null;
+  }
+
   const lat =
     applicablePoints
       .map((ent: any) => ent.lat)
@@ -31,35 +36,36 @@ const extractCentre = (points: MapMarker[]) => {
 export const extractPoints = (data: GetQuoteQuery): MapMarker[] => {
   const airports =
     data.quote?.trip?.tripFlights.nodes
-      .map(ent => [ent?.departureAirport, ent?.arrivalAirport])
+      .map((ent) => [ent?.departureAirport, ent?.arrivalAirport])
       .reduce((p, c) => [...p, ...c], [])
       .filter(
-        (ent, idx, arr) => arr.indexOf(arr.find(a => a?.id === ent?.id)) === idx
+        (ent, idx, arr) =>
+          arr.indexOf(arr.find((a) => a?.id === ent?.id)) === idx
       ) ?? [];
 
   return (
     data.quote?.accommodation?.nodes
-      .map(ent => ent?.property)
-      .filter(ent => !!ent)
-      .filter(prop => prop?.latitude && prop?.longitude)
-      .map(prop => ({
+      .map((ent) => ent?.property)
+      .filter((ent) => !!ent)
+      .filter((prop) => prop?.latitude && prop?.longitude)
+      .map((prop) => ({
         id: prop?.id,
         type: "property",
         lat: prop?.latitude as number,
         lng: prop?.longitude as number,
         title: prop?.name ?? "",
         body: prop?.summary ?? "",
-        icon: "hotel"
+        icon: "hotel",
       })) || []
   ).concat(
-    airports.map(ap => ({
+    airports.map((ap) => ({
       id: ap?.iata || ap?.icao,
       type: "airport",
       lat: ap?.latitude as number,
       lng: ap?.longitude as number,
       title: `Airport - ${ap?.iata || ap?.icao}`,
       body: [ap?.city, ap?.country].join(", "),
-      icon: "plane-departure"
+      icon: "plane-departure",
     }))
   );
 };
