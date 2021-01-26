@@ -20,15 +20,13 @@ const DetailedItinerary = ({ data }: { data: GetQuoteQuery }) => {
             .utc()
             .isBefore(moment.utc(data.quote?.days?.nodes[0]?.date || ""), "day")
         );
+
+  const lastDay = moment(data.quote?.start ?? "").add(
+    data.quote?.duration ?? 0,
+    "day"
+  );
   const flightsAfter = flights.filter((flight) =>
-    flight.departureDate
-      .utc()
-      .isSameOrAfter(
-        moment
-          .utc(data.quote?.start ?? "")
-          .add((data.quote?.duration ?? 0) - 1, "day"),
-        "day"
-      )
+    flight.departureDate.utc().isAfter(lastDay, "day")
   );
 
   return (
@@ -73,9 +71,11 @@ const DetailedItinerary = ({ data }: { data: GetQuoteQuery }) => {
           const finalHr = index + 1 !== array.length && (
             <hr className="is-hidden-print" />
           );
-          const matchingFlights = flights.filter((flight: any) =>
-            flight.departureDate.utc().isBetween(timeSpan.start, timeSpan.end)
-          );
+          const matchingFlights = flights
+            .filter((flight) =>
+              flight.departureDate.utc().isBetween(timeSpan.start, timeSpan.end)
+            )
+            .filter((ent) => !flightsAfter.includes(ent));
           const skip =
             index > 0 &&
             day?.accommodationId === array[index - 1]?.accommodationId &&
