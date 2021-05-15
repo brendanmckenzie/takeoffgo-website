@@ -19,7 +19,6 @@ import { ImageModule } from "../components/modules/Image/module";
 import { CustomerQuoteModule } from "../components/modules/CustomerQuote/module";
 
 const Home: React.FC<GetHomeQuery> = ({ entry }) => {
-  console.log(entry)
   if (entry?.__typename === "ModularPage") {
     const router = useRouter();
     return (
@@ -61,7 +60,7 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 
   return {
-    revalidate: 3600,
+    revalidate: 30,
     props: { entry: res.data.entry },
   };
 };
