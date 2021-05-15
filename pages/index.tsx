@@ -19,6 +19,7 @@ import { ImageModule } from "../components/modules/Image/module";
 import { CustomerQuoteModule } from "../components/modules/CustomerQuote/module";
 
 const Home: React.FC<GetHomeQuery> = ({ entry }) => {
+  console.log(entry)
   if (entry?.__typename === "ModularPage") {
     const router = useRouter();
     return (
