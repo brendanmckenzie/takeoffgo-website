@@ -55,7 +55,7 @@ const Payment: React.FC<PaymentProps> = ({ model: { invoice, amount } }) => {
     number: "",
     expiry: "",
     cvc: "",
-    error: null as any
+    error: null as any,
   });
 
   const handleSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
@@ -72,7 +72,7 @@ const Payment: React.FC<PaymentProps> = ({ model: { invoice, amount } }) => {
       const variables = {
         invoice: invoice.id,
         token,
-        amount
+        amount,
       };
 
       const res = await payment({ variables });
@@ -80,21 +80,21 @@ const Payment: React.FC<PaymentProps> = ({ model: { invoice, amount } }) => {
       if (res.data?.executePayment?.success) {
         setState({
           ...state,
-          paid: true
+          paid: true,
         });
       } else {
         setState({
           ...state,
           paid: false,
           loading: false,
-          error: res.data?.executePayment?.message ?? fallbackError
+          error: res.data?.executePayment?.message ?? fallbackError,
         });
       }
     } catch (ex) {
       setState({
         ...state,
         loading: false,
-        error: ex.error ? ex.error.message : fallbackError
+        error: ex.error ? ex.error.message : fallbackError,
       });
     }
   };
@@ -122,7 +122,7 @@ const Payment: React.FC<PaymentProps> = ({ model: { invoice, amount } }) => {
       ) : null}
 
       {invoice.summary && (
-        <Markdown className="content" source={invoice.summary} />
+        <Markdown className="content">{invoice.summary}</Markdown>
       )}
       <BrandLine />
       <Input

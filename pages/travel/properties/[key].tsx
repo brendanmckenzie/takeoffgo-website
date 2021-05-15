@@ -52,7 +52,9 @@ const PropertyPage: React.FC = () => {
               <h2 className="title is-2">{property.name}</h2>
               <BrandLine />
               {property.summary && (
-                <ReactMarkdown className="content" source={property.summary} />
+                <ReactMarkdown className="content">
+                  {property.summary}
+                </ReactMarkdown>
               )}
             </Column>
             <Column>

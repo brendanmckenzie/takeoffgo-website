@@ -159,10 +159,9 @@ const DetailedItinerary = ({ data }: { data: GetQuoteQuery }) => {
                     referenceDate={moment.utc(day?.date ?? "")}
                   />
                   {day?.activityDetail && (
-                    <Markdown
-                      className="content"
-                      source={day?.activityDetail}
-                    />
+                    <Markdown className="content">
+                      {day!.activityDetail}
+                    </Markdown>
                   )}
                   {property && (
                     <div className="columns is-multiline">

@@ -52,7 +52,9 @@ const DestinationPage: React.FC = () => {
               <h2 className="title is-2">{destination.name}</h2>
               <BrandLine />
               {destination.body && (
-                <ReactMarkdown className="content" source={destination.body} />
+                <ReactMarkdown className="content">
+                  {destination.body}
+                </ReactMarkdown>
               )}
             </Column>
             {destination.heroMedia && destination.heroMedia.hash && (

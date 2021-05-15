@@ -13,11 +13,11 @@ const Accommodation = ({ data }: { data: GetQuoteQuery }) => {
     <section id="accommodation" className="section container is-page-break">
       <SectionHeader title="Accommodation" />
       <div className="columns is-multiline is-centered">
-        {_(data.quote?.accommodation?.nodes.map(a => a?.property))
+        {_(data.quote?.accommodation?.nodes.map((a) => a?.property))
           .uniqBy("id")
           .value()
-          .filter(ent => !!ent?.summary)
-          .map(property => (
+          .filter((ent) => !!ent?.summary)
+          .map((property) => (
             <div
               id={`property-${property?.id}`}
               className="column is-4"
@@ -44,7 +44,7 @@ const Accommodation = ({ data }: { data: GetQuoteQuery }) => {
                 <div className="card-content">
                   <strong>{property?.name}</strong>
                   {property?.summary && (
-                    <Markdown className="content" source={property?.summary} />
+                    <Markdown className="content">{property.summary}</Markdown>
                   )}
                   <hr />
                   <div className="buttons is-right">

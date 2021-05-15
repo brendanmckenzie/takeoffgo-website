@@ -13,13 +13,13 @@ const Terms = ({ data }: { data: GetQuoteQuery }) => (
       {data.quote?.inclusions && (
         <div className="column">
           <span className="heading">Inclusions</span>
-          <Markdown source={data.quote.inclusions} className="content" />
+          <Markdown className="content">{data.quote.inclusions}</Markdown>
         </div>
       )}
       {data.quote?.exclusions && (
         <div className="column">
           <span className="heading">Exclusions</span>
-          <Markdown source={data.quote.exclusions} className="content" />
+          <Markdown className="content">{data.quote.exclusions}</Markdown>
         </div>
       )}
       <div className="column">
